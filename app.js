@@ -1040,7 +1040,7 @@ function initAIChatbot() {
 
     var isOpen = false;
     var leadStage = "none";
-    var currentLead = { name: "", phone: "", interest: "" };
+    var currentLead = { name: "", phone: "", email: "", age: "", qualification: "", experience: "", passport: "", destination: "", trade: "", interest: "" };
 
     // Dynamically insert reset button into header if missing
     var headerActions = container.querySelector(".chatbot-actions");
@@ -1113,12 +1113,12 @@ function initAIChatbot() {
 
     function resetChatHistory() {
         leadStage = "none";
-        currentLead = { name: "", phone: "", interest: "" };
+        currentLead = { name: "", phone: "", email: "", age: "", qualification: "", experience: "", passport: "", destination: "", trade: "", interest: "" };
         localStorage.removeItem("hrms_chat_lead_stage");
         localStorage.removeItem("hrms_chat_current_lead");
         localStorage.removeItem("hrms_chat_history_html");
         
-        messages.innerHTML = '<div class="chat-msg bot">Hello! Welcome to Trendy Fortune Global. I am your AI career assistant. How can I help you today?</div>';
+        messages.innerHTML = '<div class="chat-msg bot">Hello! Welcome to Trendy Fortune Global. 🙏 I am <strong>Yasha Mishra</strong>, your official AI Career & Recruitment Assistant.<br><br>I can assist you regarding overseas jobs, internships, work permits, training programs, and visa guidance.<br><br>Type <strong>\'register\'</strong> to submit your details for personalized assistance, or ask me about:<br>• 💼 <strong>Job Openings</strong><br>• 🎓 <strong>Hospitality Internships</strong><br>• 📋 <strong>Eligibility Check</strong><br>• 💳 <strong>Visa & Program Fees</strong><br><br>Click one of the quick replies below or type your query to start!</div>';
         appendQuickReplies();
     }
 
@@ -1167,7 +1167,14 @@ function initAIChatbot() {
     function appendMessage(text, sender) {
         var msg = document.createElement("div");
         msg.className = "chat-msg " + sender;
-        msg.innerHTML = text.replace(/\\n/g, "<br>");
+        
+        // Format text: parse line breaks, bold tags, and bullet points
+        var formatted = text
+            .replace(/\\n/g, "<br>")
+            .replace(/\n/g, "<br>")
+            .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+            
+        msg.innerHTML = formatted;
 
         var oldQr = document.getElementById("chatbot-quick-replies");
         if (oldQr) oldQr.remove();
@@ -1187,17 +1194,35 @@ function initAIChatbot() {
 
         if (leadStage === "none") {
             qr.innerHTML = '<button class="qr-btn" onclick="sendQuickReply(\'Explore Job Openings\')">Explore Jobs</button>' +
-                '<button class="qr-btn" onclick="sendQuickReply(\'Visa Fees Policy\')">Visa Fees?</button>' +
-                '<button class="qr-btn" onclick="sendQuickReply(\'Check Candidate Safety\')">Is it safe?</button>' +
-                '<button class="qr-btn" onclick="sendQuickReply(\'Noida Office Location\')">Office Address</button>';
-        } else if (leadStage === "awaiting_interest") {
-            qr.innerHTML = '<button class="qr-btn" onclick="sendQuickReply(\'Poland\')">Poland</button>' +
-                '<button class="qr-btn" onclick="sendQuickReply(\'UAE\')">UAE / Dubai</button>' +
-                '<button class="qr-btn" onclick="sendQuickReply(\'Uzbekistan\')">Uzbekistan</button>' +
-                '<button class="qr-btn" onclick="sendQuickReply(\'Saudi Arabia\')">Saudi Arabia</button>' +
+                '<button class="qr-btn" onclick="sendQuickReply(\'Hospitality Internships\')">Internships</button>' +
+                '<button class="qr-btn" onclick="sendQuickReply(\'Check Eligibility\')">Check Eligibility</button>' +
+                '<button class="qr-btn" onclick="sendQuickReply(\'Visa Fees Info\')">Fees & Costs</button>' +
+                '<button class="qr-btn" onclick="sendQuickReply(\'Talk to Counselor\')">Talk to Counselor</button>' +
+                '<button class="qr-btn" onclick="sendQuickReply(\'Register details\')">Register / Apply</button>';
+        } else if (leadStage === "awaiting_passport") {
+            qr.innerHTML = '<button class="qr-btn" onclick="sendQuickReply(\'Yes\')">Yes</button>' +
+                '<button class="qr-btn" onclick="sendQuickReply(\'No\')">No</button>' +
+                '<button class="qr-btn" onclick="sendQuickReply(\'Cancel Registration\')">Cancel</button>';
+        } else if (leadStage === "awaiting_destination") {
+            qr.innerHTML = '<button class="qr-btn" onclick="sendQuickReply(\'USA\')">USA</button>' +
+                '<button class="qr-btn" onclick="sendQuickReply(\'Germany\')">Germany</button>' +
+                '<button class="qr-btn" onclick="sendQuickReply(\'France\')">France</button>' +
+                '<button class="qr-btn" onclick="sendQuickReply(\'UAE\')">UAE</button>' +
+                '<button class="qr-btn" onclick="sendQuickReply(\'Serbia\')">Serbia</button>' +
+                '<button class="qr-btn" onclick="sendQuickReply(\'Croatia\')">Croatia</button>' +
+                '<button class="qr-btn" onclick="sendQuickReply(\'Romania\')">Romania</button>' +
+                '<button class="qr-btn" onclick="sendQuickReply(\'Other Country\')">Other</button>' +
+                '<button class="qr-btn" onclick="sendQuickReply(\'Cancel Registration\')">Cancel</button>';
+        } else if (leadStage === "awaiting_trade") {
+            qr.innerHTML = '<button class="qr-btn" onclick="sendQuickReply(\'Hospitality\')">Hospitality</button>' +
+                '<button class="qr-btn" onclick="sendQuickReply(\'IT / Tech\')">IT / Tech</button>' +
+                '<button class="qr-btn" onclick="sendQuickReply(\'Driver\')">Driver</button>' +
+                '<button class="qr-btn" onclick="sendQuickReply(\'Construction\')">Construction</button>' +
+                '<button class="qr-btn" onclick="sendQuickReply(\'Helper\')">Helper</button>' +
+                '<button class="qr-btn" onclick="sendQuickReply(\'Cook\')">Cook</button>' +
+                '<button class="qr-btn" onclick="sendQuickReply(\'Other Job\')">Other</button>' +
                 '<button class="qr-btn" onclick="sendQuickReply(\'Cancel Registration\')">Cancel</button>';
         } else {
-            // Awaiting Name or Phone
             qr.innerHTML = '<button class="qr-btn" onclick="sendQuickReply(\'Cancel Registration\')"><i class="fa-solid fa-ban"></i> Cancel Registration</button>';
         }
 
@@ -1221,19 +1246,19 @@ function initAIChatbot() {
         if (inputLower.includes("cancel") || inputLower.includes("exit") || inputLower.includes("stop")) {
             if (leadStage !== "none") {
                 leadStage = "none";
-                currentLead = { name: "", phone: "", interest: "" };
+                currentLead = { name: "", phone: "", email: "", age: "", qualification: "", experience: "", passport: "", destination: "", trade: "", interest: "" };
                 return "Your profile registration flow has been cancelled. What else can I assist you with today?";
             }
         }
 
         // Active Lead Capture Flow
         if (leadStage === "awaiting_name") {
-            if (userInput.length < 3 || /^[0-9]+$/.test(userInput)) {
+            if (userInput.length < 2 || /^[0-9]+$/.test(userInput)) {
                 return "Please enter a valid full name (e.g. Rahul Sharma) to continue.";
             }
             currentLead.name = userInput;
             leadStage = "awaiting_phone";
-            return "Thank you, " + userInput + "! \u2705 Please share your 10-digit mobile or WhatsApp number so our visa consultants can get in touch with you.";
+            return "Nice to meet you, **" + userInput + "**! 🤝\n\n**Step 2/9**: Please share your **10-digit mobile or WhatsApp number** (e.g., +91 9988776655). We will use this to contact you regarding matched openings.";
         }
 
         if (leadStage === "awaiting_phone") {
@@ -1242,113 +1267,168 @@ function initAIChatbot() {
                 return "Please enter a valid mobile number (e.g. +91 9876543210 or 9876543210) so we can message you.";
             }
             currentLead.phone = phoneClean;
-            leadStage = "awaiting_interest";
-            return "Perfect! \u2705 Lastly, please select or type your preferred country or target job profile (e.g., Poland, Dubai, Uzbekistan, Welder, Driver, Helper).";
+            leadStage = "awaiting_email";
+            return "Perfect! ✅\n\n**Step 3/9**: Please share your **Email ID** (e.g., candidate@email.com) so we can send you official job specifications and programs details.";
         }
 
-        if (leadStage === "awaiting_interest") {
-            currentLead.interest = userInput;
+        if (leadStage === "awaiting_email") {
+            if (!userInput.includes("@") || !userInput.includes(".")) {
+                return "Please enter a valid email address (e.g. name@example.com) to continue.";
+            }
+            currentLead.email = userInput;
+            leadStage = "awaiting_age";
+            return "Got it! ✅\n\n**Step 4/9**: What is your **Age**? (e.g. 24)";
+        }
+
+        if (leadStage === "awaiting_age") {
+            var ageVal = parseInt(userInput.replace(/[^0-9]/g, ""), 10);
+            if (isNaN(ageVal) || ageVal < 18 || ageVal > 60) {
+                return "Please enter a valid age between 18 and 60.";
+            }
+            currentLead.age = userInput;
+            leadStage = "awaiting_qualification";
+            return "Understood! ✅\n\n**Step 5/9**: What is your **highest educational qualification**? (e.g., 10th, 12th, Graduate, ITI, Diploma, or Hospitality Degree)";
+        }
+
+        if (leadStage === "awaiting_qualification") {
+            if (userInput.length < 2) {
+                return "Please enter a valid qualification (e.g., Graduate or 12th).";
+            }
+            currentLead.qualification = userInput;
+            leadStage = "awaiting_experience";
+            return "Great! ✅\n\n**Step 6/9**: How many years of **work experience** do you have? (e.g. Fresher, 1 year, 3 years)";
+        }
+
+        if (leadStage === "awaiting_experience") {
+            currentLead.experience = userInput;
+            leadStage = "awaiting_passport";
+            return "Excellent! ✅\n\n**Step 7/9**: Do you have a **valid Passport**? Please choose **Yes** or **No** below.";
+        }
+
+        if (leadStage === "awaiting_passport") {
+            var answer = userInput.toLowerCase();
+            if (answer !== "yes" && answer !== "no") {
+                return "Please select or type **Yes** or **No** regarding your passport availability.";
+            }
+            currentLead.passport = userInput;
+            leadStage = "awaiting_destination";
+            return "Perfect! ✅\n\n**Step 8/9**: What is your **Preferred Country**? Choose from the options below (USA, France, Germany, UAE, Serbia, Croatia, Romania) or type your choice.";
+        }
+
+        if (leadStage === "awaiting_destination") {
+            currentLead.destination = userInput;
+            leadStage = "awaiting_trade";
+            return "Got it! ✅\n\n**Step 9/9**: Finally, what is your **Preferred Job Category / Trade**? (e.g. Hospitality, IT / Tech, Driver, Construction, Helper, Cook, etc.)";
+        }
+
+        if (leadStage === "awaiting_trade") {
+            currentLead.trade = userInput;
+            currentLead.interest = "Category: " + currentLead.trade + " | Country: " + currentLead.destination + " | Age: " + currentLead.age + " | Edu: " + currentLead.qualification + " | Exp: " + currentLead.experience + " | Passport: " + currentLead.passport;
             leadStage = "none";
             saveLead(currentLead.name, currentLead.phone, currentLead.interest);
-            return "Awesome, " + currentLead.name + "! Your registration is successful. \u2728\\n\\n" +
-                "\u{1F464} **Name**: " + currentLead.name + "\\n" +
-                "\u{1F4DE} **Phone**: " + currentLead.phone + "\\n" +
-                "\u{1F30D} **Pref/Job**: " + currentLead.interest + "\\n\\n" +
-                "Our Government approved counsellors will review your profile and contact you on WhatsApp within 2 hours. Thank you!";
+            return "Thank you for sharing your information. Our recruitment team will review your profile and contact you shortly.";
         }
 
         // Generic Intent Responses
-        if (inputLower.includes("hello") || inputLower.includes("hi") || inputLower.includes("hey") || inputLower.includes("salam")) {
-            return "Hello there! \u{1F44B} Welcome to Trendy Fortune Global.\\n\\nWe are a Government licensed & MEA-approved placement agency for European, Gulf, and Central Asian destinations.\\n\\nWould you like to register for active job vacancies? Simply type 'register' or choose one of the options below!";
+
+        if (inputLower.includes("hello") || inputLower.includes("hi") || inputLower.includes("hey") || inputLower.includes("namaste") || inputLower.includes("salam")) {
+            return "Hello! Welcome to Trendy Fortune Global. 🙏 I am **Yasha Mishra**, your official AI Career & Recruitment Assistant.\n\n" +
+                "I can assist you regarding overseas jobs, internships, work permits, and visa guidance. We process applications for USA, France, Germany, UAE, Serbia, Croatia, Romania, and other destinations.\n\n" +
+                "Please submit your details for personalized assistance! Type **'register'** to begin.";
         }
 
-        if (inputLower.includes("register") || inputLower.includes("apply") || inputLower.includes("form") || inputLower.includes("contact me")) {
+        if (inputLower.includes("register") || inputLower.includes("apply") || inputLower.includes("form") || inputLower.includes("consultation")) {
             leadStage = "awaiting_name";
-            currentLead = { name: "", phone: "", interest: "" };
-            return "Excellent choice! \u{1F4DD} Let's build your job seeker profile.\\n\\nWhat is your full name?";
+            currentLead = { name: "", phone: "", email: "", age: "", qualification: "", experience: "", passport: "", destination: "", trade: "", interest: "" };
+            return "Excellent choice! Let's register your profile for overseas placements and training programs. This will take only 9 quick steps.\n\n**Step 1/9**: Please type your **Full Name** (as written in your passport).";
         }
 
         if (inputLower.includes("job") || inputLower.includes("opening") || inputLower.includes("work") || inputLower.includes("vacancy") || inputLower.includes("positions")) {
-            return "We currently have hot openings in several verified destinations:\\n\\n" +
-                "\u{1F1EA}\u{1F1FA} **Poland & Europe**: Light/Heavy Duty Drivers, Warehouse Helpers, MIG/TIG Welders, CNC Operators, Factory Packers (Avg. Salary: $1,200 - $2,200/mo).\\n\\n" +
-                "\u{1F1E6}\u{1F1EA} **Dubai & Gulf**: Civil Masons, Shuttering Carpenters, MEP Electricians, Commercial Cooks, Hospitality Staff (Avg. Salary: $800 - $1,500/mo).\\n\\n" +
-                "\u{1F1FA}\u{1F1FF} **Uzbekistan & CIS**: Structure Welders, Riggers, Heavy Drivers, Helper Staff (Avg. Salary: $700 - $1,200/mo).\\n\\n" +
-                "To apply, type **register** and submit your details!";
+            return "💼 **Overseas Job Opportunities**\n\n" +
+                "We provide direct recruitment and placement assistance in various sectors across multiple countries:\n" +
+                "• 🇩🇪 **Germany**: Tech, Nursing, Hospitality, & Vocational Training (Ausbildung).\n" +
+                "• 🇺🇸 **USA**: Corporate placements, Business administration, and hospitality roles.\n" +
+                "• 🇫🇷 **France & Europe**: Warehouse workers, factory packers, cooks, and hospitality staff.\n" +
+                "• 🇦🇪 **UAE (Dubai)**: Drivers, logistics coordinators, office staff, and technicians.\n" +
+                "• 🇷🇸 **Serbia, Croatia, Romania**: Welders, drivers, construction masons, and helpers.\n\n" +
+                "**What is your preferred country and experience?**\n" +
+                "Please submit your details for personalized assistance! Type **'register'** to begin.";
         }
 
-        if (inputLower.includes("fee") || inputLower.includes("charge") || inputLower.includes("cost") || inputLower.includes("money") || inputLower.includes("pay") || inputLower.includes("price")) {
-            return "\u{1F512} **Zero Advance Fees Policy**\\n\\nAt Trendy Fortune Global, we follow a strict code of candidate ethics. We **do not charge** any upfront fees, registration deposits, or document screening charges before you receive your official job offer letter and visa permit verification.\\n\\nAll payments must be made securely via our official payment page or bank account. Do not pay any agent in cash!";
+        if (inputLower.includes("internship") || inputLower.includes("intern") || inputLower.includes("training") || inputLower.includes("hospitality program")) {
+            return "🎓 **Hospitality & Career Training Programs**\n\n" +
+                "We specialize in paid hospitality internships and training programs abroad:\n" +
+                "• **USA J-1 Internship**: 12-month J-1 training programs in premium luxury hotels and resorts for hospitality students/graduates.\n" +
+                "• **France Hospitality Internships**: 3 to 6 months internships in international cuisines and hospitality management.\n" +
+                "• **Germany Ausbildung**: Dual vocational training programs where you earn while studying hospitality, culinary, or technical trades.\n\n" +
+                "**What is your preferred destination for your internship or training program?**\n" +
+                "Please share your details for personalized assistance! Type **'register'** to begin.";
         }
 
-        if (inputLower.includes("safe") || inputLower.includes("fake") || inputLower.includes("fraud") || inputLower.includes("licence") || inputLower.includes("government") || inputLower.includes("permit") || inputLower.includes("trust")) {
-            return "\u2705 **MEA Approved & Licensed**\\n\\nTrendy Fortune Global Pvt. Ltd. is registered with the Ministry of External Affairs (Govt of India). We provide genuine work permits with verified contracts. You can inspect all credentials and licensing on our Candidate Safety page or visit our Noida office.";
+        if (inputLower.includes("eligibility") || inputLower.includes("criteria") || inputLower.includes("eligible") || inputLower.includes("requirements")) {
+            return "📋 **General Eligibility Check**\n\n" +
+                "Eligibility depends on the specific country, job category, and program rules. Here is a general outline:\n" +
+                "• **Age**: Generally 18 to 45 years.\n" +
+                "• **Passport**: A valid passport is mandatory for all international placements.\n" +
+                "• **Qualification**: Freshers can apply for internships/training programs. Professional jobs require relevant degrees, ITI, or diplomas.\n" +
+                "• **Experience**: Fresh graduates can apply for J-1 and training; general jobs require 2+ years of field experience.\n\n" +
+                "**Please share your age, qualification, passport status, and experience for general guidance.**\n" +
+                "To submit your profile for a verified evaluation, please type **'register'**.";
         }
 
-        if (inputLower.includes("office") || inputLower.includes("address") || inputLower.includes("noida") || inputLower.includes("location") || inputLower.includes("branch") || inputLower.includes("place")) {
-            return "\u{1F4CD} **Noida Head Office Address**:\\n" +
-                "Office C616, Tower C, Noida One, Sector 62, Noida, Uttar Pradesh - 201309.\\n\\n" +
-                "\u{1F552} **Working Hours**: Monday to Saturday, 10:00 AM to 6:00 PM.\\n\\n" +
-                "We also have recruitment associates in Vadodara, Punjab, Cochin, and Bihar.";
+        if (inputLower.includes("fee") || inputLower.includes("charge") || inputLower.includes("cost") || inputLower.includes("price") || inputLower.includes("money")) {
+            return "💳 **Program & Visa Fees**\n\n" +
+                "Visa processing and program fees vary depending on the destination country, sponsoring employer, and type of program (recruitment jobs vs. J-1 internships).\n" +
+                "• We maintain full financial transparency. There are no hidden fees.\n" +
+                "• A dedicated career counselor can assist you with exact cost estimates based on your profile.\n\n" +
+                "Please share your details so a counselor can contact you! Type **'register'** to start.";
         }
 
-        if (inputLower.includes("eligibility") || inputLower.includes("age") || inputLower.includes("qualification") || inputLower.includes("criteria")) {
-            return "\u{1F4DC} **Eligibility Requirements**:\\n" +
-                "- **Age**: 21 - 45 years\\n" +
-                "- **Passport**: ECR or ECNR with at least 6 months validity\\n" +
-                "- **Experience**: ITI, certificates, or 2+ years of field experience is preferred\\n" +
-                "- **Language**: Basic conversational English or Hindi\\n\\n" +
-                "You can run a quick check on our **Check Eligibility** page!";
+        if (inputLower.includes("visa") || inputLower.includes("process") || inputLower.includes("stamping") || inputLower.includes("guidance")) {
+            return "✈️ **Visa Guidance & Processing**\n\n" +
+                "We provide step-by-step guidance for overseas work permits, J-1 exchange visitor visas, and national visa applications.\n" +
+                "• *Important Notice*: Visa approvals are strictly determined by the respective foreign embassy or consulate. We do not provide legal or immigration guarantees.\n\n" +
+                "Please submit your details for personalized assistance! Type **'register'** to begin.";
         }
 
-        if (inputLower.includes("poland") || inputLower.includes("serbia") || inputLower.includes("bulgaria") || inputLower.includes("czech") || inputLower.includes("europe") || inputLower.includes("croatia")) {
-            return "\u{1F1EA}\u{1F1FA} **Europe Placement Desk**\\n\\nWe process direct work visas for Poland, Serbia, Croatia, and Bulgaria.\\n" +
-                "- **Processing Duration**: 3.5 to 4.5 months\\n" +
-                "- **Average Salary**: \u20AC1,000 to \u20AC1,800 per month\\n" +
-                "- **Benefits**: Free shared accommodation, medical coverage, and transport\\n\\nType **register** to get started!";
+        if (inputLower.includes("passport") || inputLower.includes("pass port")) {
+            return "🛂 **Is a passport mandatory?**\n\n" +
+                "Yes, a valid passport is generally required for all overseas opportunities, visa applications, and work permits.\n\n" +
+                "Please share your details for personalized assistance! Type **'register'** to start.";
         }
 
-        if (inputLower.includes("uae") || inputLower.includes("dubai") || inputLower.includes("gulf") || inputLower.includes("saudi") || inputLower.includes("oman") || inputLower.includes("qatar")) {
-            return "\u{1F1E6}\u{1F1EA} **Gulf Placement Desk**\\n\\nImmediate departures and quick visa processing for Dubai, Abu Dhabi, Saudi Arabia (Riyadh/Jeddah), and Oman.\\n" +
-                "- **Processing Duration**: 30 to 45 Days\\n" +
-                "- **Average Salary**: 1,200 AED to 2,500 AED + Overtime\\n" +
-                "- **Benefits**: Free meals, accommodation, and flights\\n\\nType **register** to submit your passport copy!";
+        if (inputLower.includes("how long") || inputLower.includes("timeline") || inputLower.includes("duration") || inputLower.includes("processing time")) {
+            return "⏱️ **How long does processing take?**\n\n" +
+                "Processing time depends on the country, employer selection, and documentation queue:\n" +
+                "• **Gulf Placements**: Approx. 30 to 45 days.\n" +
+                "• **USA J-1 / Europe Visas**: Approx. 3 to 5 months.\n\n" +
+                "Please share your details for personalized assistance! Type **'register'** to begin.";
         }
 
-        if (inputLower.includes("uzbekistan") || inputLower.includes("russia") || inputLower.includes("cis") || inputLower.includes("tashkent")) {
-            return "\u{1F1FA}\u{1F1FF} **Uzbekistan Placements**\\n\\nHigh demand for industrial workers, fabricators, welders, and heavy drivers for large-scale EPC infrastructure projects in Tashkent.\\n" +
-                "- **Processing Duration**: 4 to 6 weeks\\n" +
-                "- **Average Salary**: $700 - $1,100/mo\\n" +
-                "- **Benefits**: Direct employer sponsorship, free food, and housing.\\n\\nType **register** to schedule a video interview!";
+        if (inputLower.includes("accommodation") || inputLower.includes("hostel") || inputLower.includes("housing") || inputLower.includes("room")) {
+            return "🏠 **Is accommodation provided?**\n\n" +
+                "Accommodation options depend on the employer and the specific job offer. Many European and Gulf employers provide shared accommodation or housing allowances, while USA J-1 interns are assisted in finding rental apartments.\n\n" +
+                "Please share your details for personalized assistance! Type **'register'** to begin.";
         }
 
-        if (inputLower.includes("salary") || inputLower.includes("wage") || inputLower.includes("earn")) {
-            return "\u{1F4B5} **Average Salary Ranges** (excluding overtime):\\n" +
-                "- **Europe (Poland/Serbia)**: $1,200 - $2,000 / month\\n" +
-                "- **Gulf (UAE/Saudi Arabia)**: $600 - $1,200 / month\\n" +
-                "- **Uzbekistan**: $700 - $1,100 / month\\n\\nAll contracts include free shared accommodation and medical insurance.";
+        if (inputLower.includes("fresher") || inputLower.includes("no experience") || inputLower.includes("experience required")) {
+            return "🎓 **Can freshers apply?**\n\n" +
+                "Yes, freshers can apply! We have paid hospitality internship programs in the USA and France, as well as dual vocational Ausbildung programs in Germany. Certain entry-level jobs in the Gulf are also open to freshers.\n\n" +
+                "Please share your details for personalized assistance! Type **'register'** to begin.";
         }
 
-        if (inputLower.includes("document") || inputLower.includes("passport") || inputLower.includes("cv") || inputLower.includes("resume")) {
-            return "\u{1F4C4} **Documents Needed for Application**:\\n" +
-                "1. Original Passport (valid for min. 6 months)\\n" +
-                "2. Updated CV / Bio-data detailing your trades\\n" +
-                "3. Work experience certificates or ITI diplomas (if any)\\n" +
-                "4. 4 White-background passport photos\\n\\nTo submit scans, please type **register** to request a secure document upload link.";
+        if (inputLower.includes("counselor") || inputLower.includes("talk") || inputLower.includes("call") || inputLower.includes("speak") || inputLower.includes("contact")) {
+            return "📞 **Talk to a Counselor**\n\n" +
+                "Please share your name and contact number, and our counselor will contact you. You can also type **'register'** to register all your details so our counselor has your CV outline ready.\n\n" +
+                "Please share your details for personalized assistance! Type **'register'** to begin.";
         }
 
-        if (inputLower.includes("time") || inputLower.includes("days") || inputLower.includes("duration") || inputLower.includes("delay")) {
-            return "\u23F3 **Processing Timelines**:\\n" +
-                "- **Gulf (UAE, Oman, Saudi)**: 25 - 45 days\\n" +
-                "- **Uzbekistan & CIS**: 30 - 50 days\\n" +
-                "- **Europe (Poland, Croatia)**: 90 - 130 days\\n\\nTimelines start from your interview selection date.";
-        }
-
-        return "I'm not sure I understood that fully. \u{1F916}\\n\\nI can assist you with:\\n" +
-            "- **Job Openings**: Type 'jobs'\\n" +
-            "- **Application Cost**: Type 'fees'\\n" +
-            "- **Our Credentials**: Type 'safety'\\n" +
-            "- **Office Hours/Address**: Type 'office'\\n" +
-            "- **Start Placement**: Type 'register'";
+        return "I'm the official AI Career & Recruitment Assistant for Trendy Fortune Global. 🤖\n\n" +
+            "I can assist you with:\n" +
+            "• **International Jobs** (USA, Germany, France, UAE, Serbia, Croatia, Romania)\n" +
+            "• **Hospitality Internships** (J-1 USA/France paid programs)\n" +
+            "• **Visa Fees & Timelines**\n\n" +
+            "Please submit your details for personalized assistance! Type **'register'** to begin.";
     }
 
     function saveLead(name, phone, interest) {
@@ -1370,13 +1450,13 @@ function initAIChatbot() {
                     type: "Chatbot Lead",
                     name: name,
                     phone: phone,
-                    email: "N/A",
-                    position: interest,
-                    country: interest,
-                    experience: "Captured via chat",
-                    education: "N/A",
+                    email: currentLead.email || "N/A",
+                    position: currentLead.trade || "N/A",
+                    country: currentLead.destination || "N/A",
+                    experience: currentLead.experience || "Captured via chat",
+                    education: currentLead.qualification || "N/A",
                     city: "N/A",
-                    notes: "Collected by AI Assistant"
+                    notes: "Age: " + (currentLead.age || "N/A") + " | Passport: " + (currentLead.passport || "N/A") + " | Captured by AI Assistant"
                 });
             }
 
