@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verified Job Openings | Trendy Fortune Global Pvt. Ltd.</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Style Sheet -->
+    <link rel="stylesheet" href="style.css?v=1.1">
+    <!-- SVG Flag Icons (renders beautifully on Windows/Linux/Mac/iOS/Android) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css"/>
+</head>
+<body>
+
+    <!-- Ambient Glow BG Elements -->
+    <div class="ambient-glow-3"></div>
+
+    <!-- Header / Navigation -->
+    <header id="header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo" id="nav-logo">
+                
+                <div class="logo-text">
+                    <span class="logo-main">Trendy Fortune</span>
+                </div>
+            </a>
+            
+            <button class="mobile-nav-toggle" id="mobile-toggle" aria-label="Toggle Navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="jobs.html" class="nav-link active-page">Explore Jobs</a></li>
+                <li><a href="safety.html" class="nav-link">Candidate Safety</a></li>
+                <li><a href="eligibility.html" class="nav-link">Check Eligibility</a></li>
+                <li><a href="locations.html" class="nav-link">Our Offices</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="pay.html" class="nav-link">Pay Online</a></li>
+                <li><a href="apply.html" class="btn btn-primary btn-sm" style="padding: 8px 20px; font-size: 0.85rem; color: #fff;">Apply Now</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Jobs Banner -->
+    <section class="hero" style="padding: 140px 0 40px 0; min-height: auto; text-align: center;">
+        <div class="container">
+            <h1 class="section-title">Verified Job Openings</h1>
+            <p class="section-subtitle">Browse and apply to verified positions directly from certified overseas employers. Zero advance charges.</p>
+        </div>
+    </section>
+
+    <!-- Continuous Scrolling Country Ticker (Marquee) -->
+    <div class="country-ticker-section">
+        <div class="country-ticker-container">
+            <div class="country-ticker-track">
+                <!-- Group 1 -->
+                <div class="ticker-item" onclick="filterJobsByCountry('UAE', document.querySelector('[data-filter=\'UAE\']'))"><span class="fi fi-ae"></span> UAE <span class="dot"></span></div>
+                <div class="ticker-item" onclick="filterJobsByCountry('Israel', document.querySelector('[data-filter=\'Israel\']'))"><span class="fi fi-il"></span> Israel <span class="dot"></span></div>
+                <div class="ticker-item" onclick="filterJobsByCountry('Uzbekistan', document.querySelector('[data-filter=\'Uzbekistan\']'))"><span class="fi fi-uz"></span> Uzbekistan <span class="dot"></span></div>
+                <div class="ticker-item" onclick="filterJobsByCountry('Poland', document.querySelector('[data-filter=\'Poland\']'))"><span class="fi fi-pl"></span> Poland <span class="dot"></span></div>
+                <div class="ticker-item" onclick="filterJobsByCountry('Serbia', document.querySelector('[data-filter=\'Serbia\']'))"><span class="fi fi-rs"></span> Serbia <span class="dot"></span></div>
+                <div class="ticker-item" onclick="filterJobsByCountry('Saudi Arabia', document.querySelector('[data-filter=\'Saudi Arabia\']'))"><span class="fi fi-sa"></span> Saudi Arabia <span class="dot"></span></div>
+                <div class="ticker-item" onclick="filterJobsByCountry('Bulgaria', document.querySelector('[data-filter=\'Bulgaria\']'))"><span class="fi fi-bg"></span> Bulgaria <span class="dot"></span></div>
+                <div class="ticker-item" onclick="filterJobsByCountry('Russia', document.querySelector('[data-filter=\'Russia\']'))"><span class="fi fi-ru"></span> Russia <span class="dot"></span></div>
+                <div class="ticker-item" onclick="filterJobsByCountry('Oman', document.querySelector('[data-filter=\'Oman\']'))"><span class="fi fi-om"></span> Oman <span class="dot"></span></div>
+                <div class="ticker-item" onclick="filterJobsByCountry('Ukraine', document.querySelector('[data-filter=\'Ukraine\']'))"><span class="fi fi-ua"></span> Ukraine <span class="dot"></span></div>
+                <div class="ticker-item" onclick="filterJobsByCountry('Czech Republic', document.querySelector('[data-filter=\'Czech Republic\']'))"><span class="fi fi-cz"></span> Czech Republic <span class="dot"></span></div>
+                <div class="ticker-item" onclick="filterJobsByCountry('Belarus', document.querySelector('[data-filter=\'Belarus\']'))"><span class="fi fi-by"></span> Belarus <span class="dot"></span></div>
+                <div class="ticker-item" onclick="filterJobsByCountry('Malaysia', document.querySelector('[data-filter=\'Malaysia\']'))"><span class="fi fi-my"></span> Malaysia <span class="dot"></span></div>
+                <div class="ticker-item" onclick="filterJobsByCountry('Mauritius', document.querySelector('[data-filter=\'Mauritius\']'))"><span class="fi fi-mu"></span> Mauritius <span class="dot"></span></div>
+                <div class="ticker-item" onclick="filterJobsByCountry('Vietnam', document.querySelector('[data-filter=\'Vietnam\']'))"><span class="fi fi-vn"></span> Vietnam <span class="dot"></span></div>
+                
+                <!-- Group 2 (Duplicate for infinite seamless loop) -->
+                <div class="ticker-item" onclick="filterJobsByCountry('UAE', document.querySelector('[data-filter=\'UAE\']'))"><span class="fi fi-ae"></span> UAE <span class="dot"></span></div>
+                <div class="ticker-item" onclick="filterJobsByCountry('Israel', document.querySelector('[data-filter=\'Israel\']'))"><span class="fi fi-il"></span> Israel <span class="dot"></span></div>
+                <div class="ticker-item" onclick="filterJobsByCountry('Uzbekistan', document.querySelector('[data-filter=\'Uzbekistan\']'))"><span class="fi fi-uz"></span> Uzbekistan <span class="dot"></span></div>
+                <div class="ticker-item" onclick="filterJobsByCountry('Poland', document.querySelector('[data-filter=\'Poland\']'))"><span class="fi fi-pl"></span> Poland <span class="dot"></span></div>
+                <div class="ticker-item" onclick="filterJobsByCountry('Serbia', document.querySelector('[data-filter=\'Serbia\']'))"><span class="fi fi-rs"></span> Serbia <span class="dot"></span></div>
+                <div class="ticker-item" onclick="filterJobsByCountry('Saudi Arabia', document.querySelector('[data-filter=\'Saudi Arabia\']'))"><span class="fi fi-sa"></span> Saudi Arabia <span class="dot"></span></div>
+                <div class="ticker-item" onclick="filterJobsByCountry('Bulgaria', document.querySelector('[data-filter=\'Bulgaria\']'))"><span class="fi fi-bg"></span> Bulgaria <span class="dot"></span></div>
+                <div class="ticker-item" onclick="filterJobsByCountry('Russia', document.querySelector('[data-filter=\'Russia\']'))"><span class="fi fi-ru"></span> Russia <span class="dot"></span></div>
+                <div class="ticker-item" onclick="filterJobsByCountry('Oman', document.querySelector('[data-filter=\'Oman\']'))"><span class="fi fi-om"></span> Oman <span class="dot"></span></div>
+                <div class="ticker-item" onclick="filterJobsByCountry('Ukraine', document.querySelector('[data-filter=\'Ukraine\']'))"><span class="fi fi-ua"></span> Ukraine <span class="dot"></span></div>
+                <div class="ticker-item" onclick="filterJobsByCountry('Czech Republic', document.querySelector('[data-filter=\'Czech Republic\']'))"><span class="fi fi-cz"></span> Czech Republic <span class="dot"></span></div>
+                <div class="ticker-item" onclick="filterJobsByCountry('Belarus', document.querySelector('[data-filter=\'Belarus\']'))"><span class="fi fi-by"></span> Belarus <span class="dot"></span></div>
+                <div class="ticker-item" onclick="filterJobsByCountry('Malaysia', document.querySelector('[data-filter=\'Malaysia\']'))"><span class="fi fi-my"></span> Malaysia <span class="dot"></span></div>
+                <div class="ticker-item" onclick="filterJobsByCountry('Mauritius', document.querySelector('[data-filter=\'Mauritius\']'))"><span class="fi fi-mu"></span> Mauritius <span class="dot"></span></div>
+                <div class="ticker-item" onclick="filterJobsByCountry('Vietnam', document.querySelector('[data-filter=\'Vietnam\']'))"><span class="fi fi-vn"></span> Vietnam <span class="dot"></span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Country Quick-Select Tabs -->
+    <div class="container" style="margin-bottom: 10px;">
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 15px;">
+            <button class="filter-btn active" data-filter="UAE" onclick="filterJobsByCountry('UAE', this)"><span class="fi fi-ae"></span> UAE</button>
+            <button class="filter-btn" data-filter="Israel" onclick="filterJobsByCountry('Israel', this)"><span class="fi fi-il"></span> Israel</button>
+            <button class="filter-btn" data-filter="Uzbekistan" onclick="filterJobsByCountry('Uzbekistan', this)"><span class="fi fi-uz"></span> Uzbekistan</button>
+            <button class="filter-btn" data-filter="Poland" onclick="filterJobsByCountry('Poland', this)"><span class="fi fi-pl"></span> Poland</button>
+            <button class="filter-btn" data-filter="Serbia" onclick="filterJobsByCountry('Serbia', this)"><span class="fi fi-rs"></span> Serbia</button>
+            <button class="filter-btn" data-filter="Saudi Arabia" onclick="filterJobsByCountry('Saudi Arabia', this)"><span class="fi fi-sa"></span> Saudi Arabia</button>
+            <button class="filter-btn" data-filter="Bulgaria" onclick="filterJobsByCountry('Bulgaria', this)"><span class="fi fi-bg"></span> Bulgaria</button>
+            <button class="filter-btn" data-filter="Russia" onclick="filterJobsByCountry('Russia', this)"><span class="fi fi-ru"></span> Russia</button>
+            <button class="filter-btn" data-filter="Oman" onclick="filterJobsByCountry('Oman', this)"><span class="fi fi-om"></span> Oman</button>
+            <button class="filter-btn" data-filter="Ukraine" onclick="filterJobsByCountry('Ukraine', this)"><span class="fi fi-ua"></span> Ukraine</button>
+            <button class="filter-btn" data-filter="Czech Republic" onclick="filterJobsByCountry('Czech Republic', this)"><span class="fi fi-cz"></span> Czech Republic</button>
+            <button class="filter-btn" data-filter="Belarus" onclick="filterJobsByCountry('Belarus', this)"><span class="fi fi-by"></span> Belarus</button>
+            <button class="filter-btn" data-filter="Malaysia" onclick="filterJobsByCountry('Malaysia', this)"><span class="fi fi-my"></span> Malaysia</button>
+            <button class="filter-btn" data-filter="Mauritius" onclick="filterJobsByCountry('Mauritius', this)"><span class="fi fi-mu"></span> Mauritius</button>
+            <button class="filter-btn" data-filter="Vietnam" onclick="filterJobsByCountry('Vietnam', this)"><span class="fi fi-vn"></span> Vietnam</button>
+        </div>
+    </div>
+
+    <!-- Active Country Heading + Job Count -->
+    <div class="container" style="margin-bottom: 10px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <h2 id="active-country-label" style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: var(--text-primary); margin: 0;">Showing: All Countries</h2>
+            <span id="job-count-badge" style="background: rgba(124, 58, 237, 0.1); color: var(--primary); padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 700;">0 Jobs</span>
+        </div>
+    </div>
+    
+    <!-- General Application Callout -->
+    <div class="container" style="margin-bottom: 20px; text-align: center;">
+        <div class="glass-panel" style="padding: 15px 25px; display: inline-flex; align-items: center; gap: 15px; border-color: rgba(13, 148, 136, 0.2);">
+            <i class="fa-solid fa-file-invoice" style="color: var(--secondary); font-size: 1.2rem;"></i>
+            <span style="font-size: 0.95rem; color: var(--text-secondary);">Don't see a matching opening? Submit a general application.</span>
+            <a href="apply.html" class="btn btn-accent btn-sm" style="padding: 6px 16px; font-size: 0.8rem; border-radius: 20px; color: #fff;">Apply Now <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </div>
+
+    <!-- Interactive Job Finder Module -->
+    <section class="section" style="padding-top: 10px;">
+        <div class="container">
+            <div class="job-finder-wrapper glass-panel">
+                <div class="filter-bar">
+                    <div class="search-input-wrapper">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="job-search" class="search-input" placeholder="Search by job title (e.g., Welder, Chef, Driver, Plumber)...">
+                    </div>
+                    <div class="filter-btn-group" id="filter-group">
+                        <button class="filter-btn active" data-filter="all">All Trades</button>
+                        <button class="filter-btn" data-filter="hospitality">Hospitality</button>
+                        <button class="filter-btn" data-filter="skilled">Skilled Trade</button>
+                    </div>
+                </div>
+
+                <div class="jobs-grid" id="jobs-grid-container">
+                    <!-- Dynamic Job Cards will load here via app.js -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    
+                    <div class="logo-text">
+                    <span class="logo-main">Trendy Fortune</span>
+                    </div>
+                </a>
+                <p>Connecting skilled global workers with prestigious recruiters in Europe, Israel, UAE, and other global destinations. Focus on transparency, safety, and excellence.</p>
+            </div>
+            <div class="footer-links-col">
+                <h4>Quick Navigation</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Our Services</a></li>
+                    <li><a href="jobs.html">Explore Jobs</a></li>
+                    <li><a href="eligibility.html">Visa Eligibility</a></li>
+                    <li><a href="pay.html">Pay Fees Online</a></li>
+                </ul>
+            </div>
+            <div class="footer-links-col">
+                <h4>Legal & Info</h4>
+                <ul class="footer-links">
+                    <li><a href="safety.html">Candidate Advisory</a></li>
+                    <li><a href="locations.html">Office Addresses</a></li>
+                    <li><a href="contact.html">Contact Support</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Trendy Fortune Global Pvt. Ltd. All rights reserved. Office: C616, Tower C, Noida One, Noida, Uttar Pradesh - 201309.</p>
+            <div class="social-links">
+                <a href="#" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#" class="social-btn" aria-label="Youtube"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Job Application Modal -->
+    <div class="modal" id="apply-modal">
+        <div class="modal-backdrop" onclick="closeApplyModal()"></div>
+        <div class="modal-content glass-panel">
+            <button class="modal-close" onclick="closeApplyModal()"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="modal-title">Apply for <span id="modal-job-title" style="color: var(--secondary);">Position</span></h3>
+            <p class="modal-subtitle">Fill in the fields below to submit your basic candidacy detail to our coordinators. No advance charges apply.</p>
+            
+            <form id="apply-form" onsubmit="submitApplyForm(event)">
+                <input type="hidden" id="modal-job-id">
+                <div class="form-group">
+                    <label for="apply-name" class="form-label">Full Name</label>
+                    <input type="text" id="apply-name" class="form-input" placeholder="e.g., Sunil Sen" required>
+                </div>
+                <div class="form-group">
+                    <label for="apply-phone" class="form-label">Mobile Number (WhatsApp Preferred)</label>
+                    <input type="tel" id="apply-phone" class="form-input" placeholder="e.g., +91 9988776655" required>
+                </div>
+                <div class="form-group">
+                    <label for="apply-experience" class="form-label">Experience details (in years)</label>
+                    <input type="number" id="apply-experience" class="form-input" placeholder="e.g., 3" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="apply-notes" class="form-label">Additional notes / current city</label>
+                    <textarea id="apply-notes" class="form-input" placeholder="Optional notes..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-accent" style="width: 100%;">Submit Application <i class="fa-solid fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Toast -->
+    <div class="toast" id="success-toast">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toast-message">Application submitted successfully!</span>
+    </div>
+
+    <!-- Javascript Script -->
+    <!-- AI Chatbot Widget -->
+    <div class="ai-chatbot-container" id="chatbot-container">
+        <!-- Chatbot Button -->
+        <button class="ai-chatbot-toggle" id="chatbot-toggle" aria-label="Toggle AI Assistant">
+            <i class="fa-solid fa-comments"></i>
+            <span class="chatbot-badge" id="chatbot-badge" style="display: none;">1</span>
+        </button>
+        
+        <!-- Chatbot Window -->
+        <div class="ai-chatbot-window" id="chatbot-window">
+            <!-- Header -->
+            <div class="chatbot-header">
+                <div class="chatbot-info">
+                    <div class="chatbot-avatar"><i class="fa-solid fa-robot"></i></div>
+                    <div>
+                        <h4>Trendy AI Assistant</h4>
+                        <p><span class="online-indicator"></span> Auto-Reply Active</p>
+                    </div>
+                </div>
+                <div class="chatbot-actions">
+                    <button class="chatbot-btn" id="chatbot-admin-btn" title="Admin Leads Report"><i class="fa-solid fa-key"></i></button>
+                    <button class="chatbot-btn" id="chatbot-close-btn" title="Close"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            </div>
+            
+            <!-- Chat Messages Body -->
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="chat-msg bot">
+                    Hello! Welcome to Trendy Fortune Global. I am your AI career assistant. How can I help you today?
+                </div>
+                <div class="chatbot-quick-replies" id="chatbot-quick-replies">
+                    <button class="qr-btn" onclick="sendQuickReply('Explore Job Openings')">Explore Jobs</button>
+                    <button class="qr-btn" onclick="sendQuickReply('Visa Fees Policy')">Visa Fees?</button>
+                    <button class="qr-btn" onclick="sendQuickReply('Check Candidate Safety')">Is it safe?</button>
+                    <button class="qr-btn" onclick="sendQuickReply('Noida Office Location')">Office Address</button>
+                </div>
+            </div>
+            
+            <!-- Admin Report View (Hidden by default) -->
+            <div class="chatbot-admin-panel" id="chatbot-admin-panel" style="display: none;">
+                <div class="admin-panel-header">
+                    <h5><i class="fa-solid fa-chart-line"></i> Daily Leads & Activity</h5>
+                    <button class="admin-close-btn" id="admin-close-btn"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                </div>
+                <div class="admin-stats">
+                    <div class="admin-stat-card">
+                        <span class="stat-num" id="admin-stat-chats">0</span>
+                        <span class="stat-label">Total Chats</span>
+                    </div>
+                    <div class="admin-stat-card">
+                        <span class="stat-num" id="admin-stat-leads">0</span>
+                        <span class="stat-label">Leads Captured</span>
+                    </div>
+                </div>
+                <div class="admin-leads-list" id="admin-leads-list">
+                    <!-- Leads table generated dynamically -->
+                </div>
+                <div class="admin-actions">
+                    <button class="btn btn-primary btn-sm" id="admin-download-report" style="width: 100%; border-radius: 8px;"><i class="fa-solid fa-download"></i> Download CSV Report</button>
+                </div>
+            </div>
+            
+            <!-- Input Area -->
+            <form class="chatbot-input-area" id="chatbot-input-form">
+                <input type="text" id="chatbot-input" placeholder="Type your query..." autocomplete="off" required>
+                <button type="submit" class="chatbot-send-btn" id="chatbot-send"><i class="fa-solid fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js?v=1.1"></script>
+</body>
+</html>

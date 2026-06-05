@@ -1,0 +1,2186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Fee Payment | Trendy Fortune</title>
+    <meta name="description"
+        content="Pay official processing, medical, or visa fees securely for Trendy Fortune staffing solutions.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700;800&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="style.css?v=1.1">
+    <!-- Custom Style for Premium Payment Gateway -->
+    <style>
+        /* Checkout Layout */
+        .checkout-container {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 40px;
+            margin-top: 30px;
+            align-items: start;
+        }
+
+        @media (max-width: 992px) {
+            .checkout-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        /* Stepper Wizard */
+        .stepper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+            position: relative;
+        }
+
+        .stepper::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e2e8f0;
+            z-index: 1;
+        }
+
+        .stepper-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f1f5f9;
+            border: 2px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--text-muted);
+            transition: var(--transition-smooth);
+            font-size: 0.95rem;
+        }
+
+        .stepper-step.active .step-number {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+            box-shadow: 0 0 12px var(--primary-glow);
+        }
+
+        .stepper-step.completed .step-number {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+            box-shadow: 0 0 12px var(--success-glow);
+        }
+
+        .step-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 8px;
+            color: var(--text-secondary);
+            transition: var(--transition-smooth);
+        }
+
+        .stepper-step.active .step-label {
+            color: var(--primary);
+        }
+
+        .stepper-step.completed .step-label {
+            color: var(--success);
+        }
+
+        /* Step Panes */
+        .checkout-step-pane {
+            display: none;
+        }
+
+        .checkout-step-pane.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        /* Dynamic Invoice Card (Left Pane) */
+        .sticky-invoice-pane {
+            position: sticky;
+            top: 100px;
+        }
+
+        .invoice-card {
+            background: var(--bg-surface);
+            border-radius: 16px;
+            border: 1px solid var(--border-glass);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .invoice-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+        }
+
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-glass);
+        }
+
+        .invoice-brand {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .invoice-badge {
+            background: rgba(124, 58, 237, 0.08);
+            color: var(--primary);
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .invoice-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            font-size: 0.88rem;
+            border-bottom: 1px dashed var(--border-glass);
+        }
+
+        .invoice-item:last-of-type {
+            border-bottom: none;
+        }
+
+        .invoice-label {
+            color: var(--text-muted);
+        }
+
+        .invoice-value {
+            font-weight: 600;
+            color: var(--text-primary);
+            text-align: right;
+            max-width: 60%;
+            word-wrap: break-word;
+        }
+
+        .invoice-total {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid var(--border-glass);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .total-label {
+            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+
+        .total-value {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        /* Trust badges */
+        .trust-badges-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 10px 5px;
+        }
+
+        .trust-badge-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+
+        .trust-badge-item i {
+            font-size: 1.1rem;
+            color: var(--secondary);
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Form Inputs with icons */
+        .input-group {
+            position: relative;
+            margin-top: 6px;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            transition: var(--transition-smooth);
+            pointer-events: none;
+        }
+
+        .input-group .form-input {
+            padding-left: 42px !important;
+            height: 48px;
+            border-radius: 10px;
+            border: 1px solid var(--border-glass);
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-primary);
+            transition: var(--transition-smooth);
+        }
+
+        .input-group .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-glow);
+            outline: none;
+        }
+
+        .input-group .form-input:focus+i {
+            color: var(--primary);
+        }
+
+        /* Payment Tabs Grid */
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 576px) {
+            .payment-methods {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+        }
+
+        .pay-method-btn {
+            padding: 14px 10px;
+            border: 2px solid var(--border-glass);
+            border-radius: 12px;
+            background: var(--bg-surface);
+            color: var(--text-secondary);
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition-smooth);
+            text-align: center;
+        }
+
+        .pay-method-btn.active {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(124, 58, 237, 0.04);
+            box-shadow: 0 4px 15px var(--primary-glow);
+        }
+
+        .pay-method-btn i {
+            font-size: 1.4rem;
+        }
+
+        /* Popular Bank grid selection */
+        .bank-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 480px) {
+            .bank-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .bank-card {
+            padding: 15px 10px;
+            border: 1px solid var(--border-glass);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition-smooth);
+        }
+
+        .bank-card i {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            transition: var(--transition-smooth);
+        }
+
+        .bank-card:hover {
+            border-color: var(--primary);
+            background: rgba(124, 58, 237, 0.02);
+        }
+
+        .bank-card.selected {
+            border-color: var(--primary);
+            background: rgba(124, 58, 237, 0.05);
+            color: var(--primary);
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.1);
+        }
+
+        .bank-card.selected i {
+            color: var(--primary);
+        }
+
+        /* Metallic Corporate Bank Details Card */
+        .bank-details-card {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border: 1.5px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            color: #f8fafc;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+
+        .bank-details-card::before {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(13, 148, 136, 0.15) 0%, transparent 70%);
+            top: -50px;
+            right: -50px;
+            pointer-events: none;
+        }
+
+        .bank-details-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .bank-details-logo {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #38bdf8;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bank-details-chip {
+            width: 35px;
+            height: 25px;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            border-radius: 4px;
+            opacity: 0.8;
+        }
+
+        .bank-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 10px 0;
+        }
+
+        .bank-row:last-child {
+            border-bottom: none;
+        }
+
+        .bank-row-label {
+            font-size: 0.78rem;
+            color: #94a3b8;
+        }
+
+        .bank-row-value {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #f1f5f9;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+            color: #38bdf8;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: all 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            background: rgba(56, 189, 248, 0.15);
+            color: white;
+        }
+
+        /* 3D Card Animation Styling */
+        .card-container {
+            width: 100%;
+            height: 200px;
+            perspective: 1000px;
+            margin-bottom: 25px;
+        }
+
+        .credit-card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+
+        .credit-card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 16px;
+            padding: 24px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            box-shadow: 0 10px 25px rgba(30, 27, 75, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .card-face.back {
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+
+        .card-chip {
+            width: 42px;
+            height: 32px;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            border-radius: 6px;
+        }
+
+        .card-brand-icon {
+            font-size: 2.2rem;
+            color: white;
+            transition: var(--transition-smooth);
+        }
+
+        .card-number {
+            font-size: 1.35rem;
+            font-family: monospace;
+            letter-spacing: 2px;
+            word-spacing: 4px;
+            margin: 18px 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-holder-label {
+            font-size: 0.62rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.65;
+            margin-bottom: 4px;
+        }
+
+        .card-holder-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-expiry-val {
+            font-size: 0.95rem;
+            font-family: monospace;
+        }
+
+        .card-black-strip {
+            height: 45px;
+            background: #000;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .card-signature-area {
+            margin: 10px 25px;
+            height: 38px;
+            background: #fff;
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 15px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        /* Inline OTP Box layout */
+        .otp-input-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .otp-digit-input {
+            width: 42px;
+            height: 48px;
+            border-radius: 8px;
+            border: 1px solid var(--border-glass);
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-primary);
+            text-align: center;
+            font-size: 1.35rem;
+            font-weight: 700;
+            font-family: monospace;
+            transition: var(--transition-smooth);
+        }
+
+        .otp-digit-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-glow);
+            outline: none;
+        }
+
+        /* Printable Ticket Style Receipt */
+        .receipt-ticket {
+            background: var(--bg-surface);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            max-width: 520px;
+            margin: 40px auto;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border-glass);
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .receipt-ticket::before,
+        .receipt-ticket::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: var(--bg-dark);
+            border-radius: 50%;
+            top: 56%;
+            z-index: 10;
+        }
+
+        .receipt-ticket::before {
+            left: -12px;
+            box-shadow: inset -3px 0 5px rgba(0, 0, 0, 0.02);
+        }
+
+        .receipt-ticket::after {
+            right: -12px;
+            box-shadow: inset 3px 0 5px rgba(0, 0, 0, 0.02);
+        }
+
+        .ticket-header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 35px 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .ticket-header::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background-image: radial-gradient(circle, transparent 6px, #ffffff 6px);
+            background-size: 16px 16px;
+        }
+
+        .ticket-success-badge {
+            width: 60px;
+            height: 60px;
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 15px;
+            border: 2px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .ticket-body {
+            padding: 30px;
+            background: var(--bg-surface);
+        }
+
+        .ticket-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px dashed var(--border-glass);
+            font-size: 0.9rem;
+        }
+
+        .ticket-row:last-of-type {
+            border-bottom: none;
+        }
+
+        .ticket-row-label {
+            color: var(--text-secondary);
+        }
+
+        .ticket-row-value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .ticket-barcode-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .ticket-barcode {
+            height: 48px;
+            width: 100%;
+            max-width: 280px;
+            background: linear-gradient(90deg,
+                    #000 0%, #000 1%, transparent 1%, transparent 2%,
+                    #000 2%, #000 4%, transparent 4%, transparent 5%,
+                    #000 5%, #000 6%, transparent 6%, transparent 7%,
+                    #000 7%, #000 10%, transparent 10%, transparent 11%,
+                    #000 11%, #000 12%, transparent 12%, transparent 14%,
+                    #000 14%, #000 15%, transparent 15%, transparent 16%,
+                    #000 16%, #000 18%, transparent 18%, transparent 19%,
+                    #000 19%, #000 22%, transparent 22%, transparent 23%,
+                    #000 23%, #000 25%, transparent 25%, transparent 27%,
+                    #000 27%, #000 28%, transparent 28%, transparent 30%,
+                    #000 30%, #000 32%, transparent 32%, transparent 35%,
+                    #000 35%, #000 36%, transparent 36%, transparent 37%,
+                    #000 37%, #000 40%, transparent 40%, transparent 41%,
+                    #000 41%, #000 43%, transparent 43%, transparent 45%,
+                    #000 45%, #000 46%, transparent 46%, transparent 47%,
+                    #000 47%, #000 50%, transparent 50%, transparent 52%,
+                    #000 52%, #000 54%, transparent 54%, transparent 55%,
+                    #000 55%, #000 58%, transparent 58%, transparent 60%,
+                    #000 60%, #000 61%, transparent 61%, transparent 63%,
+                    #000 63%, #000 66%, transparent 66%, transparent 67%,
+                    #000 67%, #000 68%, transparent 68%, transparent 70%,
+                    #000 70%, #000 72%, transparent 72%, transparent 75%,
+                    #000 75%, #000 78%, transparent 78%, transparent 80%,
+                    #000 80%, #000 82%, transparent 82%, transparent 85%,
+                    #000 85%, #000 88%, transparent 88%, transparent 90%,
+                    #000 90%, #000 93%, transparent 93%, transparent 95%,
+                    #000 95%, #000 98%, transparent 98%, transparent 100%);
+            opacity: 0.8;
+            margin-bottom: 6px;
+        }
+
+        /* Loader Overlay styling */
+        .payment-loader {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 9999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .spinner-ring {
+            width: 70px;
+            height: 70px;
+            border: 5px solid rgba(124, 58, 237, 0.1);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ambient-glow-3"></div>
+
+    <!-- Header / Navigation -->
+    <header id="header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo" id="nav-logo">
+                <div class="logo-text">
+                    <span class="logo-main">Trendy Fortune</span>
+                </div>
+            </a>
+
+            <button class="mobile-nav-toggle" id="mobile-toggle" aria-label="Toggle Navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="jobs.html" class="nav-link">Explore Jobs</a></li>
+                <li><a href="safety.html" class="nav-link">Candidate Safety</a></li>
+                <li><a href="eligibility.html" class="nav-link">Check Eligibility</a></li>
+                <li><a href="locations.html" class="nav-link">Our Offices</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="pay.html" class="nav-link active-page">Pay Online</a></li>
+                <li><a href="apply.html" class="btn btn-primary btn-sm"
+                        style="padding: 8px 20px; font-size: 0.85rem; color: #fff;">Apply Now</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Page Title Section -->
+    <section class="page-title" style="padding: 60px 0 20px 0; text-align: center;">
+        <div class="container">
+            <h1
+                style="font-family: var(--font-heading); font-size: 2.6rem; font-weight: 800; color: var(--text-primary);">
+                Secure Online Fee Payment</h1>
+            <p style="color: var(--text-secondary); max-width: 600px; margin: 10px auto 0;">Pay official visa
+                processing, medical registration, or verification fees securely using Net Banking, Bank Transfer or
+                Credit/Debit Card.</p>
+        </div>
+    </section>
+
+    <!-- Main Payment Section -->
+    <section style="padding: 20px 0 80px 0;">
+        <div class="container">
+
+            <!-- Success Receipt Card (Hidden initially, centers on success) -->
+            <div class="receipt-ticket" id="receipt-card">
+                <div class="ticket-header">
+                    <div class="ticket-success-badge">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    <h2
+                        style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; margin-bottom: 4px;">
+                        Payment Submitted Successfully!</h2>
+                    <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.85rem; margin: 0;">Trendy Fortune Online
+                        Receipt stub</p>
+                </div>
+                <div class="ticket-body">
+                    <div class="ticket-row">
+                        <span class="ticket-row-label">Candidate Name</span>
+                        <span class="ticket-row-value" id="rec-name">-</span>
+                    </div>
+                    <div class="ticket-row">
+                        <span class="ticket-row-label">Passport Number</span>
+                        <span class="ticket-row-value" id="rec-passport">-</span>
+                    </div>
+                    <div class="ticket-row">
+                        <span class="ticket-row-label">Payment Purpose</span>
+                        <span class="ticket-row-value" id="rec-category">-</span>
+                    </div>
+                    <div class="ticket-row">
+                        <span class="ticket-row-label">Payment Mode</span>
+                        <span class="ticket-row-value" id="rec-mode">-</span>
+                    </div>
+                    <div class="ticket-row">
+                        <span class="ticket-row-label">Reference / Transaction ID</span>
+                        <span class="ticket-row-value" id="rec-utr" style="font-family: monospace;">-</span>
+                    </div>
+                    <div class="ticket-row" style="margin-top: 10px; padding-top: 15px; border-top: 2px solid #f1f5f9;">
+                        <span class="ticket-row-label" style="font-weight: bold; color: var(--text-primary);">Amount
+                            Paid</span>
+                        <span class="ticket-row-value" id="rec-amount"
+                            style="color: var(--primary); font-size: 1.25rem; font-weight: 800;">-</span>
+                    </div>
+
+                    <div class="ticket-barcode-wrap">
+                        <div class="ticket-barcode"></div>
+                        <span id="barcode-val"
+                            style="font-size: 0.65rem; font-family: monospace; letter-spacing: 2px; color: var(--text-muted); text-transform: uppercase;">NET1234567890</span>
+                    </div>
+
+                    <div style="display: flex; gap: 15px; margin-top: 25px;">
+                        <button class="btn btn-secondary" onclick="window.print()"
+                            style="flex: 1; padding: 10px; font-size: 0.88rem;"><i class="fa-solid fa-print"></i> Print
+                            Details</button>
+                        <button class="btn btn-primary" id="receipt-wa-btn"
+                            style="flex: 1.5; padding: 10px; font-size: 0.88rem;"><i class="fa-brands fa-whatsapp"></i>
+                            Share on WhatsApp</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stripe-Style 2-Column Grid -->
+            <div class="checkout-container" id="payment-main-grid">
+
+                <!-- Left Pane: Sticky Payment Summary & Trust Badges -->
+                <div class="sticky-invoice-pane">
+                    <div class="invoice-card">
+                        <div class="invoice-header">
+                            <span class="invoice-brand">Trendy Fortune</span>
+                            <span class="invoice-badge"><i class="fa-solid fa-lock"></i> SECURED</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 4px;">
+                            <div class="invoice-item">
+                                <span class="invoice-label">Candidate Name</span>
+                                <span class="invoice-value" id="summary-name">Enter details...</span>
+                            </div>
+                            <div class="invoice-item">
+                                <span class="invoice-label">Passport Number</span>
+                                <span class="invoice-value" id="summary-passport">Enter details...</span>
+                            </div>
+                            <div class="invoice-item">
+                                <span class="invoice-label">Payment Purpose</span>
+                                <span class="invoice-value" id="summary-category">Enter details...</span>
+                            </div>
+                            <div class="invoice-item">
+                                <span class="invoice-label">Processing fee</span>
+                                <span class="invoice-value" style="color: var(--success); font-weight: bold;">FREE
+                                    (₹0.00)</span>
+                            </div>
+                        </div>
+                        <div class="invoice-total">
+                            <span class="total-label">Total Payment</span>
+                            <span class="total-value" id="summary-amount">₹0.00</span>
+                        </div>
+                    </div>
+
+                    <div class="trust-badges-panel">
+                        <div class="trust-badge-item">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <span>256-bit SSL Connection Security</span>
+                        </div>
+                        <div class="trust-badge-item">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>Direct Transfer to Corporate ICICI Bank</span>
+                        </div>
+                        <div class="trust-badge-item">
+                            <i class="fa-solid fa-receipt"></i>
+                            <span>Instant Digital Invoice & WhatsApp Logs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Multi-Step Checkout Action Form -->
+                <div class="glass-panel" style="padding: 35px;">
+                    <!-- Visual Stepper Progress Bar -->
+                    <div class="stepper">
+                        <div class="stepper-step active" id="step-node-1">
+                            <div class="step-number">1</div>
+                            <div class="step-label">Candidate Details</div>
+                        </div>
+                        <div class="stepper-step" id="step-node-2">
+                            <div class="step-number">2</div>
+                            <div class="step-label">Choose Payment</div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 1 PANE: Candidate Details -->
+                    <div class="checkout-step-pane active" id="step-details">
+                        <h3
+                            style="font-family: var(--font-heading); font-weight: 700; color: var(--text-primary); margin-bottom: 20px; font-size: 1.3rem;">
+                            <i class="fa-solid fa-file-invoice" style="color: var(--primary); margin-right: 8px;"></i>
+                            Billing & Candidate Info
+                        </h3>
+
+                        <form id="payment-details-form" onsubmit="proceedToPayment(event)">
+                            <div style="display: grid; grid-template-columns: 1fr; gap: 18px;">
+                                <div class="form-group">
+                                    <label for="pay-name"
+                                        style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);">Full
+                                        Name (As in Passport) *</label>
+                                    <div class="input-group">
+                                        <input type="text" id="pay-name" class="form-input" style="width:100%;"
+                                            placeholder="e.g. Rahul Sharma" oninput="syncSummary()" required>
+                                        <i class="fa-solid fa-user"></i>
+                                    </div>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                    <div class="form-group">
+                                        <label for="pay-phone"
+                                            style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);">Contact
+                                            Phone *</label>
+                                        <div class="input-group">
+                                            <input type="tel" id="pay-phone" class="form-input" style="width:100%;"
+                                                placeholder="10-digit number" oninput="syncSummary()" required>
+                                            <i class="fa-solid fa-phone"></i>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pay-passport"
+                                            style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);">Passport
+                                            Number *</label>
+                                        <div class="input-group">
+                                            <input type="text" id="pay-passport" class="form-input" style="width:100%;"
+                                                placeholder="Passport number" oninput="syncSummary()" required>
+                                            <i class="fa-solid fa-passport"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pay-category"
+                                        style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);">Payment
+                                        Purpose / Fee Type *</label>
+                                    <div class="input-group">
+                                        <input type="text" id="pay-category" class="form-input" style="width:100%;"
+                                            placeholder="e.g. Document Verification Fee, Medical Fee, Visa Processing"
+                                            oninput="syncSummary()" required>
+                                        <i class="fa-solid fa-tag"></i>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pay-amount"
+                                        style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);">Amount
+                                        (INR) *</label>
+                                    <div class="input-group">
+                                        <input type="number" id="pay-amount" class="form-input" style="width:100%;"
+                                            min="100" placeholder="e.g. 5000" oninput="syncSummary()" required>
+                                        <i class="fa-solid fa-indian-rupee-sign"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary"
+                                style="width:100%; margin-top: 25px; padding: 14px;">
+                                Proceed to Payment Options <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- STEP 2 PANE: Select Payment Method -->
+                    <div class="checkout-step-pane" id="step-payment">
+                        <div
+                            style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+                            <h3
+                                style="font-family: var(--font-heading); font-weight: 700; color: var(--text-primary); font-size: 1.3rem; margin: 0;">
+                                <i class="fa-solid fa-credit-card"
+                                    style="color: var(--primary); margin-right: 8px;"></i> Select Payment Method
+                            </h3>
+                            <button type="button" class="btn btn-secondary btn-sm" onclick="backToStep1()"
+                                style="padding: 5px 12px; font-size: 0.78rem; border-radius: 6px;">
+                                <i class="fa-solid fa-chevron-left"></i> Back
+                            </button>
+                        </div>
+
+                        <!-- Payment Tab Buttons -->
+                        <div class="payment-methods">
+                            <button class="pay-method-btn active" id="btn-method-netbanking"
+                                onclick="switchMethod('netbanking')">
+                                <i class="fa-solid fa-desktop"></i>
+                                <span>Net Banking</span>
+                            </button>
+                            <button class="pay-method-btn" id="btn-method-transfer" onclick="switchMethod('transfer')">
+                                <i class="fa-solid fa-building-columns"></i>
+                                <span>Bank Transfer</span>
+                            </button>
+                            <button class="pay-method-btn" id="btn-method-card" onclick="switchMethod('card')">
+                                <i class="fa-solid fa-credit-card"></i>
+                                <span>Card Payment</span>
+                            </button>
+                        </div>
+
+                        <!-- NET BANKING TAB -->
+                        <div id="method-netbanking-screen" style="display: block;">
+                            <!-- Razorpay Secure Payment Link Card -->
+                            <div
+                                style="background: rgba(16, 185, 129, 0.04); border: 1.5px dashed #10b981; border-radius: 16px; padding: 20px; margin-bottom: 25px; text-align: center;">
+                                <div
+                                    style="font-weight: 700; color: #10b981; font-size: 0.95rem; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                    <i class="fa-solid fa-shield-halved"></i> Real-time Online Checkout (Razorpay)
+                                </div>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 15px;">
+                                    Pay instantly and securely using Net Banking, UPI apps (PhonePe, GPay, Paytm), or
+                                    Cards via Razorpay.
+                                </p>
+                                <a href="https://rzp.io/l/trendyfortune" id="real-payment-link" target="_blank"
+                                    class="btn btn-primary btn-sm"
+                                    style="display: inline-block; width: auto; padding: 10px 22px; font-weight: bold; background: #10b981; color: white; border: none; border-radius: 8px; text-decoration: none; transition: var(--transition-smooth);"
+                                    onclick="trackRealPaymentClick(event)">
+                                    <i class="fa-solid fa-wallet"></i> Pay via Secure Razorpay Portal
+                                </a>
+                                <span
+                                    style="font-size: 0.72rem; color: var(--text-muted); display: block; margin-top: 8px;">Once
+                                    payment succeeds, enter the Payment ID below to generate receipt.</span>
+
+                                <!-- Razorpay verification box -->
+                                <div id="razorpay-verification-box"
+                                    style="margin-top: 20px; padding-top: 20px; border-top: 1px dashed rgba(16, 185, 129, 0.3); text-align: left; display: none; animation: fadeIn 0.3s ease-out;">
+                                    <div class="form-group" style="margin-bottom: 15px;">
+                                        <label for="razorpay-payment-id"
+                                            style="display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 6px; color: var(--text-primary);">Razorpay
+                                            Payment ID / Transaction ID *</label>
+                                        <div class="input-group">
+                                            <input type="text" id="razorpay-payment-id" class="form-input"
+                                                style="width:100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px;"
+                                                placeholder="e.g. pay_P12345abcd6789 or UPI Ref"
+                                                oninput="validateRazorpayInput()">
+                                            <i class="fa-solid fa-receipt" style="top: 50%;"></i>
+                                        </div>
+                                    </div>
+                                    <button type="button" id="razorpay-confirm-btn" onclick="submitRazorpayPayment()"
+                                        class="btn btn-primary btn-sm"
+                                        style="width:100%; padding: 10px; background: #10b981; border: none; font-weight: bold; color: white; border-radius: 8px;"
+                                        disabled>
+                                        Verify & Confirm Razorpay Payment
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div
+                                style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 20px; color: var(--text-muted);">
+                                <span style="height: 1px; background: #e2e8f0; flex: 1;"></span>
+                                <span style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">Or
+                                    Simulated Bank Login</span>
+                                <span style="height: 1px; background: #e2e8f0; flex: 1;"></span>
+                            </div>
+
+                            <div id="netbanking-bank-selector">
+                                <h4
+                                    style="font-size: 0.9rem; font-weight: 700; color: var(--text-primary); margin-bottom: 12px;">
+                                    Select Popular Bank</h4>
+
+                                <div class="bank-grid">
+                                    <div class="bank-card" id="bank-sbi" onclick="selectBank('SBI', this)">
+                                        <i class="fa-solid fa-building-columns"></i>
+                                        <span>SBI</span>
+                                    </div>
+                                    <div class="bank-card" id="bank-hdfc" onclick="selectBank('HDFC', this)">
+                                        <i class="fa-solid fa-building-columns"></i>
+                                        <span>HDFC</span>
+                                    </div>
+                                    <div class="bank-card" id="bank-icici" onclick="selectBank('ICICI', this)">
+                                        <i class="fa-solid fa-building-columns"></i>
+                                        <span>ICICI</span>
+                                    </div>
+                                    <div class="bank-card" id="bank-axis" onclick="selectBank('AXIS', this)">
+                                        <i class="fa-solid fa-building-columns"></i>
+                                        <span>AXIS</span>
+                                    </div>
+                                    <div class="bank-card" id="bank-kotak" onclick="selectBank('KOTAK', this)">
+                                        <i class="fa-solid fa-building-columns"></i>
+                                        <span>KOTAK</span>
+                                    </div>
+                                    <div class="bank-card" id="bank-pnb" onclick="selectBank('PNB', this)">
+                                        <i class="fa-solid fa-building-columns"></i>
+                                        <span>PNB</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="margin-bottom: 25px;">
+                                    <label
+                                        style="display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 6px;">Or
+                                        Choose Other Bank</label>
+                                    <select id="other-bank-select" class="form-input"
+                                        style="width:100%; height:42px; border-radius:8px; border:1px solid #cbd5e1; padding: 0 10px;"
+                                        onchange="selectOtherBank(this)">
+                                        <option value="" selected disabled>Choose Bank...</option>
+                                        <option value="Bank of Baroda">Bank of Baroda</option>
+                                        <option value="Canara Bank">Canara Bank</option>
+                                        <option value="Union Bank of India">Union Bank of India</option>
+                                        <option value="IDBI Bank">IDBI Bank</option>
+                                        <option value="Yes Bank">Yes Bank</option>
+                                        <option value="IndusInd Bank">IndusInd Bank</option>
+                                        <option value="Federal Bank">Federal Bank</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Netbanking Login Credentials Panel -->
+                            <div id="netbanking-login-form"
+                                style="display: none; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; margin-bottom: 20px; animation: fadeIn 0.3s ease-out;">
+                                <div
+                                    style="display: flex; align-items: center; gap: 8px; color: var(--primary); font-weight: bold; font-size: 0.85rem; margin-bottom: 12px;">
+                                    <i class="fa-solid fa-shield-halved"></i> Secure Bank Login Gateway
+                                </div>
+                                <div class="form-group" style="margin-bottom: 12px;">
+                                    <label
+                                        style="display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 4px;">Netbanking
+                                        User ID / Customer ID *</label>
+                                    <input type="text" id="netbanking-user" class="form-input"
+                                        style="width:100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px;"
+                                        placeholder="Enter Customer ID" required>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 4px;">
+                                    <label
+                                        style="display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 4px;">Login
+                                        Password / PIN *</label>
+                                    <input type="password" id="netbanking-pass" class="form-input"
+                                        style="width:100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px;"
+                                        placeholder="••••••••" required>
+                                </div>
+                            </div>
+
+                            <!-- Inline Netbanking OTP Verification Card (Preplaces prompt) -->
+                            <div id="netbanking-otp-container"
+                                style="display: none; background: var(--bg-surface); border: 1.5px solid var(--primary); border-radius: 12px; padding: 25px; margin-bottom: 20px; text-align: center; animation: fadeIn 0.3s ease-out;">
+                                <div style="color: var(--primary); font-size: 1.8rem; margin-bottom: 8px;"><i
+                                        class="fa-solid fa-shield-halved"></i></div>
+                                <h4
+                                    style="font-weight: 700; color: var(--text-primary); margin-bottom: 5px; font-size: 1.05rem;">
+                                    Enter Security OTP</h4>
+                                <p
+                                    style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 15px; line-height: 1.4;">
+                                    A 6-digit transaction authorization OTP has been sent to your registered mobile
+                                    number.</p>
+
+                                <div class="otp-input-container">
+                                    <input type="text" class="otp-digit-input" id="otp-1" maxlength="1"
+                                        oninput="moveOtpFocus(this, 'otp-2')" autofocus>
+                                    <input type="text" class="otp-digit-input" id="otp-2" maxlength="1"
+                                        oninput="moveOtpFocus(this, 'otp-3')">
+                                    <input type="text" class="otp-digit-input" id="otp-3" maxlength="1"
+                                        oninput="moveOtpFocus(this, 'otp-4')">
+                                    <input type="text" class="otp-digit-input" id="otp-4" maxlength="1"
+                                        oninput="moveOtpFocus(this, 'otp-5')">
+                                    <input type="text" class="otp-digit-input" id="otp-5" maxlength="1"
+                                        oninput="moveOtpFocus(this, 'otp-6')">
+                                    <input type="text" class="otp-digit-input" id="otp-6" maxlength="1"
+                                        oninput="moveOtpFocus(this, null)">
+                                </div>
+
+                                <div id="otp-timer-container"
+                                    style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 20px;">
+                                    Resend OTP in <span id="otp-countdown"
+                                        style="font-weight: bold; color: var(--primary);">30</span>s
+                                </div>
+
+                                <div style="display: flex; gap: 12px;">
+                                    <button type="button" class="btn btn-secondary btn-sm"
+                                        onclick="cancelNetbankingPayment()"
+                                        style="flex: 1; padding: 10px; border-radius: 8px; font-size: 0.85rem;">Cancel</button>
+                                    <button type="button" class="btn btn-primary btn-sm" onclick="verifyNetbankingOTP()"
+                                        style="flex: 1.8; padding: 10px; border-radius: 8px; font-size: 0.85rem; font-weight: bold;">Verify
+                                        & Pay</button>
+                                </div>
+                            </div>
+
+                            <button type="button" id="netbanking-submit-btn" onclick="submitNetbankingPayment()"
+                                class="btn btn-primary" style="width:100%; padding: 14px;" disabled>
+                                Proceed to Pay <span id="netbanking-pay-amount-lbl"></span>
+                            </button>
+                        </div>
+
+                        <!-- BANK TRANSFER TAB -->
+                        <div id="method-transfer-screen" style="display: none;">
+                            <!-- ICICI Corporate Metallic Account Card -->
+                            <div class="bank-details-card">
+                                <div class="bank-details-title">
+                                    <div class="bank-details-logo">
+                                        <i class="fa-solid fa-building-columns"></i> Corporate Account
+                                    </div>
+                                    <div class="bank-details-chip"></div>
+                                </div>
+
+                                <div style="display: flex; flex-direction: column; gap: 4px;">
+                                    <div class="bank-row">
+                                        <span class="bank-row-label">Bank Name</span>
+                                        <span class="bank-row-value" style="color: #e2a85e;">ICICI Bank</span>
+                                    </div>
+                                    <div class="bank-row">
+                                        <span class="bank-row-label">Account Holder</span>
+                                        <span class="bank-row-value">Trendy Fortune Overseas Pvt Ltd</span>
+                                    </div>
+                                    <div class="bank-row">
+                                        <span class="bank-row-label">Account Number</span>
+                                        <div class="bank-row-value">
+                                            <span
+                                                style="font-family: monospace; font-size: 0.95rem; letter-spacing: 0.5px;"
+                                                id="bank-ac-val">721805000848</span>
+                                            <button type="button" class="copy-btn"
+                                                onclick="copyToClipboard('721805000848', this)"><i
+                                                    class="fa-regular fa-copy"></i> Copy</button>
+                                        </div>
+                                    </div>
+                                    <div class="bank-row">
+                                        <span class="bank-row-label">IFSC Code</span>
+                                        <div class="bank-row-value">
+                                            <span
+                                                style="font-family: monospace; font-size: 0.95rem; letter-spacing: 0.5px;"
+                                                id="bank-ifsc-val">ICIC0007218</span>
+                                            <button type="button" class="copy-btn"
+                                                onclick="copyToClipboard('ICIC0007218', this)"><i
+                                                    class="fa-regular fa-copy"></i> Copy</button>
+                                        </div>
+                                    </div>
+                                    <div class="bank-row">
+                                        <span class="bank-row-label">Account Type</span>
+                                        <span class="bank-row-value">Current Account</span>
+                                    </div>
+                                    <div class="bank-row">
+                                        <span class="bank-row-label">Branch</span>
+                                        <span class="bank-row-value"
+                                            style="text-align: right; font-size: 0.78rem;">I-thum, Sector-62,
+                                            Noida</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div
+                                style="background: rgba(217, 119, 6, 0.05); border: 1px solid rgba(217, 119, 6, 0.15); border-radius: 12px; padding: 15px; margin-bottom: 20px;">
+                                <div
+                                    style="font-weight: bold; color: var(--accent); font-size: 0.82rem; margin-bottom: 5px; display: flex; align-items: center; gap: 6px;">
+                                    <i class="fa-solid fa-circle-info"></i> Direct Bank Transfer Steps:
+                                </div>
+                                <p
+                                    style="font-size: 0.76rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
+                                    1. Open your Net Banking Portal or Mobile App (IMPS/NEFT/RTGS).<br>
+                                    2. Transfer the fee to the official **ICICI Bank** account above.<br>
+                                    3. Note down the **Transaction Reference ID / UTR Number**.<br>
+                                    4. Enter the UTR reference below to verify and log.
+                                </p>
+                            </div>
+
+                            <!-- UTR Reference Verification Input -->
+                            <div class="form-group" style="margin-bottom: 20px;">
+                                <label for="transfer-ref-id"
+                                    style="display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 6px;">Transaction
+                                    Reference ID / UTR *</label>
+                                <div class="input-group">
+                                    <input type="text" id="transfer-ref-id" class="form-input"
+                                        style="width:100%; text-transform: uppercase;"
+                                        placeholder="12-digit UTR or Txn ID" required>
+                                    <i class="fa-solid fa-receipt"></i>
+                                </div>
+                            </div>
+
+                            <button type="button" id="transfer-submit-btn" onclick="submitTransferPayment()"
+                                class="btn btn-primary" style="width:100%; padding: 14px;">
+                                Confirm Bank Transfer <span id="transfer-pay-amount-lbl"></span>
+                            </button>
+                        </div>
+
+                        <!-- CARD PAYMENT TAB -->
+                        <div id="method-card-screen" style="display: none;">
+                            <!-- Interactive 3D Flipped Credit Card visual -->
+                            <div class="card-container">
+                                <div class="credit-card" id="credit-card-3d">
+                                    <!-- Front Face -->
+                                    <div class="card-face front">
+                                        <div
+                                            style="display: flex; justify-content: space-between; align-items: center;">
+                                            <div class="card-chip"></div>
+                                            <i class="fa-solid fa-credit-card card-brand-icon" id="vis-card-logo"></i>
+                                        </div>
+                                        <div class="card-number" id="vis-card-number">•••• •••• •••• ••••</div>
+                                        <div class="card-meta">
+                                            <div>
+                                                <div class="card-holder-label">Card Holder</div>
+                                                <div class="card-holder-name" id="vis-card-name">CARDHOLDER NAME</div>
+                                            </div>
+                                            <div style="text-align: right;">
+                                                <div class="card-holder-label">Expires</div>
+                                                <div class="card-expiry-val" id="vis-card-expiry">MM/YY</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Back Face -->
+                                    <div class="card-face back">
+                                        <div class="card-black-strip"></div>
+                                        <div>
+                                            <div class="card-holder-label" style="margin-left: 25px;">CVV / Security
+                                                Code</div>
+                                            <div class="card-signature-area" id="vis-card-cvv">•••</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card Inputs Form -->
+                            <form id="card-payment-form" onsubmit="submitCardPayment(event)">
+                                <div class="form-group" style="margin-bottom: 12px;">
+                                    <label
+                                        style="display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 4px;">Card
+                                        Number</label>
+                                    <input type="text" id="card-num-input" class="form-input"
+                                        style="width:100%; font-family: monospace; border:1px solid #cbd5e1; border-radius:8px; padding: 10px;"
+                                        maxlength="19" placeholder="4111 2222 3333 4444"
+                                        oninput="formatCardNumber(this)" required>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 12px;">
+                                    <label
+                                        style="display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 4px;">Cardholder
+                                        Name</label>
+                                    <input type="text" id="card-name-input" class="form-input"
+                                        style="width:100%; text-transform: uppercase; border:1px solid #cbd5e1; border-radius:8px; padding: 10px;"
+                                        placeholder="NAME ON CARD" oninput="updateCardName(this)" required>
+                                </div>
+                                <div
+                                    style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+                                    <div class="form-group">
+                                        <label
+                                            style="display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 4px;">Expiry
+                                            Date</label>
+                                        <input type="text" id="card-expiry-input" class="form-input"
+                                            style="width:100%; font-family: monospace; border:1px solid #cbd5e1; border-radius:8px; padding: 10px;"
+                                            maxlength="5" placeholder="MM/YY" oninput="formatCardExpiry(this)" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label
+                                            style="display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 4px;">CVV
+                                            Code</label>
+                                        <input type="text" id="card-cvv-input" class="form-input"
+                                            style="width:100%; font-family: monospace; border:1px solid #cbd5e1; border-radius:8px; padding: 10px;"
+                                            maxlength="3" placeholder="123" onfocus="flipCard(true)"
+                                            onblur="flipCard(false)" oninput="updateCardCVV(this)" required>
+                                    </div>
+                                </div>
+                                <button type="submit" id="card-submit-btn" class="btn btn-primary"
+                                    style="width:100%; padding: 14px;">
+                                    Pay Now <span id="card-pay-amount-lbl"></span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Payment Processing Loader (Mock visual) -->
+    <div class="payment-loader" id="payment-loader">
+        <div class="spinner-ring"></div>
+        <h3 style="font-family: var(--font-heading); font-weight: 700; color: var(--text-primary); margin-bottom: 6px;"
+            id="loader-title">Processing Payment</h3>
+        <p style="color: var(--text-secondary); font-size: 0.9rem;" id="loader-desc">Please do not close or refresh this
+            page...</p>
+    </div>
+
+    <!-- Success Toast Notification -->
+    <div class="toast-success" id="success-toast">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toast-message">Notification sent!</span>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <div class="logo-text">
+                        <span class="logo-main">Trendy Fortune</span>
+                    </div>
+                </a>
+                <p>Connecting skilled global workers with prestigious recruiters in Europe, Israel, UAE, and other
+                    global destinations. Focus on transparency, safety, and excellence.</p>
+            </div>
+            <div class="footer-links-col">
+                <h4>Quick Navigation</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Our Services</a></li>
+                    <li><a href="jobs.html">Explore Jobs</a></li>
+                    <li><a href="safety.html">Safety Board</a></li>
+                    <li><a href="eligibility.html">Visa Checker</a></li>
+                    <li><a href="pay.html">Pay Fees Online</a></li>
+                </ul>
+            </div>
+            <div class="footer-links-col">
+                <h4>Important Links</h4>
+                <ul class="footer-links">
+                    <li><a href="locations.html">Contact Coordinators</a></li>
+                    <li><a href="apply.html">Register Application</a></li>
+                    <li><a href="admin.html">Employer Portal</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container footer-bottom"
+            style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.05); text-align: center;">
+            <p>&copy; 2026 Trendy Fortune. All rights reserved. Office: C616, Tower C, Noida One, Noida, Uttar Pradesh -
+                201309.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <!-- AI Chatbot Widget -->
+    <div class="ai-chatbot-container" id="chatbot-container">
+        <!-- Chatbot Button -->
+        <button class="ai-chatbot-toggle" id="chatbot-toggle" aria-label="Toggle AI Assistant">
+            <i class="fa-solid fa-comments"></i>
+            <span class="chatbot-badge" id="chatbot-badge" style="display: none;">1</span>
+        </button>
+
+        <!-- Chatbot Window -->
+        <div class="ai-chatbot-window" id="chatbot-window">
+            <!-- Header -->
+            <div class="chatbot-header">
+                <div class="chatbot-info">
+                    <div class="chatbot-avatar"><i class="fa-solid fa-robot"></i></div>
+                    <div>
+                        <h4>Trendy AI Assistant</h4>
+                        <p><span class="online-indicator"></span> Auto-Reply Active</p>
+                    </div>
+                </div>
+                <div class="chatbot-actions">
+                    <button class="chatbot-btn" id="chatbot-admin-btn" title="Admin Leads Report"><i
+                            class="fa-solid fa-key"></i></button>
+                    <button class="chatbot-btn" id="chatbot-close-btn" title="Close"><i
+                            class="fa-solid fa-xmark"></i></button>
+                </div>
+            </div>
+
+            <!-- Chat Messages Body -->
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="chat-msg bot">
+                    Hello! Welcome to Trendy Fortune Global. I am your AI career assistant. How can I help you today?
+                </div>
+                <div class="chatbot-quick-replies" id="chatbot-quick-replies">
+                    <button class="qr-btn" onclick="sendQuickReply('Explore Job Openings')">Explore Jobs</button>
+                    <button class="qr-btn" onclick="sendQuickReply('Visa Fees Policy')">Visa Fees?</button>
+                    <button class="qr-btn" onclick="sendQuickReply('Check Candidate Safety')">Is it safe?</button>
+                    <button class="qr-btn" onclick="sendQuickReply('Noida Office Location')">Office Address</button>
+                </div>
+            </div>
+
+            <!-- Admin Report View (Hidden by default) -->
+            <div class="chatbot-admin-panel" id="chatbot-admin-panel" style="display: none;">
+                <div class="admin-panel-header">
+                    <h5><i class="fa-solid fa-chart-line"></i> Daily Leads & Activity</h5>
+                    <button class="admin-close-btn" id="admin-close-btn"><i class="fa-solid fa-arrow-left"></i>
+                        Back</button>
+                </div>
+                <div class="admin-stats">
+                    <div class="admin-stat-card">
+                        <span class="stat-num" id="admin-stat-chats">0</span>
+                        <span class="stat-label">Total Chats</span>
+                    </div>
+                    <div class="admin-stat-card">
+                        <span class="stat-num" id="admin-stat-leads">0</span>
+                        <span class="stat-label">Leads Captured</span>
+                    </div>
+                </div>
+                <div class="admin-leads-list" id="admin-leads-list">
+                    <!-- Leads table generated dynamically -->
+                </div>
+                <div class="admin-actions">
+                    <button class="btn btn-primary btn-sm" id="admin-download-report"
+                        style="width: 100%; border-radius: 8px;"><i class="fa-solid fa-download"></i> Download CSV
+                        Report</button>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <form class="chatbot-input-area" id="chatbot-input-form">
+                <input type="text" id="chatbot-input" placeholder="Type your query..." autocomplete="off" required>
+                <button type="submit" class="chatbot-send-btn" id="chatbot-send"><i
+                        class="fa-solid fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js?v=1.1"></script>
+    <script>
+        // Global variables for pay.html
+        let activePayMethod = 'netbanking'; // Default to Net Banking
+        let selectedBankName = '';
+        let currentPayDetails = {
+            name: '',
+            phone: '',
+            passport: '',
+            categoryName: '',
+            amount: 0
+        };
+
+        // Sync Candidate form inputs to left-side Payment Summary dynamically
+        function syncSummary() {
+            const nameVal = document.getElementById('pay-name').value;
+            const phoneVal = document.getElementById('pay-phone').value;
+            const passportVal = document.getElementById('pay-passport').value;
+            const categoryVal = document.getElementById('pay-category').value;
+            const amountVal = parseFloat(document.getElementById('pay-amount').value) || 0;
+
+            // Update Summary Card Texts
+            document.getElementById('summary-name').innerText = nameVal ? nameVal : 'Enter details...';
+            document.getElementById('summary-passport').innerText = passportVal ? passportVal : 'Enter details...';
+            document.getElementById('summary-category').innerText = categoryVal ? categoryVal : 'Enter details...';
+            document.getElementById('summary-amount').innerText = amountVal > 0 ? `₹${amountVal.toLocaleString('en-IN')}.00` : '₹0.00';
+
+            // Sync values to local store object
+            currentPayDetails = {
+                name: nameVal,
+                phone: phoneVal,
+                passport: passportVal,
+                categoryName: categoryVal,
+                amount: amountVal
+            };
+        }
+
+        // Stepper Navigation: Proceed to payment selection screen
+        function proceedToPayment(event) {
+            event.preventDefault();
+
+            if (!currentPayDetails.name || !currentPayDetails.phone || !currentPayDetails.passport || !currentPayDetails.categoryName) {
+                alert('Please fill out all candidate details correctly.');
+                return;
+            }
+
+            if (currentPayDetails.amount < 100) {
+                alert('Minimum payment amount is ₹100.');
+                return;
+            }
+
+            // Sync Stepper Nodes UI
+            document.getElementById('step-node-1').classList.remove('active');
+            document.getElementById('step-node-1').classList.add('completed');
+            document.getElementById('step-node-2').classList.add('active');
+
+            // Toggle panes
+            document.getElementById('step-details').classList.remove('active');
+            document.getElementById('step-payment').classList.add('active');
+
+            // Update tab display amount tags
+            const amountStr = `(₹${currentPayDetails.amount.toLocaleString('en-IN')})`;
+            document.getElementById('netbanking-pay-amount-lbl').innerText = amountStr;
+            document.getElementById('transfer-pay-amount-lbl').innerText = amountStr;
+            document.getElementById('card-pay-amount-lbl').innerText = amountStr;
+
+            // Scroll window to stepper header
+            window.scrollTo({
+                top: document.querySelector('.stepper').offsetTop - 120,
+                behavior: 'smooth'
+            });
+
+            showToast('Details locked! Select payment option.');
+        }
+
+        // Go back to Candidate Details screen from Payment options
+        function backToStep1() {
+            // Sync Stepper Nodes UI
+            document.getElementById('step-node-2').classList.remove('active');
+            document.getElementById('step-node-1').classList.remove('completed');
+            document.getElementById('step-node-1').classList.add('active');
+
+            // Toggle panes
+            document.getElementById('step-payment').classList.remove('active');
+            document.getElementById('step-details').classList.add('active');
+        }
+
+        // Switch active payment tab (Net Banking / Bank Transfer / Card)
+        function switchMethod(method) {
+            activePayMethod = method;
+            document.querySelectorAll('.pay-method-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById('method-netbanking-screen').style.display = 'none';
+            document.getElementById('method-transfer-screen').style.display = 'none';
+            document.getElementById('method-card-screen').style.display = 'none';
+
+            if (method === 'netbanking') {
+                document.getElementById('btn-method-netbanking').classList.add('active');
+                document.getElementById('method-netbanking-screen').style.display = 'block';
+            } else if (method === 'transfer') {
+                document.getElementById('btn-method-transfer').classList.add('active');
+                document.getElementById('method-transfer-screen').style.display = 'block';
+            } else if (method === 'card') {
+                document.getElementById('btn-method-card').classList.add('active');
+                document.getElementById('method-card-screen').style.display = 'block';
+            }
+        }
+
+        // Clipboard Copy Helper
+        function copyToClipboard(text, btn) {
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fa-solid fa-check" style="color: var(--success);"></i> Copied';
+                showToast('Copied to clipboard!');
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+
+        /* ── Net Banking Flow Controllers ── */
+
+        // Popular bank selector buttons
+        function selectBank(bankName, element) {
+            document.querySelectorAll('.bank-card').forEach(card => card.classList.remove('selected'));
+            document.getElementById('other-bank-select').value = '';
+
+            element.classList.add('selected');
+            selectedBankName = bankName;
+
+            document.getElementById('netbanking-login-form').style.display = 'block';
+            document.getElementById('netbanking-submit-btn').removeAttribute('disabled');
+        }
+
+        // Other bank dropdown selection
+        function selectOtherBank(dropdown) {
+            document.querySelectorAll('.bank-card').forEach(card => card.classList.remove('selected'));
+
+            selectedBankName = dropdown.value;
+            document.getElementById('netbanking-login-form').style.display = 'block';
+
+            if (selectedBankName) {
+                document.getElementById('netbanking-submit-btn').removeAttribute('disabled');
+            }
+        }
+
+        // Real Razorpay link tracker
+        function trackRealPaymentClick(event) {
+            showToast('Secure Razorpay Portal opened in a new tab.');
+            document.getElementById('razorpay-verification-box').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('razorpay-verification-box').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 300);
+        }
+
+        // Validate Razorpay input length
+        function validateRazorpayInput() {
+            const val = document.getElementById('razorpay-payment-id').value.trim();
+            const btn = document.getElementById('razorpay-confirm-btn');
+            if (val.length >= 6) {
+                btn.removeAttribute('disabled');
+            } else {
+                btn.setAttribute('disabled', 'true');
+            }
+        }
+
+        // Submit Razorpay payment reference verification
+        function submitRazorpayPayment() {
+            const payId = document.getElementById('razorpay-payment-id').value.trim();
+
+            if (!payId) {
+                alert('Please enter your Razorpay Payment ID or Transaction Reference ID.');
+                return;
+            }
+
+            const loader = document.getElementById('payment-loader');
+            const loaderTitle = document.getElementById('loader-title');
+            const loaderDesc = document.getElementById('loader-desc');
+
+            loaderTitle.innerText = "Verifying with Razorpay";
+            loaderDesc.innerText = "Checking payment transaction status on secure servers...";
+            loader.style.display = 'flex';
+
+            const timestamp = new Date().toLocaleString();
+
+            // Save to Google Sheet
+            saveToGoogleSheet({
+                timestamp,
+                type: "Razorpay Online Payment",
+                name: currentPayDetails.name,
+                phone: currentPayDetails.phone,
+                email: "N/A",
+                position: currentPayDetails.categoryName,
+                country: currentPayDetails.passport,
+                experience: "Razorpay ID: " + payId,
+                education: "Amount: ₹" + currentPayDetails.amount,
+                city: "Payment Confirmed",
+                notes: "TxnID: " + payId
+            });
+
+            // Send WhatsApp alert to owner
+            const waMsg = `💰 *NEW RAZORPAY PAYMENT*\n` +
+                `━━━━━━━━━━━━━━━━━━\n` +
+                `👤 Candidate: ${currentPayDetails.name}\n` +
+                `📞 Phone: ${currentPayDetails.phone}\n` +
+                `🛂 Passport: ${currentPayDetails.passport}\n` +
+                `📂 Category: ${currentPayDetails.categoryName}\n` +
+                `💳 Amount: ₹${currentPayDetails.amount.toLocaleString('en-IN')}\n` +
+                `🏦 Gateway: Razorpay Checkout\n` +
+                `🔢 Razorpay ID: ${payId}\n` +
+                `⏰ Time: ${timestamp}\n\n` +
+                `*Please verify transaction status in Razorpay Dashboard.*`;
+
+            sendWhatsAppDirect(waMsg);
+
+            // Open visitor's WhatsApp to send transaction details
+            const visitorWaUrl = `https://wa.me/918700917348?text=${encodeURIComponent(waMsg)}`;
+
+            setTimeout(() => {
+                loader.style.display = 'none';
+
+                // Show ticket receipt
+                document.getElementById('payment-main-grid').style.display = 'none';
+
+                document.getElementById('rec-name').innerText = currentPayDetails.name;
+                document.getElementById('rec-passport').innerText = currentPayDetails.passport;
+                document.getElementById('rec-category').innerText = currentPayDetails.categoryName;
+                document.getElementById('rec-mode').innerText = "Razorpay Online Gateway";
+                document.getElementById('rec-utr').innerText = payId;
+                document.getElementById('rec-amount').innerText = `₹${currentPayDetails.amount.toLocaleString('en-IN')}.00`;
+                document.getElementById('barcode-val').innerText = payId;
+
+                document.getElementById('receipt-card').style.display = 'block';
+                document.getElementById('receipt-wa-btn').onclick = () => window.open(visitorWaUrl, '_blank');
+
+                window.open(visitorWaUrl, '_blank');
+            }, 2500);
+        }
+
+        // Netbanking Submit: Starts login verification & shows OTP screen
+        function submitNetbankingPayment() {
+            const user = document.getElementById('netbanking-user').value.trim();
+            const pass = document.getElementById('netbanking-pass').value.trim();
+
+            if (!user || !pass) {
+                alert('Please enter your Net Banking Customer User ID and Password.');
+                return;
+            }
+
+            const loader = document.getElementById('payment-loader');
+            const loaderTitle = document.getElementById('loader-title');
+            const loaderDesc = document.getElementById('loader-desc');
+
+            loaderTitle.innerText = "Securing Connection";
+            loaderDesc.innerText = `Connecting to ${selectedBankName} netbanking servers...`;
+            loader.style.display = 'flex';
+
+            setTimeout(() => {
+                loaderTitle.innerText = "Authenticating Credentials";
+                loaderDesc.innerText = "Verifying Customer ID and Secure Password...";
+
+                setTimeout(() => {
+                    // Hide credentials inputs, selector and show OTP UI instead
+                    loader.style.display = 'none';
+                    document.getElementById('netbanking-bank-selector').style.display = 'none';
+                    document.getElementById('netbanking-login-form').style.display = 'none';
+                    document.getElementById('netbanking-submit-btn').style.display = 'none';
+
+                    document.getElementById('netbanking-otp-container').style.display = 'block';
+                    document.getElementById('otp-1').focus();
+                    startOtpTimer();
+                }, 1800);
+            }, 1500);
+        }
+
+        // OTP inputs autofocus auto-jumping logic
+        function moveOtpFocus(currentInput, nextInputId) {
+            currentInput.value = currentInput.value.replace(/[^0-9]/g, '');
+            if (currentInput.value.length === 1 && nextInputId) {
+                document.getElementById(nextInputId).focus();
+            }
+        }
+
+        // OTP backspace focus reverse jump
+        document.querySelectorAll('.otp-digit-input').forEach((input, index, inputs) => {
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !input.value && index > 0) {
+                    inputs[index - 1].focus();
+                }
+            });
+        });
+
+        // OTP resend timer countdown
+        let otpTimer;
+        function startOtpTimer() {
+            let timeLeft = 30;
+            const countdownEl = document.getElementById('otp-countdown');
+            if (countdownEl) countdownEl.innerText = timeLeft;
+
+            clearInterval(otpTimer);
+            otpTimer = setInterval(() => {
+                timeLeft--;
+                if (countdownEl) countdownEl.innerText = timeLeft;
+
+                if (timeLeft <= 0) {
+                    clearInterval(otpTimer);
+                    const resendText = document.getElementById('otp-timer-container');
+                    if (resendText) {
+                        resendText.innerHTML = '<a href="javascript:void(0)" onclick="resendOTP()" style="color: var(--primary); font-weight: bold; text-decoration: none;"><i class="fa-solid fa-rotate-right"></i> Resend OTP</a>';
+                    }
+                }
+            }, 1000);
+        }
+
+        function resendOTP() {
+            showToast('A new 6-digit verification code has been dispatched.');
+            const resendText = document.getElementById('otp-timer-container');
+            if (resendText) {
+                resendText.innerHTML = 'Resend OTP in <span id="otp-countdown" style="font-weight: bold; color: var(--primary);">30</span>s';
+            }
+            // Clear inputs
+            document.querySelectorAll('.otp-digit-input').forEach(input => input.value = '');
+            document.getElementById('otp-1').focus();
+            startOtpTimer();
+        }
+
+        // Cancel Netbanking transaction
+        function cancelNetbankingPayment() {
+            clearInterval(otpTimer);
+            document.getElementById('netbanking-otp-container').style.display = 'none';
+            document.getElementById('netbanking-bank-selector').style.display = 'block';
+            document.getElementById('netbanking-login-form').style.display = 'block';
+            document.getElementById('netbanking-submit-btn').style.display = 'block';
+            document.getElementById('netbanking-user').value = '';
+            document.getElementById('netbanking-pass').value = '';
+            showToast('Payment verification aborted.');
+        }
+
+        // Verify Netbanking OTP and finalize
+        function verifyNetbankingOTP() {
+            let otp = '';
+            document.querySelectorAll('.otp-digit-input').forEach(input => {
+                otp += input.value;
+            });
+
+            if (otp.length < 6) {
+                alert('Please enter the complete 6-digit security OTP.');
+                return;
+            }
+
+            const loader = document.getElementById('payment-loader');
+            const loaderTitle = document.getElementById('loader-title');
+            const loaderDesc = document.getElementById('loader-desc');
+
+            loaderTitle.innerText = "Authorizing Funds Transfer";
+            loaderDesc.innerText = `Settling payment transaction with Trendy Fortune Overseas Pvt Ltd...`;
+            loader.style.display = 'flex';
+
+            const mockTxnId = "NET" + Math.floor(100000000000 + Math.random() * 900000000000);
+            const timestamp = new Date().toLocaleString();
+
+            // Save to Google Sheet
+            saveToGoogleSheet({
+                timestamp,
+                type: "Netbanking Payment Gateway",
+                name: currentPayDetails.name,
+                phone: currentPayDetails.phone,
+                email: "N/A",
+                position: currentPayDetails.categoryName,
+                country: currentPayDetails.passport,
+                experience: `Bank: ${selectedBankName}`,
+                education: "Amount: ₹" + currentPayDetails.amount,
+                city: "Payment Confirmed",
+                notes: "TxnID: " + mockTxnId
+            });
+
+            // Send WhatsApp alert to owner
+            const waMsg = `💰 *NEW NETBANKING PAYMENT*\n` +
+                `━━━━━━━━━━━━━━━━━━\n` +
+                `👤 Candidate: ${currentPayDetails.name}\n` +
+                `📞 Phone: ${currentPayDetails.phone}\n` +
+                `🛂 Passport: ${currentPayDetails.passport}\n` +
+                `📂 Category: ${currentPayDetails.categoryName}\n` +
+                `🏦 Method: Netbanking Gateway (${selectedBankName})\n` +
+                `💳 Amount: ₹${currentPayDetails.amount.toLocaleString('en-IN')}\n` +
+                `🏦 Destination: ICICI Bank (A/c: ...0848)\n` +
+                `🔢 Reference ID: ${mockTxnId}\n` +
+                `⏰ Time: ${timestamp}\n\n` +
+                `*Direct bank transfer settled.*`;
+
+            sendWhatsAppDirect(waMsg);
+
+            // Open visitor's WhatsApp to send details
+            const visitorWaUrl = `https://wa.me/918700917348?text=${encodeURIComponent(waMsg)}`;
+
+            setTimeout(() => {
+                loader.style.display = 'none';
+
+                // Show receipt ticket and hide main panel
+                document.getElementById('payment-main-grid').style.display = 'none';
+
+                document.getElementById('rec-name').innerText = currentPayDetails.name;
+                document.getElementById('rec-passport').innerText = currentPayDetails.passport;
+                document.getElementById('rec-category').innerText = currentPayDetails.categoryName;
+                document.getElementById('rec-mode').innerText = `Net Banking (${selectedBankName})`;
+                document.getElementById('rec-utr').innerText = mockTxnId;
+                document.getElementById('rec-amount').innerText = `₹${currentPayDetails.amount.toLocaleString('en-IN')}.00`;
+                document.getElementById('barcode-val').innerText = mockTxnId;
+
+                document.getElementById('receipt-card').style.display = 'block';
+                document.getElementById('receipt-wa-btn').onclick = () => window.open(visitorWaUrl, '_blank');
+
+                window.open(visitorWaUrl, '_blank');
+            }, 2500);
+        }
+
+        /* ── Bank Transfer Manual Verification ── */
+        function submitTransferPayment() {
+            const refId = document.getElementById('transfer-ref-id').value.trim();
+
+            if (!refId) {
+                alert('Please enter the Transaction Reference ID or UTR Number.');
+                return;
+            }
+
+            const loader = document.getElementById('payment-loader');
+            const loaderTitle = document.getElementById('loader-title');
+            const loaderDesc = document.getElementById('loader-desc');
+
+            loaderTitle.innerText = "Submitting Transfer Details";
+            loaderDesc.innerText = "Logging transaction UTR reference in database. Please wait...";
+            loader.style.display = 'flex';
+
+            const timestamp = new Date().toLocaleString();
+
+            // Save to Google Sheet
+            saveToGoogleSheet({
+                timestamp,
+                type: "Direct Bank Transfer (ICICI)",
+                name: currentPayDetails.name,
+                phone: currentPayDetails.phone,
+                email: "N/A",
+                position: currentPayDetails.categoryName,
+                country: currentPayDetails.passport,
+                experience: "UTR: " + refId,
+                education: "Amount: ₹" + currentPayDetails.amount,
+                city: "Pending Verification",
+                notes: "Bank: ICICI Bank (721805000848)"
+            });
+
+            // Send WhatsApp alert to owner
+            const waMsg = `💰 *NEW BANK TRANSFER SUBMISSION*\n` +
+                `━━━━━━━━━━━━━━━━━━\n` +
+                `👤 Candidate: ${currentPayDetails.name}\n` +
+                `📞 Phone: ${currentPayDetails.phone}\n` +
+                `🛂 Passport: ${currentPayDetails.passport}\n` +
+                `📂 Category: ${currentPayDetails.categoryName}\n` +
+                `💳 Amount: ₹${currentPayDetails.amount.toLocaleString('en-IN')}\n` +
+                `🏦 Destination: ICICI Bank (A/c: ...0848)\n` +
+                `🔢 UTR / Ref ID: ${refId}\n` +
+                `⏰ Time: ${timestamp}\n\n` +
+                `*Please verify in bank account statement.*`;
+
+            sendWhatsAppDirect(waMsg);
+
+            // Open visitor's WhatsApp to send transaction details and request screenshot
+            const visitorWaUrl = `https://wa.me/918700917348?text=${encodeURIComponent(waMsg)}`;
+
+            setTimeout(() => {
+                loader.style.display = 'none';
+
+                // Show ticket receipt
+                document.getElementById('payment-main-grid').style.display = 'none';
+
+                document.getElementById('rec-name').innerText = currentPayDetails.name;
+                document.getElementById('rec-passport').innerText = currentPayDetails.passport;
+                document.getElementById('rec-category').innerText = currentPayDetails.categoryName;
+                document.getElementById('rec-mode').innerText = "Direct Bank Transfer (ICICI)";
+                document.getElementById('rec-utr').innerText = refId;
+                document.getElementById('rec-amount').innerText = `₹${currentPayDetails.amount.toLocaleString('en-IN')}.00`;
+                document.getElementById('barcode-val').innerText = refId;
+
+                document.getElementById('receipt-card').style.display = 'block';
+                document.getElementById('receipt-wa-btn').onclick = () => window.open(visitorWaUrl, '_blank');
+
+                window.open(visitorWaUrl, '_blank');
+            }, 2500);
+        }
+
+        /* ── Card Payment Visual & Simulated Submit ── */
+
+        // Flip Credit Card on CVV focus
+        function flipCard(flip) {
+            const card = document.getElementById('credit-card-3d');
+            if (flip) {
+                card.classList.add('flipped');
+            } else {
+                card.classList.remove('flipped');
+            }
+        }
+
+        // Live card formatters
+        function formatCardNumber(input) {
+            // Numbers only
+            let val = input.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+            let formatted = '';
+            for (let i = 0; i < val.length; i++) {
+                if (i > 0 && i % 4 === 0) formatted += ' ';
+                formatted += val[i];
+            }
+            input.value = formatted;
+            document.getElementById('vis-card-number').innerText = formatted || '•••• •••• •••• ••••';
+
+            // Auto Card Brand Detector
+            let iconClass = 'fa-solid fa-credit-card';
+            if (val.startsWith('4')) {
+                iconClass = 'fa-brands fa-cc-visa';
+            } else if (/^5[1-5]/.test(val) || /^2[2-7]/.test(val)) {
+                iconClass = 'fa-brands fa-cc-mastercard';
+            } else if (/^3[47]/.test(val)) {
+                iconClass = 'fa-brands fa-cc-amex';
+            } else if (/^6/.test(val)) {
+                iconClass = 'fa-brands fa-cc-discover'; // or show standard
+            }
+            document.getElementById('vis-card-logo').className = iconClass + ' card-brand-icon';
+        }
+
+        function updateCardName(input) {
+            const name = input.value.toUpperCase();
+            document.getElementById('vis-card-name').innerText = name || 'CARDHOLDER NAME';
+        }
+
+        function formatCardExpiry(input) {
+            let val = input.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+            if (val.length > 2) {
+                input.value = val.substring(0, 2) + '/' + val.substring(2, 4);
+            } else {
+                input.value = val;
+            }
+            document.getElementById('vis-card-expiry').innerText = input.value || 'MM/YY';
+        }
+
+        function updateCardCVV(input) {
+            const cvv = input.value.replace(/[^0-9]/gi, '');
+            input.value = cvv;
+            document.getElementById('vis-card-cvv').innerText = cvv ? cvv.padEnd(cvv.length, '•') : '•••';
+        }
+
+        // Submit Card Form
+        function submitCardPayment(event) {
+            event.preventDefault();
+            const loader = document.getElementById('payment-loader');
+            const loaderTitle = document.getElementById('loader-title');
+            const loaderDesc = document.getElementById('loader-desc');
+
+            loaderTitle.innerText = "Securing Handshake";
+            loaderDesc.innerText = "Establishing merchant gateway endpoint link...";
+            loader.style.display = 'flex';
+
+            const cardNum = document.getElementById('card-num-input').value;
+            const last4 = cardNum.replace(/\s+/g, '').slice(-4);
+            const mockTxnId = "TXN" + Math.floor(100000000000 + Math.random() * 900000000000);
+            const timestamp = new Date().toLocaleString();
+
+            setTimeout(() => {
+                loaderTitle.innerText = "3D-Secure Redirect";
+                loaderDesc.innerText = "Requesting secure transaction OTP validation form...";
+
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    // Show a secure inline prompt to simulate bank 3D secure check
+                    const bankOtp = prompt("Enter 3D-Secure transaction OTP code sent to your bank registered mobile number:", "123456");
+
+                    if (bankOtp) {
+                        loader.style.display = 'flex';
+                        loaderTitle.innerText = "Settling Funds";
+                        loaderDesc.innerText = "Capturing pre-authorized payment reference...";
+
+                        // Save details to Sheets
+                        saveToGoogleSheet({
+                            timestamp,
+                            type: "Card Online Payment",
+                            name: currentPayDetails.name,
+                            phone: currentPayDetails.phone,
+                            email: "N/A",
+                            position: currentPayDetails.categoryName,
+                            country: currentPayDetails.passport,
+                            experience: `Card (last 4): **** ${last4}`,
+                            education: "Amount: ₹" + currentPayDetails.amount,
+                            city: "Payment Confirmed",
+                            notes: "TxnID: " + mockTxnId
+                        });
+
+                        // Send WhatsApp alert to owner
+                        const waMsg = `💰 *NEW FEE PAYMENT (CARD)*\n` +
+                            `━━━━━━━━━━━━━━━━━━\n` +
+                            `👤 Candidate: ${currentPayDetails.name}\n` +
+                            `📞 Phone: ${currentPayDetails.phone}\n` +
+                            `🛂 Passport: ${currentPayDetails.passport}\n` +
+                            `📂 Category: ${currentPayDetails.categoryName}\n` +
+                            `💳 Amount: ₹${currentPayDetails.amount.toLocaleString('en-IN')}\n` +
+                            `🔢 Transaction ID: ${mockTxnId}\n` +
+                            `💳 Card End: **** ${last4}\n` +
+                            `⏰ Time: ${timestamp}`;
+
+                        sendWhatsAppDirect(waMsg);
+
+                        // Open visitor's WhatsApp
+                        const visitorWaUrl = `https://wa.me/918700917348?text=${encodeURIComponent(waMsg)}`;
+
+                        setTimeout(() => {
+                            loader.style.display = 'none';
+
+                            // Show ticket receipt
+                            document.getElementById('payment-main-grid').style.display = 'none';
+
+                            document.getElementById('rec-name').innerText = currentPayDetails.name;
+                            document.getElementById('rec-passport').innerText = currentPayDetails.passport;
+                            document.getElementById('rec-category').innerText = currentPayDetails.categoryName;
+                            document.getElementById('rec-mode').innerText = "Credit/Debit Card (Online)";
+                            document.getElementById('rec-utr').innerText = mockTxnId;
+                            document.getElementById('rec-amount').innerText = `₹${currentPayDetails.amount.toLocaleString('en-IN')}.00`;
+                            document.getElementById('barcode-val').innerText = mockTxnId;
+
+                            document.getElementById('receipt-card').style.display = 'block';
+                            document.getElementById('receipt-wa-btn').onclick = () => window.open(visitorWaUrl, '_blank');
+
+                            window.open(visitorWaUrl, '_blank');
+                        }, 2500);
+                    } else {
+                        showToast('Card transaction verification cancelled.');
+                    }
+                }, 1500);
+            }, 1800);
+        }
+    </script>
+</body>
+
+</html>

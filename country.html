@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Details | Trendy Fortune Global Pvt. Ltd.</title>
+    <meta name="description" content="Explore verified job openings, visa process, and document requirements for overseas employment with Trendy Fortune Global Pvt. Ltd.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css?v=1.1">
+    <style>
+        /* Country Page Specific Styles */
+        .country-hero {
+            padding: 140px 0 60px 0;
+            text-align: center;
+            position: relative;
+        }
+        .country-flag {
+            font-size: 4rem;
+            margin-bottom: 16px;
+            display: block;
+            filter: drop-shadow(0 4px 15px rgba(0,0,0,0.4));
+        }
+        .country-name {
+            font-family: var(--font-heading);
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--text-primary) 30%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .country-overview {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 30px auto;
+        }
+        .country-stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+        .country-stat {
+            text-align: center;
+        }
+        .country-stat h4 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--secondary);
+            line-height: 1;
+        }
+        .country-stat p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+        }
+
+        /* Process Timeline */
+        .process-timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+        .process-timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 30px;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--secondary), var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+        .process-step {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 36px;
+            position: relative;
+            align-items: flex-start;
+        }
+        .step-number {
+            width: 60px;
+            height: 60px;
+            min-width: 60px;
+            border-radius: 50%;
+            background: var(--bg-glass);
+            border: 2px solid var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: var(--secondary);
+            z-index: 2;
+            box-shadow: 0 0 15px var(--secondary-glow);
+        }
+        .timeline-step-content {
+            flex: 1;
+            padding: 20px 28px;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--border-radius-lg);
+            transition: var(--transition-smooth);
+        }
+        .timeline-step-content:hover {
+            border-color: var(--border-glass-hover);
+            transform: translateX(6px);
+        }
+        .timeline-step-content h4 {
+            font-family: var(--font-heading);
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+        }
+        .timeline-step-content p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        /* Documents Grid */
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .doc-card {
+            padding: 24px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+        .doc-icon {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            border-radius: 12px;
+            background: rgba(0, 242, 254, 0.08);
+            border: 1px solid rgba(0, 242, 254, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+            font-size: 1.2rem;
+        }
+        .doc-info h4 {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .doc-info p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+        .doc-card:hover .doc-icon {
+            background: var(--secondary);
+            color: #0d0b14;
+            transform: scale(1.08);
+            transition: var(--transition-smooth);
+        }
+
+        /* Back link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            transition: var(--transition-smooth);
+        }
+        .back-link:hover {
+            color: var(--secondary);
+        }
+
+        /* CTA */
+        .country-cta {
+            text-align: center;
+            padding: 60px 40px;
+            border-radius: var(--border-radius-xl);
+            background: linear-gradient(135deg, rgba(79,172,254,0.08) 0%, rgba(0,242,254,0.05) 100%);
+            border: 1px solid rgba(0, 242, 254, 0.12);
+        }
+        .country-cta h3 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        .country-cta p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 28px auto;
+        }
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow-3"></div>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo" id="nav-logo">
+                
+                <div class="logo-text">
+                    <span class="logo-main">Trendy Fortune</span>
+                </div>
+            </a>
+            
+            <button class="mobile-nav-toggle" id="mobile-toggle" aria-label="Toggle Navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="jobs.html" class="nav-link">Explore Jobs</a></li>
+                <li><a href="safety.html" class="nav-link">Candidate Safety</a></li>
+                <li><a href="eligibility.html" class="nav-link">Check Eligibility</a></li>
+                <li><a href="locations.html" class="nav-link">Our Offices</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="pay.html" class="nav-link">Pay Online</a></li>
+                <li><a href="apply.html" class="btn btn-primary btn-sm" style="padding: 8px 20px; font-size: 0.85rem; color: #fff;">Apply Now</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Country Hero -->
+    <section class="country-hero" id="country-hero">
+        <div class="container">
+            <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Globe</a>
+            <span class="country-flag" id="country-flag"></span>
+            <h1 class="country-name" id="country-name-heading">Loading...</h1>
+            <p class="country-overview" id="country-overview"></p>
+            <div class="country-stats-bar" id="country-stats"></div>
+        </div>
+    </section>
+
+    <!-- Section 1: Job Openings -->
+    <section class="section" style="padding-top: 10px;">
+        <div class="container">
+            <h2 class="section-title"><i class="fa-solid fa-briefcase" style="margin-right: 10px; font-size: 1.8rem;"></i> Current Job Openings</h2>
+            <p class="section-subtitle" id="jobs-subtitle">Verified positions available right now</p>
+            <div class="jobs-grid" id="country-jobs-grid">
+                <!-- Rendered dynamically -->
+            </div>
+            <div style="text-align: center; margin-top: 36px;">
+                <a href="jobs.html" class="btn btn-secondary">View All Jobs <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Recruitment Process -->
+    <section class="section" style="background: rgba(7, 12, 29, 0.3);">
+        <div class="container">
+            <h2 class="section-title"><i class="fa-solid fa-route" style="margin-right: 10px; font-size: 1.8rem;"></i> Recruitment Process</h2>
+            <p class="section-subtitle">Step-by-step process from registration to travel</p>
+            <div class="process-timeline" id="process-timeline">
+                <!-- Rendered dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Required Documents -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title"><i class="fa-solid fa-file-lines" style="margin-right: 10px; font-size: 1.8rem;"></i> Required Documents</h2>
+            <p class="section-subtitle">Prepare these before your application</p>
+            <div class="docs-grid" id="docs-grid">
+                <!-- Rendered dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="country-cta">
+                <h3 id="cta-title">Ready to Apply?</h3>
+                <p>Submit your application today. Zero advance fees. Our recruiters will guide you through every step of the process.</p>
+                <div class="cta-buttons">
+                    <a href="jobs.html" class="btn btn-primary">Browse All Jobs <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="eligibility.html" class="btn btn-secondary">Check Eligibility</a>
+                    <a href="contact.html" class="btn btn-accent">Contact Us <i class="fa-solid fa-phone"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    
+                    <div class="logo-text">
+                    <span class="logo-main">Trendy Fortune</span>
+                    </div>
+                </a>
+                <p>Connecting skilled global workers with prestigious recruiters in Europe, Israel, UAE, and other global destinations. Focus on transparency, safety, and excellence.</p>
+            </div>
+            <div class="footer-links-col">
+                <h4>Quick Navigation</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Our Services</a></li>
+                    <li><a href="jobs.html">Explore Jobs</a></li>
+                    <li><a href="eligibility.html">Visa Eligibility</a></li>
+                    <li><a href="pay.html">Pay Fees Online</a></li>
+                </ul>
+            </div>
+            <div class="footer-links-col">
+                <h4>Legal & Info</h4>
+                <ul class="footer-links">
+                    <li><a href="safety.html">Candidate Advisory</a></li>
+                    <li><a href="locations.html">Office Addresses</a></li>
+                    <li><a href="contact.html">Contact Support</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Trendy Fortune Global Pvt. Ltd. All rights reserved. Office: C616, Tower C, Noida One, Noida, Uttar Pradesh - 201309.</p>
+            <div class="social-links">
+                <a href="#" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#" class="social-btn" aria-label="Youtube"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Apply Modal -->
+    <div class="modal" id="apply-modal">
+        <div class="modal-backdrop" onclick="closeApplyModal()"></div>
+        <div class="modal-content glass-panel">
+            <button class="modal-close" onclick="closeApplyModal()"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="modal-title">Apply for <span id="modal-job-title" style="color: var(--secondary);">Position</span></h3>
+            <p class="modal-subtitle">Fill in the fields below. No advance charges apply.</p>
+            <form id="apply-form" onsubmit="submitApplyForm(event)">
+                <input type="hidden" id="modal-job-id">
+                <div class="form-group">
+                    <label for="apply-name" class="form-label">Full Name</label>
+                    <input type="text" id="apply-name" class="form-input" placeholder="e.g., Sunil Sen" required>
+                </div>
+                <div class="form-group">
+                    <label for="apply-phone" class="form-label">Mobile Number (WhatsApp Preferred)</label>
+                    <input type="tel" id="apply-phone" class="form-input" placeholder="e.g., +91 9988776655" required>
+                </div>
+                <div class="form-group">
+                    <label for="apply-experience" class="form-label">Experience (years)</label>
+                    <input type="number" id="apply-experience" class="form-input" placeholder="e.g., 3" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="apply-notes" class="form-label">Additional notes</label>
+                    <textarea id="apply-notes" class="form-input" placeholder="Optional notes..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-accent" style="width: 100%;">Submit Application <i class="fa-solid fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="success-toast">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toast-message">Application submitted successfully!</span>
+    </div>
+
+    <!-- AI Chatbot Widget -->
+    <div class="ai-chatbot-container" id="chatbot-container">
+        <!-- Chatbot Button -->
+        <button class="ai-chatbot-toggle" id="chatbot-toggle" aria-label="Toggle AI Assistant">
+            <i class="fa-solid fa-comments"></i>
+            <span class="chatbot-badge" id="chatbot-badge" style="display: none;">1</span>
+        </button>
+        
+        <!-- Chatbot Window -->
+        <div class="ai-chatbot-window" id="chatbot-window">
+            <!-- Header -->
+            <div class="chatbot-header">
+                <div class="chatbot-info">
+                    <div class="chatbot-avatar"><i class="fa-solid fa-robot"></i></div>
+                    <div>
+                        <h4>Trendy AI Assistant</h4>
+                        <p><span class="online-indicator"></span> Auto-Reply Active</p>
+                    </div>
+                </div>
+                <div class="chatbot-actions">
+                    <button class="chatbot-btn" id="chatbot-admin-btn" title="Admin Leads Report"><i class="fa-solid fa-key"></i></button>
+                    <button class="chatbot-btn" id="chatbot-close-btn" title="Close"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            </div>
+            
+            <!-- Chat Messages Body -->
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="chat-msg bot">
+                    Hello! Welcome to Trendy Fortune Global. I am your AI career assistant. How can I help you today?
+                </div>
+                <div class="chatbot-quick-replies" id="chatbot-quick-replies">
+                    <button class="qr-btn" onclick="sendQuickReply('Explore Job Openings')">Explore Jobs</button>
+                    <button class="qr-btn" onclick="sendQuickReply('Visa Fees Policy')">Visa Fees?</button>
+                    <button class="qr-btn" onclick="sendQuickReply('Check Candidate Safety')">Is it safe?</button>
+                    <button class="qr-btn" onclick="sendQuickReply('Noida Office Location')">Office Address</button>
+                </div>
+            </div>
+            
+            <!-- Admin Report View (Hidden by default) -->
+            <div class="chatbot-admin-panel" id="chatbot-admin-panel" style="display: none;">
+                <div class="admin-panel-header">
+                    <h5><i class="fa-solid fa-chart-line"></i> Daily Leads & Activity</h5>
+                    <button class="admin-close-btn" id="admin-close-btn"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                </div>
+                <div class="admin-stats">
+                    <div class="admin-stat-card">
+                        <span class="stat-num" id="admin-stat-chats">0</span>
+                        <span class="stat-label">Total Chats</span>
+                    </div>
+                    <div class="admin-stat-card">
+                        <span class="stat-num" id="admin-stat-leads">0</span>
+                        <span class="stat-label">Leads Captured</span>
+                    </div>
+                </div>
+                <div class="admin-leads-list" id="admin-leads-list">
+                    <!-- Leads table generated dynamically -->
+                </div>
+                <div class="admin-actions">
+                    <button class="btn btn-primary btn-sm" id="admin-download-report" style="width: 100%; border-radius: 8px;"><i class="fa-solid fa-download"></i> Download CSV Report</button>
+                </div>
+            </div>
+            
+            <!-- Input Area -->
+            <form class="chatbot-input-area" id="chatbot-input-form">
+                <input type="text" id="chatbot-input" placeholder="Type your query..." autocomplete="off" required>
+                <button type="submit" class="chatbot-send-btn" id="chatbot-send"><i class="fa-solid fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js?v=1.1"></script>
+    <script>
+    (function() {
+        // Country database with process & documents
+        var countryDB = {
+            'UAE': {
+                flag: '🇦🇪', fullName: 'United Arab Emirates',
+                overview: 'The UAE is one of the largest employers of overseas workers. Dubai, Abu Dhabi, and Sharjah offer high-paying construction, hospitality, and logistics roles with tax-free salaries and employer-provided accommodation.',
+                stats: [{ label: 'Avg. Salary', value: '$1,200+' }, { label: 'Openings', value: '40+' }, { label: 'Visa Time', value: '30-45 Days' }],
+                process: [
+                    { title: 'Register & Profile Creation', desc: 'Submit your CV and documents at Trendy Fortune Global office. Our counselors create your international profile.' },
+                    { title: 'Document Verification', desc: 'All documents are verified, attested, and prepared for employer submission.' },
+                    { title: 'Employer Interview', desc: 'Video or in-person interview with the UAE-based employer/company representative.' },
+                    { title: 'Offer Letter & Contract', desc: 'Receive official offer letter and employment contract. Review terms, salary, and benefits.' },
+                    { title: 'Medical Examination', desc: 'Complete the mandatory GAMCA medical fitness test at an approved medical center.' },
+                    { title: 'Visa Stamping', desc: 'Work visa/employment visa stamped on your passport after employer applies for your work permit.' },
+                    { title: 'Pre-Departure Orientation', desc: 'Briefing on UAE labour laws, cultural norms, emergency helplines, and accommodation details.' },
+                    { title: 'Travel & Arrival', desc: 'Trendy Fortune Global arranges your flight. Employer reception at the airport with accommodation transfer.' }
+                ],
+                documents: [
+                    { name: 'Valid Passport', desc: 'Minimum 6 months validity remaining', icon: 'fa-passport' },
+                    { name: 'Passport-Size Photos', desc: '8 copies, white background, 4.5×3.5 cm', icon: 'fa-image' },
+                    { name: 'Updated Resume / CV', desc: 'English format with full work experience', icon: 'fa-file-lines' },
+                    { name: 'Educational Certificates', desc: '10th, 12th, or Degree certificates (attested)', icon: 'fa-graduation-cap' },
+                    { name: 'Experience / Skill Certificates', desc: 'Previous employer letters, trade certificates', icon: 'fa-certificate' },
+                    { name: 'GAMCA Medical Certificate', desc: 'From GCC-approved medical center in India', icon: 'fa-stethoscope' },
+                    { name: 'Police Clearance Certificate', desc: 'No criminal record from local police station', icon: 'fa-shield-halved' },
+                    { name: 'Aadhaar Card', desc: 'Identity verification document', icon: 'fa-id-card' }
+                ]
+            },
+            'Russia': {
+                flag: '🇷🇺', fullName: 'Russia',
+                overview: 'Russia offers skilled trade positions in construction, welding, and industrial sectors. Moscow and St. Petersburg have active demand for international workers with competitive salaries.',
+                stats: [{ label: 'Avg. Salary', value: '$800+' }, { label: 'Openings', value: '10+' }, { label: 'Visa Time', value: '45-60 Days' }],
+                process: [
+                    { title: 'Register & Skill Assessment', desc: 'Register at our office. Your trade skills and certifications are assessed for Russian employer standards.' },
+                    { title: 'Document Preparation', desc: 'Documents are translated to Russian, apostilled, and attested as required.' },
+                    { title: 'Work Permit Application', desc: 'Russian employer applies for your work permit at the Russian migration authority.' },
+                    { title: 'Invitation Letter', desc: 'Receive an official work invitation letter from the Russian employer.' },
+                    { title: 'Medical Examination', desc: 'Complete mandatory medical tests including HIV, TB, and general fitness.' },
+                    { title: 'Visa Processing', desc: 'Apply for Russian work visa at the Russian Embassy/VFS Center with invitation letter.' },
+                    { title: 'Pre-Departure Training', desc: 'Orientation on Russian work culture, weather preparation, and basic Russian language phrases.' },
+                    { title: 'Travel & Arrival', desc: 'Employer reception, accommodation setup, and work-site orientation upon arrival.' }
+                ],
+                documents: [
+                    { name: 'Valid Passport', desc: 'Minimum 18 months validity remaining', icon: 'fa-passport' },
+                    { name: 'Passport-Size Photos', desc: '6 copies, white background, 3.5×4.5 cm', icon: 'fa-image' },
+                    { name: 'Trade Skill Certificates', desc: 'ITI / Diploma or equivalent trade qualification', icon: 'fa-certificate' },
+                    { name: 'Medical Fitness Report', desc: 'Including HIV & TB test from approved hospital', icon: 'fa-stethoscope' },
+                    { name: 'Educational Documents', desc: 'Apostilled copies of education certificates', icon: 'fa-graduation-cap' },
+                    { name: 'Experience Letters', desc: 'From previous employers with duration and role', icon: 'fa-file-lines' },
+                    { name: 'Police Clearance', desc: 'Clean criminal record from local authority', icon: 'fa-shield-halved' },
+                    { name: 'Bank Statement', desc: 'Last 3 months showing financial stability', icon: 'fa-building-columns' }
+                ]
+            },
+            'Saudi Arabia': {
+                flag: '🇸🇦', fullName: 'Kingdom of Saudi Arabia',
+                overview: 'Saudi Arabia is a major employer in construction, oil & gas, and hospitality sectors. Vision 2030 has opened large-scale infrastructure projects with high demand for skilled workers.',
+                stats: [{ label: 'Avg. Salary', value: 'SAR 2,000+' }, { label: 'Openings', value: '15+' }, { label: 'Visa Time', value: '30-45 Days' }],
+                process: [
+                    { title: 'Registration & Profiling', desc: 'Submit documents at our office. Career counselors match your profile with Saudi employer requirements.' },
+                    { title: 'Document Attestation', desc: 'All certificates attested by MEA (Ministry of External Affairs) and Saudi Embassy.' },
+                    { title: 'Employer Selection & Interview', desc: 'Face-to-face or video interview with Saudi Arabia-based employer.' },
+                    { title: 'Employment Contract', desc: 'Receive and review the official Musaned-registered employment contract.' },
+                    { title: 'GAMCA Medical Test', desc: 'Complete medical examination at GAMCA-approved center.' },
+                    { title: 'Visa Stamping', desc: 'Work visa stamped on passport after employer obtains block visa from Saudi MOHR.' },
+                    { title: 'Pre-Departure Orientation', desc: 'Saudi labor law briefing, Iqama process, cultural awareness, and emergency helpline info.' },
+                    { title: 'Travel & Reporting', desc: 'Flight arranged. Employer provides airport reception and company accommodation.' }
+                ],
+                documents: [
+                    { name: 'Valid Passport', desc: 'Minimum 6 months validity', icon: 'fa-passport' },
+                    { name: 'Passport Photos', desc: '8 copies, white background', icon: 'fa-image' },
+                    { name: 'Educational Certificates', desc: 'MEA & Saudi Embassy attested', icon: 'fa-graduation-cap' },
+                    { name: 'Experience Letters', desc: 'From previous employers', icon: 'fa-file-lines' },
+                    { name: 'GAMCA Medical', desc: 'From GCC-approved center', icon: 'fa-stethoscope' },
+                    { name: 'Police Clearance', desc: 'PCC from Passport Seva', icon: 'fa-shield-halved' },
+                    { name: 'Skill Certificate', desc: 'Trade test / ITI diploma', icon: 'fa-certificate' },
+                    { name: 'Aadhaar + PAN Card', desc: 'Identity and tax verification', icon: 'fa-id-card' }
+                ]
+            },
+            'Israel': {
+                flag: '🇮🇱', fullName: 'Israel',
+                overview: 'Israel has a structured bilateral recruitment program for Indian construction workers. Salary packages include overtime bonuses, and the recruitment is government-supervised through HRSDA.',
+                stats: [{ label: 'Avg. Salary', value: '$1,400+' }, { label: 'Openings', value: '20+' }, { label: 'Visa Time', value: '60-90 Days' }],
+                process: [
+                    { title: 'Registration with HRSDA', desc: 'Register on the HRSDA (National Skill Development Agency) portal as per bilateral agreement.' },
+                    { title: 'Trade Skill Test', desc: 'Pass the mandatory trade test at an authorized center (welding, plumbing, carpentry, etc.).' },
+                    { title: 'Employer Matching', desc: 'Israeli construction companies select candidates based on trade test scores and profiles.' },
+                    { title: 'Document Verification', desc: 'All documents verified by the Israeli employer and Indian authorities.' },
+                    { title: 'Medical Examination', desc: 'Complete comprehensive medical exam at an approved diagnostic center.' },
+                    { title: 'Work Visa Issuance', desc: 'B/1 work visa issued by the Israeli Embassy after employer obtains work permit.' },
+                    { title: 'Pre-Departure Training', desc: 'Orientation on Israeli work culture, safety standards, rights, and Hebrew basics.' },
+                    { title: 'Travel & Site Assignment', desc: 'Employer-arranged flight. Direct transfer to project site/housing.' }
+                ],
+                documents: [
+                    { name: 'Valid Passport', desc: 'Minimum 2 years validity', icon: 'fa-passport' },
+                    { name: 'Passport Photos', desc: '10 copies, white background, recent', icon: 'fa-image' },
+                    { name: 'Trade Test Certificate', desc: 'HRSDA trade test pass certificate', icon: 'fa-certificate' },
+                    { name: 'ITI / Diploma', desc: 'Technical education qualification', icon: 'fa-graduation-cap' },
+                    { name: 'Experience Letters', desc: 'Minimum 5 years in relevant trade', icon: 'fa-file-lines' },
+                    { name: 'Medical Fitness', desc: 'Comprehensive medical from approved center', icon: 'fa-stethoscope' },
+                    { name: 'Police Clearance', desc: 'PCC from Regional Passport Office', icon: 'fa-shield-halved' },
+                    { name: 'Bank Account Details', desc: 'For salary transfer setup', icon: 'fa-building-columns' }
+                ]
+            },
+            'Poland': {
+                flag: '🇵🇱', fullName: 'Poland',
+                overview: 'Poland is a rapidly growing EU economy with strong demand for heavy truck drivers, warehouse workers, and factory operators. EU work permits provide access to Schengen zone benefits.',
+                stats: [{ label: 'Avg. Salary', value: '€1,500+' }, { label: 'Openings', value: '5+' }, { label: 'Visa Time', value: '45-60 Days' }],
+                process: [
+                    { title: 'Register & Skills Check', desc: 'Register at our office. Driving licenses and trade certifications are verified for EU standards.' },
+                    { title: 'Document Apostille', desc: 'Documents apostilled via MEA for acceptance in Poland.' },
+                    { title: 'Employer Work Declaration', desc: 'Polish employer files Oświadczenie (work declaration) at the local Powiat Labour Office.' },
+                    { title: 'Contract Signing', desc: 'Employment contract issued under Polish labour law. Reviewed and signed by candidate.' },
+                    { title: 'Visa Application at VFS/Embassy', desc: 'Apply for Polish National Visa (Type D) at VFS or Polish Embassy in India.' },
+                    { title: 'Medical Examination', desc: 'Complete general medical fitness test.' },
+                    { title: 'Pre-Departure Orientation', desc: 'Briefing on EU worker rights, Polish culture, weather, and basic Polish phrases.' },
+                    { title: 'Travel & Registration', desc: 'Travel to Poland. Register with the local municipal office (Meldunek) within 30 days.' }
+                ],
+                documents: [
+                    { name: 'Valid Passport', desc: 'Minimum 12 months validity', icon: 'fa-passport' },
+                    { name: 'Passport Photos', desc: '6 copies, EU biometric standard', icon: 'fa-image' },
+                    { name: 'Driving License (if driver role)', desc: 'International Driving Permit + original license', icon: 'fa-id-card' },
+                    { name: 'Educational Documents', desc: 'Apostilled certificates', icon: 'fa-graduation-cap' },
+                    { name: 'Experience Letters', desc: 'From previous employers', icon: 'fa-file-lines' },
+                    { name: 'Medical Certificate', desc: 'General fitness clearance', icon: 'fa-stethoscope' },
+                    { name: 'Travel Insurance', desc: 'Minimum €30,000 coverage for Schengen', icon: 'fa-heart-pulse' },
+                    { name: 'Bank Statement', desc: 'Last 6 months, sufficient funds proof', icon: 'fa-building-columns' }
+                ]
+            },
+            'Serbia': {
+                flag: '🇷🇸', fullName: 'Serbia',
+                overview: 'Serbia offers opportunities in warehouse logistics, metal fabrication, and welding. Non-EU but with growing industrial demand and a visa-friendly process for Indian workers.',
+                stats: [{ label: 'Avg. Salary', value: '$900+' }, { label: 'Openings', value: '5+' }, { label: 'Visa Time', value: '30-45 Days' }],
+                process: [
+                    { title: 'Registration', desc: 'Register with Trendy Fortune Global and submit your trade documentation.' },
+                    { title: 'Profile Matching', desc: 'Your profile is matched with Serbian industrial employers.' },
+                    { title: 'Employer Interview', desc: 'Video interview with the Serbian company management.' },
+                    { title: 'Work Permit Application', desc: 'Employer applies for your work permit at the Serbian National Employment Service.' },
+                    { title: 'Visa Processing', desc: 'Apply for Serbian work visa at the Embassy of Serbia in Delhi.' },
+                    { title: 'Medical Examination', desc: 'Complete medical fitness test at an approved center.' },
+                    { title: 'Pre-Departure Briefing', desc: 'Orientation on Serbian work culture, climate, and basic Serbian language.' },
+                    { title: 'Travel & Arrival', desc: 'Employer-arranged accommodation and factory induction upon arrival.' }
+                ],
+                documents: [
+                    { name: 'Valid Passport', desc: 'Minimum 12 months validity', icon: 'fa-passport' },
+                    { name: 'Photos', desc: '6 copies, white background', icon: 'fa-image' },
+                    { name: 'Trade Certificates', desc: 'Welding certs, warehouse training, etc.', icon: 'fa-certificate' },
+                    { name: 'Educational Documents', desc: '10th/12th/ITI certificates', icon: 'fa-graduation-cap' },
+                    { name: 'Experience Letters', desc: 'Previous work experience proof', icon: 'fa-file-lines' },
+                    { name: 'Medical Report', desc: 'General medical fitness', icon: 'fa-stethoscope' },
+                    { name: 'Police Clearance', desc: 'PCC from local authority', icon: 'fa-shield-halved' },
+                    { name: 'Resume / CV', desc: 'Updated English CV', icon: 'fa-file-lines' }
+                ]
+            },
+            'Oman': {
+                flag: '🇴🇲', fullName: 'Sultanate of Oman',
+                overview: 'Oman is a key Gulf destination offering rich opportunities in MEP, construction, and heavy maintenance fields. The country provides competitive salaries with standard food, accommodation, and medical provisions.',
+                stats: [{ label: 'Avg. Salary', value: 'OMR 150+' }, { label: 'Openings', value: '12+' }, { label: 'Visa Time', value: '30-45 Days' }],
+                process: [
+                    { title: 'Registration & Matching', desc: 'Submit your CV and credentials at our office. Career counselors match your profile with Omani employers.' },
+                    { title: 'Client Interview', desc: 'Pass the online video interview with the Oman-based company representative.' },
+                    { title: 'GAMCA Medical Test', desc: 'Complete the compulsory medical check at a GAMCA-approved diagnostic center.' },
+                    { title: 'Labor Contract Approval', desc: 'Your work agreement is registered and approved by the Oman Ministry of Manpower.' },
+                    { title: 'Visa Clearance & Stamping', desc: 'Work permit clearance issued and visa stamped at the Oman Embassy in India.' },
+                    { title: 'Pre-Departure Induction', desc: 'Briefing on Oman labor laws, local customs, and workplace guidelines.' },
+                    { title: 'Travel to Muscat', desc: 'Flight booking and reception at Muscat Airport with transport to your lodging.' }
+                ],
+                documents: [
+                    { name: 'Valid Passport', desc: 'Minimum 6 months validity', icon: 'fa-passport' },
+                    { name: 'Passport Photos', desc: '8 copies with white background', icon: 'fa-image' },
+                    { name: 'GAMCA Fit Certificate', desc: 'Verified fit report from approved center', icon: 'fa-stethoscope' },
+                    { name: 'Educational Certificates', desc: 'Attested certificates showing qualifications', icon: 'fa-graduation-cap' },
+                    { name: 'Skill Trade Credentials', desc: 'Relevant work letters or trade diplomas', icon: 'fa-certificate' },
+                    { name: 'Police Clearance Certificate', desc: 'PCC confirming a clean record', icon: 'fa-shield-halved' },
+                    { name: 'Aadhaar Card', desc: 'For citizen identity check', icon: 'fa-id-card' }
+                ]
+            },
+            'Uzbekistan': {
+                flag: '🇺🇿', fullName: 'Republic of Uzbekistan',
+                overview: 'Uzbekistan features massive infrastructure, energy, and construction projects, recruiting thousands of Indian skilled technicians. Work packages include employer-sponsored meals, housing, and medical care.',
+                stats: [{ label: 'Avg. Salary', value: '$600 - $800' }, { label: 'Openings', value: '50+' }, { label: 'Visa Time', value: '20-30 Days' }],
+                process: [
+                    { title: 'Profile Registration', desc: 'Submit details at our office. Trade skills are matched to central Uzbek projects.' },
+                    { title: 'Trade Test Verification', desc: 'Perform trade assessment (welding, shuttering, masonry) at our authorized center.' },
+                    { title: 'Ministry Permit Approval', desc: 'The Uzbek employer files for your work permit at the Ministry of Labor in Tashkent.' },
+                    { title: 'e-Visa / Stamping', desc: 'E-visa is issued or visa stamp is done via the Embassy of Uzbekistan.' },
+                    { title: 'Medical Review', desc: 'General fitness checkup including mandatory blood tests.' },
+                    { title: 'Pre-Departure Briefing', desc: 'Orientation on Uzbek job sites, temperature conditions, and basics of local culture.' },
+                    { title: 'Deployment to Site', desc: 'Direct flight to Tashkent. Airport pickup and site transfer managed by the company.' }
+                ],
+                documents: [
+                    { name: 'Valid Passport', desc: 'Minimum 6 months validity', icon: 'fa-passport' },
+                    { name: 'Photos', desc: '6 copies, white background', icon: 'fa-image' },
+                    { name: 'Trade / ITI Certificate', desc: 'Technical qualifications proof', icon: 'fa-certificate' },
+                    { name: 'Medical Fitness Certificate', desc: 'Signed by a registered practitioner', icon: 'fa-stethoscope' },
+                    { name: 'Police Clearance (PCC)', desc: 'Clean background check', icon: 'fa-shield-halved' },
+                    { name: 'Identity Proof', desc: 'Aadhaar + PAN details', icon: 'fa-id-card' }
+                ]
+            },
+            'Ukraine': {
+                flag: '🇺🇦', fullName: 'Ukraine',
+                overview: 'Ukraine provides industrial, agricultural, and technical careers. Trendy Fortune Global guarantees safe, verified work sectors complying with active external affairs advisories.',
+                stats: [{ label: 'Avg. Salary', value: '$800+' }, { label: 'Openings', value: 'Active' }, { label: 'Visa Time', value: '45-60 Days' }],
+                process: [
+                    { title: 'Initial Application', desc: 'Submit your profile. We assess matches in agriculture and factory sectors.' },
+                    { title: 'Employer Interview', desc: 'Video interview with Ukrainian corporate representatives.' },
+                    { title: 'Official Work Invitation', desc: 'Receive work permission certificate authorized by the Ukrainian state.' },
+                    { title: 'Visa Application', desc: 'Apply for Ukraine long-stay visa at the VFS Center/Embassy.' },
+                    { title: 'Medical Screening', desc: 'Verify health fitness at accredited medical clinics.' },
+                    { title: 'Safety & Departure Briefing', desc: 'Detailed zone briefing, travel safety rules, and flight details.' },
+                    { title: 'Arrival & Worksite Check-in', desc: 'Reception at Kiev/assigned zone and transit to employer facilities.' }
+                ],
+                documents: [
+                    { name: 'Valid Passport', desc: 'Minimum 12 months validity', icon: 'fa-passport' },
+                    { name: 'Passport Photos', desc: '6 copies, Schengen specifications', icon: 'fa-image' },
+                    { name: 'Apostilled PCC', desc: 'No criminal record confirmation', icon: 'fa-shield-halved' },
+                    { name: 'Educational Degrees', desc: 'Attested certificates', icon: 'fa-graduation-cap' },
+                    { name: 'Medical Fitness Clearance', desc: 'General exam certificate', icon: 'fa-stethoscope' },
+                    { name: 'Signed Job Offer', desc: 'Official company contract', icon: 'fa-file-lines' }
+                ]
+            },
+            'Czech Republic': {
+                flag: '🇨🇿', fullName: 'Czech Republic',
+                overview: 'Czech Republic is a major EU manufacturing hub. It offers Employee Cards for skilled industrial, automotive, and logistics specialists, including full European healthcare and labor benefits.',
+                stats: [{ label: 'Avg. Salary', value: 'CZK 25,000+' }, { label: 'Openings', value: '8+' }, { label: 'Visa Time', value: '60-90 Days' }],
+                process: [
+                    { title: 'Registration & CV Review', desc: 'Submit your CV. Your skills are evaluated against Czech labor standards.' },
+                    { title: 'Employer Selection', desc: 'Pass the online interview. Employer issues a work contract and housing agreement.' },
+                    { title: 'Czech Labour Permit', desc: 'Employer registers the job vacancy and files for your permit at the Czech Labour Office.' },
+                    { title: 'Apostille & Translation', desc: 'PCC and degrees must be apostilled by MEA and officially translated to Czech.' },
+                    { title: 'Employee Card Appointment', desc: 'Submit your visa file at the Czech Embassy or VFS Center in India.' },
+                    { title: 'Visa Approval & Travel', desc: 'Receive your D-visa. Trendy Fortune Global guides you through flight booking.' },
+                    { title: 'Foreign Police Registration', desc: 'Report to Czech Foreign Police in Prague within 3 days to collect your biometric card.' }
+                ],
+                documents: [
+                    { name: 'Valid Passport', desc: 'Minimum 18 months validity', icon: 'fa-passport' },
+                    { name: 'Schengen Biometric Photos', desc: '6 copies, 3.5x4.5 cm size', icon: 'fa-image' },
+                    { name: 'Apostilled PCC', desc: 'Translated to Czech by certified translator', icon: 'fa-shield-halved' },
+                    { name: 'Apostilled Education Certificates', desc: 'Translated to Czech', icon: 'fa-graduation-cap' },
+                    { name: 'Czech Work Contract', desc: 'Signed by both parties, specifying hours and salary', icon: 'fa-file-lines' },
+                    { name: 'Czech Accommodation Agreement', desc: 'Official proof of housing', icon: 'fa-building' },
+                    { name: 'Schengen Travel Insurance', desc: 'Minimum €30,000 coverage', icon: 'fa-heart-pulse' }
+                ]
+            },
+            'Belarus': {
+                flag: '🇧🇾', fullName: 'Republic of Belarus',
+                overview: 'Belarus offers steady technical, agricultural, and machinery assembly positions. The visa process is highly direct and supported by leading state industrial enterprises.',
+                stats: [{ label: 'Avg. Salary', value: '$700+' }, { label: 'Openings', value: '5+' }, { label: 'Visa Time', value: '30-45 Days' }],
+                process: [
+                    { title: 'Profile Screening', desc: 'Submit credentials. We select suitable agricultural or driver roles.' },
+                    { title: 'Client Virtual Interview', desc: 'Employer interviews candidate online to assess technical skills.' },
+                    { title: 'Migration Invitation', desc: 'Employer processes an official work invitation at the Belarus Ministry of Interior.' },
+                    { title: 'Visa Processing', desc: 'Submit the invitation and visa file to the Embassy of Belarus in Delhi.' },
+                    { title: 'Medical Diagnostics', desc: 'Check health status (general fit plus HIV/TB reports).' },
+                    { title: 'Pre-Departure Briefing', desc: 'Guidance on Belarusian climate, banking, and contract terms.' },
+                    { title: 'Flight & Employer Induction', desc: 'Flight to Minsk, reception by company staff, and work induction.' }
+                ],
+                documents: [
+                    { name: 'Valid Passport', desc: 'Minimum 12 months validity', icon: 'fa-passport' },
+                    { name: 'Photos', desc: '6 copies, white background', icon: 'fa-image' },
+                    { name: 'Official Invitation Letter', desc: 'Issued by Belarus Migration Department', icon: 'fa-envelope-open-text' },
+                    { name: 'Educational Documents', desc: 'Attested certificates copy', icon: 'fa-graduation-cap' },
+                    { name: 'Medical Fit Report', desc: 'Including HIV clearance certificate', icon: 'fa-stethoscope' },
+                    { name: 'PCC clearance', desc: 'Clean record confirmation from local authority', icon: 'fa-shield-halved' }
+                ]
+            },
+            'Malaysia': {
+                flag: '🇲🇾', fullName: 'Malaysia',
+                overview: 'Malaysia is a major manufacturing, plantation, and hospitality hub. It operates a structured, government-monitored foreign worker program offering stable salary scales and standard benefits.',
+                stats: [{ label: 'Avg. Salary', value: 'MYR 1,500 - 2,500' }, { label: 'Openings', value: '15+' }, { label: 'Visa Time', value: '30-45 Days' }],
+                process: [
+                    { title: 'Registration & Profile Match', desc: 'Submit files. Career counselors align details with Malaysian vacancies.' },
+                    { title: 'Pre-Medical Screening', desc: 'Complete FOMEMA-compliant medical checkups at approved centers.' },
+                    { title: 'Calling Visa (VDR) Stage', desc: 'The employer secures Calling Visa approval from Malaysia Immigration.' },
+                    { title: 'Single Entry Visa (SEV)', desc: 'Apply for SEV at VFS Malaysia using the VDR approval letter.' },
+                    { title: 'Pre-Departure Orientation', desc: 'Briefing on Malaysian labor policy, cultural norms, and accommodation.' },
+                    { title: 'Travel & Work Permit Stamping', desc: 'Fly to Kuala Lumpur. Employer meets you and stamps your PLKS Permit.' }
+                ],
+                documents: [
+                    { name: 'Valid Passport', desc: 'Minimum 12 months validity', icon: 'fa-passport' },
+                    { name: 'Passport Photos', desc: '6 copies, blue background', icon: 'fa-image' },
+                    { name: 'FOMEMA Fit Certificate', desc: 'Verified medical clearance report', icon: 'fa-stethoscope' },
+                    { name: 'Calling Visa Letter (VDR)', desc: 'Official copy from Immigration Department', icon: 'fa-envelope-open-text' },
+                    { name: 'Educational / Skill Certificates', desc: 'Verified diplomas or school certificates', icon: 'fa-graduation-cap' },
+                    { name: 'Identity Proof', desc: 'Aadhaar card copy', icon: 'fa-id-card' }
+                ]
+            },
+            'Mauritius': {
+                flag: '🇲🇺', fullName: 'Republic of Mauritius',
+                overview: 'Mauritius offers excellent positions in the hospitality, textile manufacturing, and food production sectors. The island nation provides a high standard of living, clean company housing, and fair contract rules.',
+                stats: [{ label: 'Avg. Salary', value: 'MUR 15,000+' }, { label: 'Openings', value: '10+' }, { label: 'Visa Time', value: '45-60 Days' }],
+                process: [
+                    { title: 'Profile Matching', desc: 'Submit CV. Our agency matches you with Mauritian hotels or manufacturing plants.' },
+                    { title: 'Interview Session', desc: 'Participate in virtual video screening with corporate recruiters.' },
+                    { title: 'Work Permit Submission', desc: 'The employer submits a work permit petition to the Ministry of Labour in Port Louis.' },
+                    { title: 'Provisional Entry Permit', desc: 'Receive your Provisional Entry Visa, allowing entry for work permit endorsement.' },
+                    { title: 'Medical Screening', desc: 'Perform clinical health checkups locally in India and upon arrival.' },
+                    { title: 'Departure & Permit Endorsement', desc: 'Travel to Mauritius. Employer completes final work visa stamp.' }
+                ],
+                documents: [
+                    { name: 'Valid Passport', desc: 'Minimum 12 months validity', icon: 'fa-passport' },
+                    { name: 'Photos', desc: '6 copies, white background', icon: 'fa-image' },
+                    { name: 'Provisional Entry Permit', desc: 'Copy of official entry document', icon: 'fa-file-invoice' },
+                    { name: 'Detailed CV & Experience letters', desc: 'Detailing previous employment', icon: 'fa-file-lines' },
+                    { name: 'Educational Certificates', desc: 'School/diploma copies', icon: 'fa-graduation-cap' },
+                    { name: 'Medical Reports', desc: 'Including Hepatitis, HIV, and TB tests', icon: 'fa-stethoscope' },
+                    { name: 'Police Clearance Certificate', desc: 'Clean record verification', icon: 'fa-shield-halved' }
+                ]
+            },
+            'Vietnam': {
+                flag: '🇻🇳', fullName: 'Socialist Republic of Vietnam',
+                overview: 'Vietnam is a rapidly growing center for hospitality, technical supervision, and English instruction. Employment packages feature high-quality housing allowances and simple residency procedures.',
+                stats: [{ label: 'Avg. Salary', value: '$1,000 - $1,500' }, { label: 'Openings', value: '5+' }, { label: 'Visa Time', value: '30-45 Days' }],
+                process: [
+                    { title: 'Skill Screening', desc: 'Evaluate English proficiency or technical certifications.' },
+                    { title: 'Corporate Interview', desc: 'Online video interview with the Vietnamese employer.' },
+                    { title: 'Document Legalization', desc: 'Degrees and PCC are legalized via the Vietnam Embassy in Delhi.' },
+                    { title: 'Work Permit Approval', desc: 'Employer files for approval at the local Department of Labour.' },
+                    { title: 'Visa/TRC Stamping', desc: 'Business Visa (DN) or Temporary Residence Card (TRC) issued.' },
+                    { title: 'Travel Setup', desc: 'Flight booking and reception at Hanoi/Ho Chi Minh Airport.' }
+                ],
+                documents: [
+                    { name: 'Valid Passport', desc: 'Minimum 6 months validity', icon: 'fa-passport' },
+                    { name: 'Photos', desc: '6 copies, 4x6 cm size, white background', icon: 'fa-image' },
+                    { name: 'Legalized Degree / TEFL', desc: 'Required for English instruction roles', icon: 'fa-graduation-cap' },
+                    { name: 'Legalized PCC', desc: 'No criminal history verification', icon: 'fa-shield-halved' },
+                    { name: 'Medical Fit Report', desc: 'From approved Indian diagnostic clinic', icon: 'fa-stethoscope' },
+                    { name: 'Company Job Contract', desc: 'Official signed document', icon: 'fa-file-signature' }
+                ]
+            },
+            'Bulgaria': {
+                flag: '🇧🇬', fullName: 'Republic of Bulgaria',
+                overview: 'Bulgaria is a Schengen-zone European country. It offers verified placements for warehouse workers, truck drivers, and builders, offering standard European work hours and welfare.',
+                stats: [{ label: 'Avg. Salary', value: 'BGN 1,500+' }, { label: 'Openings', value: '6+' }, { label: 'Visa Time', value: '60-90 Days' }],
+                process: [
+                    { title: 'Registration & CV Review', desc: 'Submit files at our center. Credentials aligned with Bulgarian requirements.' },
+                    { title: 'Client Selection', desc: 'Pass video interview. Employer obtains work permit from National Employment Agency.' },
+                    { title: 'Apostille & Legalization', desc: 'Degrees and PCC are apostilled by MEA for Bulgarian submission.' },
+                    { title: 'D-Visa Stamping', desc: 'Submit your Schengen D-Visa application file at the Bulgarian Embassy.' },
+                    { title: 'Medical Screening', desc: 'General fitness certification checks.' },
+                    { title: 'Pre-Departure Briefing', desc: 'Orientation on Schengen rules, local climate, and banking.' },
+                    { title: 'Travel & Residence Permit', desc: 'Fly to Sofia. Direct transit to job site and residence registration.' }
+                ],
+                documents: [
+                    { name: 'Valid Passport', desc: 'Minimum 18 months validity', icon: 'fa-passport' },
+                    { name: 'Schengen Photos', desc: '6 copies, biometric specs', icon: 'fa-image' },
+                    { name: 'Apostilled PCC', desc: 'Clean record confirmation from passport office', icon: 'fa-shield-halved' },
+                    { name: 'Apostilled Degrees', desc: 'Verified educational documents', icon: 'fa-graduation-cap' },
+                    { name: 'Bulgarian Work Permit', desc: 'Copy of agency approval letter', icon: 'fa-envelope-open-text' },
+                    { name: 'Bulgarian Work Contract', desc: 'Specifying hours, salary, and holidays', icon: 'fa-file-signature' },
+                    { name: 'Schengen Travel Insurance', desc: 'Minimum €30,000 health coverage', icon: 'fa-heart-pulse' }
+                ]
+            }
+        };
+
+        // Generic template for countries without specific data
+        var genericData = {
+            overview: 'Trendy Fortune Global provides verified recruitment opportunities in this country. Our licensed process ensures safe, transparent, and legally compliant overseas employment.',
+            stats: [{ label: 'Openings', value: 'Active' }, { label: 'Visa Time', value: '30-60 Days' }, { label: 'Fees', value: 'Zero Advance' }],
+            process: [
+                { title: 'Registration & Profile Creation', desc: 'Submit your CV and documents at Trendy Fortune Global office. Free career counseling session.' },
+                { title: 'Document Verification & Attestation', desc: 'All certificates verified, apostilled/attested as per destination country requirements.' },
+                { title: 'Employer Matching & Interview', desc: 'Your profile is matched with verified employers. Video or in-person interview arranged.' },
+                { title: 'Offer Letter & Employment Contract', desc: 'Receive official offer letter. Contract reviewed for salary, benefits, and terms.' },
+                { title: 'Medical Examination', desc: 'Complete mandatory medical fitness test at an approved diagnostic center.' },
+                { title: 'Visa Processing & Stamping', desc: 'Work visa/permit processed through the respective Embassy or VFS center.' },
+                { title: 'Pre-Departure Orientation', desc: 'Briefing on destination country laws, culture, emergency contacts, and accommodation.' },
+                { title: 'Travel & Arrival Support', desc: 'Flight arrangement, airport reception by employer, and accommodation transfer.' }
+            ],
+            documents: [
+                { name: 'Valid Passport', desc: 'Minimum 6-12 months validity required', icon: 'fa-passport' },
+                { name: 'Passport-Size Photos', desc: '6-8 copies, white background', icon: 'fa-image' },
+                { name: 'Educational Certificates', desc: '10th, 12th, Diploma, or Degree certificates', icon: 'fa-graduation-cap' },
+                { name: 'Experience / Skill Certificates', desc: 'Trade certificates, previous employer letters', icon: 'fa-certificate' },
+                { name: 'Updated Resume / CV', desc: 'In English with complete work history', icon: 'fa-file-lines' },
+                { name: 'Medical Fitness Certificate', desc: 'From approved medical center', icon: 'fa-stethoscope' },
+                { name: 'Police Clearance Certificate', desc: 'No criminal record verification', icon: 'fa-shield-halved' },
+                { name: 'Aadhaar / ID Card', desc: 'Government identity proof', icon: 'fa-id-card' }
+            ]
+        };
+
+        // Country flags for all supported countries
+        var flags = {
+            'UAE': '🇦🇪', 'Russia': '🇷🇺', 'Oman': '🇴🇲', 'Serbia': '🇷🇸', 'Uzbekistan': '🇺🇿',
+            'Ukraine': '🇺🇦', 'Czech Republic': '🇨🇿', 'Belarus': '🇧🇾', 'Malaysia': '🇲🇾',
+            'Mauritius': '🇲🇺', 'Vietnam': '🇻🇳', 'Saudi Arabia': '🇸🇦', 'Poland': '🇵🇱',
+            'Bulgaria': '🇧🇬', 'Israel': '🇮🇱'
+        };
+
+        // Read country from URL
+        var params = new URLSearchParams(window.location.search);
+        var countryName = params.get('name');
+        if (!countryName) { window.location.href = 'index.html'; return; }
+
+        // Get country data (specific or generic)
+        var info = countryDB[countryName] || {};
+        var flag = info.flag || flags[countryName] || '🌍';
+        var overview = info.overview || genericData.overview;
+        var stats = info.stats || genericData.stats;
+        var process = info.process || genericData.process;
+        var docs = info.documents || genericData.documents;
+
+        // Update page title
+        document.title = countryName + ' Jobs & Process | Trendy Fortune Global Pvt. Ltd.';
+
+        // Render Hero
+        document.getElementById('country-flag').textContent = flag;
+        document.getElementById('country-name-heading').textContent = info.fullName || countryName;
+        document.getElementById('country-overview').textContent = overview;
+
+        var statsHtml = '';
+        stats.forEach(function(s) {
+            statsHtml += '<div class="country-stat"><h4>' + s.value + '</h4><p>' + s.label + '</p></div>';
+        });
+        document.getElementById('country-stats').innerHTML = statsHtml;
+
+        // Render Job Cards (filter from jobData loaded via app.js)
+        var grid = document.getElementById('country-jobs-grid');
+        var countryJobs = jobData.filter(function(job) {
+            return job.location.toLowerCase().includes(countryName.toLowerCase());
+        });
+
+        document.getElementById('jobs-subtitle').textContent = countryJobs.length + ' verified positions in ' + countryName;
+
+        if (countryJobs.length === 0) {
+            grid.innerHTML = '<div class="no-jobs-msg"><i class="fa-solid fa-folder-open fa-2xl" style="margin-bottom: 15px; display:block; color:var(--text-muted);"></i>No active openings for ' + countryName + ' at this moment. Check back soon or contact us for upcoming drives.</div>';
+        } else {
+            countryJobs.forEach(function(job) {
+                var card = document.createElement('div');
+                card.className = 'job-card glass-panel';
+                card.id = 'job-card-' + job.id;
+                card.innerHTML = '<div>' +
+                    '<div class="job-header">' +
+                        '<span class="job-badge gulf">' + countryName + '</span>' +
+                        '<span class="job-salary">' + job.salary + '</span>' +
+                    '</div>' +
+                    '<h3 class="job-title" style="margin-bottom: 14px; font-family: var(--font-heading); color: var(--text-primary); font-size: 1.3rem; font-weight: 700;">' + job.title + '</h3>' +
+                    '<div class="job-details" style="display: flex; flex-direction: column; gap: 8px; font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 18px;">' +
+                        '<span style="display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-earth-asia" style="color: var(--secondary); width: 16px;"></i> <strong>Country:</strong> ' + job.location + '</span>' +
+                        '<span style="display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-wallet" style="color: var(--secondary); width: 16px;"></i> <strong>Salary:</strong> ' + job.salary + '</span>' +
+                        '<span style="display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-user-clock" style="color: var(--secondary); width: 16px;"></i> <strong>Age Limit:</strong> ' + (job.age || '21-40') + ' Years</span>' +
+                        '<span style="display: flex; align-items: center; gap: 8px; background: rgba(0, 242, 254, 0.05); padding: 6px 10px; border-radius: 8px; border: 1px dashed rgba(0, 242, 254, 0.15); margin-top: 6px; font-size: 0.82rem; color: var(--text-primary);"><i class="fa-solid fa-circle-check" style="color: var(--secondary); width: 16px;"></i> <strong>Eligible:</strong> Age ' + (job.age || '21-40') + ' / Fit Profile</span>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="job-footer">' +
+                    '<span class="job-date">Posted ' + job.date + '</span>' +
+                    '<button class="btn btn-primary btn-sm" style="padding: 8px 18px; font-size: 0.85rem;" onclick="openApplyModal(' + job.id + ', \'' + job.title.replace(/'/g, "\\'") + '\')">Apply Now</button>' +
+                '</div>';
+                grid.appendChild(card);
+            });
+        }
+
+        // Render Process Timeline
+        var timeline = document.getElementById('process-timeline');
+        var processHtml = '';
+        process.forEach(function(step, i) {
+            processHtml += '<div class="process-step">' +
+                '<div class="step-number">' + (i + 1) + '</div>' +
+                '<div class="timeline-step-content">' +
+                    '<h4>' + step.title + '</h4>' +
+                    '<p>' + step.desc + '</p>' +
+                '</div>' +
+            '</div>';
+        });
+        timeline.innerHTML = processHtml;
+
+        // Render Documents Grid
+        var docsGrid = document.getElementById('docs-grid');
+        var docsHtml = '';
+        docs.forEach(function(doc) {
+            docsHtml += '<div class="doc-card glass-panel">' +
+                '<div class="doc-icon"><i class="fa-solid ' + doc.icon + '"></i></div>' +
+                '<div class="doc-info"><h4>' + doc.name + '</h4><p>' + doc.desc + '</p></div>' +
+            '</div>';
+        });
+        docsGrid.innerHTML = docsHtml;
+
+        // Update CTA title
+        document.getElementById('cta-title').textContent = 'Ready to Work in ' + (info.fullName || countryName) + '?';
+    })();
+    </script>
+</body>
+</html>
