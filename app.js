@@ -191,6 +191,40 @@ document.addEventListener("DOMContentLoaded", () => {
                 mobileToggle.querySelector("i").className = "fa-solid fa-bars";
             });
         });
+
+        // Dynamic Scroll Spy for Navigation Menu Highlights
+        const sections = document.querySelectorAll("section[id]");
+        const navLinks = document.querySelectorAll(".nav-menu .nav-link");
+
+        if (sections.length > 0 && navLinks.length > 0) {
+            const observerOptions = {
+                root: null,
+                rootMargin: "-30% 0px -55% 0px", // Trigger active state when section occupies the viewport center
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute("id");
+                        const targetHash = `#${id}`;
+                        
+                        navLinks.forEach(link => {
+                            const href = link.getAttribute("href");
+                            if (href === targetHash || href.endsWith(targetHash)) {
+                                link.classList.add("active-page");
+                            } else {
+                                link.classList.remove("active-page");
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        }
     }
 
     // Job Finder render & check for parameter routing on Jobs Page
@@ -227,7 +261,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
             let filteredJobs = jobData.filter(job => {
                 // 1. Country filter
-                const matchesCountry = job.location.toLowerCase().includes(country.toLowerCase());
+                let matchesCountry = false;
+                if (country.toLowerCase() === "europe") {
+                    const loc = job.location.toLowerCase();
+                    matchesCountry = loc.includes("poland") || 
+                                     loc.includes("serbia") || 
+                                     loc.includes("bulgaria") || 
+                                     loc.includes("belarus") || 
+                                     loc.includes("latvia") ||
+                                     loc.includes("ukraine") ||
+                                     loc.includes("czech");
+                } else if (country.toLowerCase() === "gulf") {
+                    const loc = job.location.toLowerCase();
+                    matchesCountry = loc.includes("uae") || 
+                                     loc.includes("dubai") || 
+                                     loc.includes("sharjah") || 
+                                     loc.includes("abu dhabi") || 
+                                     loc.includes("saudi") || 
+                                     loc.includes("oman");
+                } else {
+                    matchesCountry = job.location.toLowerCase().includes(country.toLowerCase());
+                }
 
                 // 2. Trade category filter
                 let matchesCategory = true;
@@ -300,7 +354,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             setTimeout(() => {
                 showToast(`Showing verified openings in ${countryParam}`);
-            }, 500);
+                const jobsSec = document.getElementById("jobs");
+                if (jobsSec) {
+                    jobsSec.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 600);
         } else {
             // Default: show UAE on load
             const uaeBtn = document.querySelector('[data-filter="UAE"][onclick^="filterJobsByCountry"]');
@@ -1427,4 +1485,55 @@ function initAIChatbot() {
 document.addEventListener("DOMContentLoaded", function() {
     initGlobePins();
     initAIChatbot();
+});
+
+// === Language Switcher Logic ===
+window.changeLanguage = function(langCode) {
+    // 1. Update styling of all language switcher buttons on the page
+    const buttons = document.querySelectorAll('.lang-btn');
+    buttons.forEach(btn => {
+        if (btn.getAttribute('onclick').includes(langCode)) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+
+    // 2. Set translation cookies
+    document.cookie = `googtrans=/en/${langCode}; path=/; domain=${window.location.hostname}`;
+    document.cookie = `googtrans=/en/${langCode}; path=/;`; // fallback for localhost
+
+    // 3. Trigger change on hidden Google Translate element if loaded
+    const translateCombo = document.querySelector('.goog-te-combo');
+    if (translateCombo) {
+        translateCombo.value = langCode;
+        translateCombo.dispatchEvent(new Event('change'));
+    } else {
+        // Fallback: reload page to apply cookie
+        window.location.reload();
+    }
+};
+
+// Auto-activate language switcher button styles on page load based on cookie state
+document.addEventListener("DOMContentLoaded", function() {
+    const getCookie = (name) => {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    };
+
+    const currentTrans = getCookie('googtrans');
+    let activeLang = 'en';
+    if (currentTrans && currentTrans.endsWith('/hi')) {
+        activeLang = 'hi';
+    }
+
+    const buttons = document.querySelectorAll('.lang-btn');
+    buttons.forEach(btn => {
+        if (btn.getAttribute('onclick').includes(activeLang)) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
 });

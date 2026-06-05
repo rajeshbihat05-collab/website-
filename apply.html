@@ -32,14 +32,20 @@
             </button>
 
             <ul class="nav-menu" id="nav-menu">
-                <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="services.html" class="nav-link">Services</a></li>
-                <li><a href="jobs.html" class="nav-link">Explore Jobs</a></li>
-                <li><a href="safety.html" class="nav-link">Candidate Safety</a></li>
-                <li><a href="eligibility.html" class="nav-link">Check Eligibility</a></li>
-                <li><a href="locations.html" class="nav-link">Our Offices</a></li>
-                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="index.html#home" class="nav-link">Home</a></li>
+                <li><a href="index.html#services" class="nav-link">Services</a></li>
+                <li><a href="index.html#jobs" class="nav-link">Explore Jobs</a></li>
+                <li><a href="index.html#safety" class="nav-link">Candidate Safety</a></li>
+                <li><a href="index.html#eligibility" class="nav-link">Check Eligibility</a></li>
+                <li><a href="index.html#locations" class="nav-link">Our Offices</a></li>
+                <li><a href="index.html#contact" class="nav-link">Contact</a></li>
                 <li><a href="pay.html" class="nav-link">Pay Online</a></li>
+                <li style="display: flex; align-items: center; justify-content: center; padding: 0 10px;">
+                    <div class="lang-switch-container">
+                        <button class="lang-btn active" onclick="changeLanguage('en')">EN</button>
+                        <button class="lang-btn" onclick="changeLanguage('hi')">हिन्दी</button>
+                    </div>
+                </li>
                 <li><a href="apply.html" class="btn btn-primary btn-sm" style="padding: 8px 20px; font-size: 0.85rem; color: #fff;">Apply Now</a></li>
             </ul>
         </div>
@@ -208,19 +214,19 @@
             <div class="footer-links-col">
                 <h4>Quick Navigation</h4>
                 <ul class="footer-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="services.html">Our Services</a></li>
-                    <li><a href="jobs.html">Explore Jobs</a></li>
-                    <li><a href="eligibility.html">Visa Eligibility</a></li>
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#services">Our Services</a></li>
+                    <li><a href="index.html#jobs">Explore Jobs</a></li>
+                    <li><a href="index.html#eligibility">Visa Eligibility</a></li>
                     <li><a href="pay.html">Pay Fees Online</a></li>
                 </ul>
             </div>
             <div class="footer-links-col">
                 <h4>Legal & Info</h4>
                 <ul class="footer-links">
-                    <li><a href="safety.html">Candidate Advisory</a></li>
-                    <li><a href="locations.html">Office Addresses</a></li>
-                    <li><a href="contact.html">Contact Support</a></li>
+                    <li><a href="index.html#safety">Candidate Advisory</a></li>
+                    <li><a href="index.html#locations">Office Addresses</a></li>
+                    <li><a href="index.html#contact">Contact Support</a></li>
                 </ul>
             </div>
         </div>
@@ -310,6 +316,20 @@
             </form>
         </div>
     </div>
+
+    <!-- Google Translate Widget (Hidden combo, triggered programmatically) -->
+    <div id="google_translate_element"></div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en', 
+                includedLanguages: 'en,hi', 
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     <script src="app.js?v=1.1"></script>
 </body>
