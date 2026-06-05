@@ -327,24 +327,46 @@ header.scrolled {
 }
 
 .nav-menu {
-    display: flex;
+    display: flex !important;
     list-style: none;
-    gap: 30px;
     align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    padding: 5px 8px;
+    border-radius: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important; /* Hide scrollbar Firefox */
+    -ms-overflow-style: none !important; /* Hide scrollbar IE/Edge */
+    transition: var(--transition-smooth);
+    max-width: none;
+    flex-shrink: 0;
+}
+
+.nav-menu::-webkit-scrollbar {
+    display: none !important; /* Hide scrollbar Chrome/Safari */
 }
 
 .nav-link {
     text-decoration: none;
     color: var(--text-secondary);
-    font-size: 0.95rem;
-    font-weight: 500;
+    font-size: 0.88rem;
+    font-weight: 600;
     transition: var(--transition-smooth);
     position: relative;
-    padding: 6px 0;
+    padding: 8px 16px;
+    border-radius: 20px;
+    display: block;
+    white-space: nowrap !important; /* Prevent text wrapping internally */
 }
 
 .nav-link:hover {
-    color: var(--text-primary);
+    color: var(--primary);
+    background: rgba(79, 70, 229, 0.05);
 }
 
 .nav-link::after {
@@ -356,14 +378,16 @@ header.scrolled {
     height: 2px;
     background: var(--secondary);
     transition: var(--transition-smooth);
+    display: none !important; /* Disabled underline style */
 }
 
 .nav-link:hover::after {
     width: 100%;
+    display: none !important;
 }
 
 .mobile-nav-toggle {
-    display: none;
+    display: none !important; /* Always hide hamburger toggle */
     background: none;
     border: none;
     color: var(--text-primary);
@@ -468,11 +492,13 @@ header.scrolled {
 
 
 .nav-link.active-page {
-    color: var(--secondary) !important;
+    background: var(--primary) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
 }
 
 .nav-link.active-page::after {
-    width: 100% !important;
+    display: none !important;
 }
 
 .job-badge.israel {
@@ -1702,30 +1728,18 @@ footer {
 
 @media (max-width: 768px) {
     .nav-menu {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 24px;
-        right: 24px;
-        background: rgba(10, 15, 37, 0.98);
-        backdrop-filter: blur(20px);
-        border: 1px solid var(--border-glass);
-        border-radius: var(--border-radius-lg);
-        flex-direction: column;
-        padding: 30px;
-        gap: 20px;
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+        max-width: calc(100% - 130px);
+        flex-shrink: 1;
+        gap: 4px;
+        padding: 4px 6px;
     }
-
-    .nav-menu.active {
-        display: flex;
-        animation: fadeIn 0.3s ease-out forwards;
+    .nav-link {
+        font-size: 0.8rem;
+        padding: 6px 12px;
     }
-
-    .mobile-nav-toggle {
-        display: block;
+    .logo-main {
+        font-size: 1.25rem !important;
     }
-
     .hero-title {
         font-size: 2.5rem;
     }
@@ -2951,10 +2965,17 @@ body {
 
 /* Tighten header nav layout for intermediate desktops */
 @media (max-width: 1200px) and (min-width: 769px) {
+    .logo-main {
+        font-size: 1.35rem !important;
+    }
     .nav-menu {
-        gap: 15px;
+        max-width: calc(100% - 170px);
+        flex-shrink: 1;
+        gap: 3px;
+        padding: 4px;
     }
     .nav-link {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
+        padding: 6px 10px;
     }
 }
