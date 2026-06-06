@@ -3514,3 +3514,128 @@ header.scrolled .top-utility-bar {
     }
 }
 
+/* Hero Features Card Layout */
+.hero-features-card {
+    padding: 30px;
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    border-radius: var(--border-radius-lg);
+    text-align: left;
+}
+
+.features-card-header {
+    border-bottom: 1px solid var(--border-glass);
+    padding-bottom: 16px;
+}
+
+.features-card-header .card-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--primary-glow);
+    color: var(--primary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.features-card-header h3 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.features-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.feature-item-inline {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 8px;
+    border-radius: 8px;
+    transition: var(--transition-smooth);
+}
+
+.feature-item-inline:hover {
+    background: rgba(37, 99, 235, 0.02);
+}
+
+.feature-item-icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 50%;
+    background: var(--secondary-glow);
+    color: var(--secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+.feature-item-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: left;
+}
+
+.feature-item-text h4 {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.feature-item-text p {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin: 0;
+}
+
+.features-card-footer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--border-glass);
+    padding-top: 16px;
+    text-align: center;
+    gap: 8px;
+}
+
+.mini-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+}
+
+.mini-stat-num {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.mini-stat-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+
