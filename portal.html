@@ -1,0 +1,1923 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career & Client Portal | Trendy Fortune Global Pvt. Ltd.</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Register on the Trendy Fortune Global Portal. Upload resumes, track visa applications, book counselor interviews, and access our admin control panel.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Style Sheet -->
+    <link rel="stylesheet" href="style.css?v=1.1">
+    
+    <style>
+        /* Portal Page Custom Styles (Scoped to preserve site compatibility) */
+        .portal-hero {
+            padding: 130px 0 50px 0;
+            text-align: center;
+            background: radial-gradient(circle at top, rgba(37, 99, 235, 0.05) 0%, transparent 60%);
+        }
+
+        .portal-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        @media (max-width: 992px) {
+            .portal-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Sidebar Navigation Tabs */
+        .portal-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            height: fit-content;
+            padding: 20px;
+        }
+
+        @media (max-width: 992px) {
+            .portal-menu {
+                flex-direction: row;
+                overflow-x: auto;
+                white-space: nowrap;
+                padding: 15px;
+                scrollbar-width: none;
+            }
+            .portal-menu::-webkit-scrollbar {
+                display: none;
+            }
+        }
+
+        .portal-menu-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            border: 1px solid transparent;
+            background: transparent;
+            border-radius: 12px;
+            color: var(--text-secondary);
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            text-align: left;
+            transition: var(--transition-smooth);
+            width: 100%;
+        }
+
+        @media (max-width: 992px) {
+            .portal-menu-btn {
+                width: auto;
+                padding: 10px 16px;
+                font-size: 0.85rem;
+            }
+        }
+
+        .portal-menu-btn:hover {
+            background: rgba(15, 23, 42, 0.03);
+            color: var(--primary);
+        }
+
+        .portal-menu-btn.active {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--secondary);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        /* Frosted Glass Panels */
+        .portal-tab-content {
+            display: none;
+            animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .portal-tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Document Upload Dropzones */
+        .upload-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+            margin-bottom: 25px;
+        }
+
+        .upload-card {
+            background: rgba(255, 255, 255, 0.4);
+            border: 2px dashed var(--border-glass);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .upload-card:hover {
+            border-color: var(--secondary);
+            background: rgba(37, 99, 235, 0.03);
+        }
+
+        .upload-card input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .upload-card i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .upload-card h5 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+        }
+
+        .upload-card p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .upload-status {
+            margin-top: 10px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .upload-status.success {
+            color: var(--success);
+            display: flex;
+        }
+
+        /* Visual Stepper for status tracking */
+        .stepper {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin: 40px 0;
+            padding: 0 10px;
+            flex-wrap: nowrap;
+        }
+
+        @media (max-width: 768px) {
+            .stepper {
+                flex-direction: column;
+                gap: 24px;
+                padding-left: 20px;
+                margin-left: 10px;
+                border-left: 3px solid var(--border-glass);
+            }
+        }
+
+        .stepper::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--border-glass);
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .stepper::before {
+                display: none;
+            }
+        }
+
+        .stepper-progress {
+            position: absolute;
+            top: 15px;
+            left: 0;
+            height: 4px;
+            background: var(--primary);
+            z-index: 2;
+            width: 0%;
+            transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .step-item {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            flex: 1;
+        }
+
+        @media (max-width: 768px) {
+            .step-item {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                text-align: left;
+            }
+        }
+
+        .step-bubble {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 3px solid var(--border-glass);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin: 0 auto 10px auto;
+            transition: var(--transition-smooth);
+        }
+
+        @media (max-width: 768px) {
+            .step-bubble {
+                margin: 0;
+                flex-shrink: 0;
+            }
+        }
+
+        .step-item.active .step-bubble {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: #ffffff;
+            box-shadow: 0 0 12px var(--primary-glow);
+        }
+
+        .step-item.completed .step-bubble {
+            border-color: var(--success);
+            background: var(--success);
+            color: #ffffff;
+        }
+
+        .step-label {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            transition: var(--transition-smooth);
+        }
+
+        .step-item.active .step-label {
+            color: var(--primary);
+        }
+
+        .step-item.completed .step-label {
+            color: var(--success);
+        }
+
+        /* Success Testimonials Cards */
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .video-testimonial-card {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #020617;
+            height: 200px;
+            cursor: pointer;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        .video-placeholder-bg {
+            width: 100%;
+            height: 100%;
+            opacity: 0.65;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .video-testimonial-card:hover .video-placeholder-bg {
+            transform: scale(1.08);
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(2, 6, 23, 0.95) 0%, transparent 80%);
+            color: #ffffff;
+            z-index: 2;
+        }
+
+        .play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            box-shadow: 0 0 15px rgba(37, 99, 235, 0.5);
+            transition: var(--transition-smooth);
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .video-testimonial-card:hover .play-btn {
+            background: var(--success);
+            transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: 0 0 20px rgba(21, 128, 61, 0.6);
+        }
+
+        /* Lead source progress bars */
+        .source-bar-wrapper {
+            margin-bottom: 15px;
+        }
+
+        .source-bar-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .source-bar-track {
+            height: 8px;
+            background: var(--border-glass);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .source-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Custom slot badges */
+        .slot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .slot-badge {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-glass);
+            background: #ffffff;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .slot-badge:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(37, 99, 235, 0.02);
+        }
+
+        .slot-badge.selected {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+        }
+
+        .slot-badge.disabled {
+            background: rgba(15, 23, 42, 0.05);
+            color: var(--text-muted);
+            border-color: transparent;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Ambient Glow BG Elements -->
+    <div class="ambient-glow-3"></div>
+
+    <!-- Header / Navigation -->
+    <header id="header" class="scrolled" style="position: sticky; top:0; z-index: 1000;">
+        <div class="container nav-container">
+            <a href="index.html" class="logo" id="nav-logo">
+                
+                <div class="logo-text">
+                    <span class="logo-main">Trendy Fortune</span>
+                </div>
+            </a>
+
+            <button class="mobile-nav-toggle" id="mobile-toggle" aria-label="Toggle Navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html#home" class="nav-link">Home</a></li>
+                <li><a href="index.html#services" class="nav-link">Services</a></li>
+                <li><a href="index.html#jobs" class="nav-link">Explore Jobs</a></li>
+                <li><a href="index.html#safety" class="nav-link">Candidate Safety</a></li>
+                <li><a href="index.html#eligibility" class="nav-link">Check Eligibility</a></li>
+                <li><a href="index.html#locations" class="nav-link">Our Offices</a></li>
+                <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+                <li><a href="pay.html" class="nav-link">Pay Online</a></li>
+                <li><a href="portal.html" class="nav-link active-page">Career Portal</a></li>
+                <li style="display: flex; align-items: center; justify-content: center; padding: 0 10px;">
+                    <div class="lang-switch-container">
+                        <button class="lang-btn active" onclick="changeLanguage('en')">EN</button>
+                        <button class="lang-btn" onclick="changeLanguage('hi')">हिन्दी</button>
+                    </div>
+                </li>
+                <li><a href="apply.html" class="btn btn-primary btn-sm"
+                        style="padding: 8px 20px; font-size: 0.85rem; color: #fff;">Apply Now</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Portal Intro -->
+    <section class="portal-hero">
+        <div class="container">
+            <h1 class="section-title">Career & Client Portal</h1>
+            <p class="section-subtitle">Your unified gateway for registering profiles, uploading credentials, booking interviews, and tracking visa applications.</p>
+        </div>
+    </section>
+
+    <!-- Main Workspace Container -->
+    <section style="padding: 10px 0 80px 0;">
+        <div class="container">
+            <div class="portal-grid">
+                
+                <!-- Sidebar Menu Navigation -->
+                <aside class="glass-panel portal-menu">
+                    <button class="portal-menu-btn active" onclick="switchPortalTab('apply-tab')">
+                        <i class="fa-solid fa-id-card"></i> Register & Apply
+                    </button>
+                    <button class="portal-menu-btn" onclick="switchPortalTab('track-tab')">
+                        <i class="fa-solid fa-route"></i> Track Visa Status
+                    </button>
+                    <button class="portal-menu-btn" onclick="switchPortalTab('book-tab')">
+                        <i class="fa-solid fa-calendar-check"></i> Book Interview
+                    </button>
+                    <button class="portal-menu-btn" onclick="switchPortalTab('reviews-tab')">
+                        <i class="fa-solid fa-star"></i> Reviews & Stories
+                    </button>
+                    <hr style="border: 0; border-top: 1px solid var(--border-glass); margin: 10px 0;">
+                    <button class="portal-menu-btn" onclick="switchPortalTab('admin-tab')" style="color: var(--accent);">
+                        <i class="fa-solid fa-user-gear"></i> Admin Dashboard
+                    </button>
+                </aside>
+
+                <!-- Dynamic Workspace Content Panels -->
+                <main class="portal-workspace">
+                    
+                    <!-- TAB 1: Register & Apply Form -->
+                    <div id="apply-tab" class="portal-tab-content active glass-panel" style="padding: 40px;">
+                        <h2 style="font-family: var(--font-heading); font-size: 1.8rem; font-weight: 800; margin-bottom: 8px;">Candidate Registration System</h2>
+                        <p style="color: var(--text-secondary); margin-bottom: 30px;">Submit your international profile credentials. All submissions automatically generate an official Candidate ID.</p>
+                        
+                        <form id="portal-apply-form" onsubmit="submitPortalRegistration(event)">
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+                                <div class="form-group">
+                                    <label class="form-label" for="reg-name">Full Name (as in Passport)</label>
+                                    <input type="text" id="reg-name" class="form-input" placeholder="e.g. Rohan Sharma" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="reg-phone">Mobile / WhatsApp Number</label>
+                                    <input type="tel" id="reg-phone" class="form-input" placeholder="e.g. +91 9988776655" required>
+                                </div>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+                                <div class="form-group">
+                                    <label class="form-label" for="reg-email">Email Address</label>
+                                    <input type="email" id="reg-email" class="form-input" placeholder="e.g. rohan@gmail.com" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="reg-age">Age (18 - 60)</label>
+                                    <input type="number" id="reg-age" class="form-input" min="18" max="60" placeholder="e.g. 24" required>
+                                </div>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+                                <div class="form-group">
+                                    <label class="form-label" for="reg-qualification">Highest Qualification</label>
+                                    <select id="reg-qualification" class="form-input" required style="background: var(--bg-surface);">
+                                        <option value="" disabled selected>Select Qualification</option>
+                                        <option value="10th Pass">10th Pass</option>
+                                        <option value="12th Pass">12th Pass</option>
+                                        <option value="ITI / Diploma / Vocational">ITI / Diploma / Vocational</option>
+                                        <option value="Graduate / Post-Graduate">Graduate / Post-Graduate</option>
+                                        <option value="Hospitality Degree / Certificate">Hospitality Degree / Certificate</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="reg-experience">Total Work Experience</label>
+                                    <select id="reg-experience" class="form-input" required style="background: var(--bg-surface);">
+                                        <option value="" disabled selected>Select Experience</option>
+                                        <option value="Fresher (0-1 Year)">Fresher (0-1 Year)</option>
+                                        <option value="Mid-Level (2-5 Years)">Mid-Level (2-5 Years)</option>
+                                        <option value="Experienced (5+ Years)">Experienced (5+ Years)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+                                <div class="form-group">
+                                    <label class="form-label" for="reg-passport">Passport Status</label>
+                                    <select id="reg-passport" class="form-input" required style="background: var(--bg-surface);">
+                                        <option value="" disabled selected>Do you have a passport?</option>
+                                        <option value="Yes">Yes (Valid Passport)</option>
+                                        <option value="No">No (In-Process / Applying)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="reg-country">Preferred Destination</label>
+                                    <select id="reg-country" class="form-input" required style="background: var(--bg-surface);">
+                                        <option value="" disabled selected>Select Country</option>
+                                        <option value="USA">United States (USA)</option>
+                                        <option value="Germany">Germany (Ausbildung/Jobs)</option>
+                                        <option value="France">France (Hospitality/Jobs)</option>
+                                        <option value="UAE">United Arab Emirates (UAE)</option>
+                                        <option value="Serbia">Serbia</option>
+                                        <option value="Croatia">Croatia</option>
+                                        <option value="Romania">Romania</option>
+                                        <option value="Bulgaria">Bulgaria</option>
+                                        <option value="Russia">Russia</option>
+                                        <option value="Oman">Oman</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+                                <div class="form-group">
+                                    <label class="form-label" for="reg-source">Lead Channel / Source</label>
+                                    <select id="reg-source" class="form-input" required style="background: var(--bg-surface);">
+                                        <option value="Website" selected>Website Search</option>
+                                        <option value="WhatsApp">WhatsApp Message</option>
+                                        <option value="Facebook">Facebook Ads / Page</option>
+                                        <option value="Instagram">Instagram Stories</option>
+                                        <option value="Google Ads">Google Ads Campaign</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="reg-trade">Preferred Category / Trade</label>
+                                    <input type="text" id="reg-trade" class="form-input" placeholder="e.g. Hospitality Chef, Welder, Driver" required>
+                                </div>
+                            </div>
+
+                            <!-- Document Upload Elements -->
+                            <h4 style="font-family: var(--font-heading); font-weight: 700; margin-top: 30px; margin-bottom: 5px; color: var(--text-primary);">Document Credentials Upload</h4>
+                            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 15px;">Drag & drop your files or click to browse. Max size 5MB per file.</p>
+                            
+                            <div class="upload-grid">
+                                <div class="upload-card" id="drop-resume">
+                                    <input type="file" id="file-resume" onchange="handleFileSelected('resume', this)">
+                                    <i class="fa-solid fa-file-pdf"></i>
+                                    <h5>Resume / CV</h5>
+                                    <p>PDF or Word Format</p>
+                                    <div class="upload-status" id="status-resume"><i class="fa-solid fa-circle-check"></i> <span>Ready</span></div>
+                                </div>
+                                <div class="upload-card" id="drop-passport">
+                                    <input type="file" id="file-passport" onchange="handleFileSelected('passport', this)">
+                                    <i class="fa-solid fa-passport"></i>
+                                    <h5>Passport Scan</h5>
+                                    <p>Front & Back Pages</p>
+                                    <div class="upload-status" id="status-passport"><i class="fa-solid fa-circle-check"></i> <span>Ready</span></div>
+                                </div>
+                                <div class="upload-card" id="drop-photo">
+                                    <input type="file" id="file-photo" onchange="handleFileSelected('photo', this)">
+                                    <i class="fa-solid fa-image-portrait"></i>
+                                    <h5>Profile Photo</h5>
+                                    <p>White Background JPEG</p>
+                                    <div class="upload-status" id="status-photo"><i class="fa-solid fa-circle-check"></i> <span>Ready</span></div>
+                                </div>
+                                <div class="upload-card" id="drop-exp">
+                                    <input type="file" id="file-exp" onchange="handleFileSelected('exp', this)">
+                                    <i class="fa-solid fa-award"></i>
+                                    <h5>Experience Certificate</h5>
+                                    <p>Previous Job Letters</p>
+                                    <div class="upload-status" id="status-exp"><i class="fa-solid fa-circle-check"></i> <span>Ready</span></div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" style="width: 100%; font-weight: 700; padding: 15px;">
+                                Register Profile & Generate Candidate ID <i class="fa-solid fa-circle-arrow-right"></i>
+                            </button>
+                        </form>
+
+                        <!-- Success Card Dialog (hidden by default) -->
+                        <div id="reg-success-card" class="glass-panel" style="display: none; margin-top: 30px; padding: 30px; border-color: var(--success); background: rgba(21, 128, 61, 0.02); text-align: center;">
+                            <div style="width: 60px; height: 60px; border-radius: 50%; background: rgba(21, 128, 61, 0.1); color: var(--success); display: flex; align-items: center; justify-content: center; margin: 0 auto 15px auto; font-size: 1.8rem;">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <h3 style="font-family: var(--font-heading); font-size: 1.6rem; font-weight: 800; color: var(--text-primary); margin-bottom: 5px;">Registration Successful!</h3>
+                            <p style="color: var(--text-secondary); margin-bottom: 20px;">Your Candidate Profile has been validated. Please save your Candidate ID below.</p>
+                            
+                            <div style="background: var(--bg-surface); border: 2px dashed var(--primary); border-radius: 8px; padding: 15px 25px; display: inline-block; margin-bottom: 25px;">
+                                <span style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); display: block; font-weight: 600;">Your Auto-Generated ID</span>
+                                <strong id="success-candidate-id" style="font-size: 1.8rem; letter-spacing: 1px; color: var(--primary); font-family: var(--font-heading);">TF-2026-1001</strong>
+                            </div>
+                            
+                            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                                <button class="btn btn-secondary" onclick="copyCandidateId()">Copy ID <i class="fa-solid fa-copy"></i></button>
+                                <button class="btn btn-primary" onclick="proceedToBookingFromReg()">Book Interview Slot <i class="fa-solid fa-calendar-day"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 2: Application Status Tracking -->
+                    <div id="track-tab" class="portal-tab-content glass-panel" style="padding: 40px;">
+                        <h2 style="font-family: var(--font-heading); font-size: 1.8rem; font-weight: 800; margin-bottom: 8px;">Application Status Tracking</h2>
+                        <p style="color: var(--text-secondary); margin-bottom: 35px;">Enter your unique Candidate ID or Email to check the progress pipeline of your application.</p>
+                        
+                        <div style="display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap;">
+                            <input type="text" id="track-search-input" class="form-input" placeholder="Enter Candidate ID (e.g., TF-2026-1001)" style="flex: 1; min-width: 250px;">
+                            <button class="btn btn-primary" onclick="searchCandidateStatus()" style="padding: 12px 30px;">Track Status <i class="fa-solid fa-magnifying-glass"></i></button>
+                        </div>
+
+                        <!-- Stepper Visual Segment -->
+                        <div id="tracking-stepper-container" style="display: none;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-glass); padding-bottom: 20px; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+                                <div>
+                                    <h4 id="track-candidate-name" style="font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; margin: 0;">Rohan Sharma</h4>
+                                    <p style="margin: 0; font-size: 0.9rem; color: var(--text-muted);">ID: <span id="track-candidate-id" style="font-weight: 600; color: var(--primary);">TF-2026-1001</span> | Destination: <span id="track-candidate-destination" style="font-weight: 600;">Germany</span></p>
+                                </div>
+                                <span id="track-candidate-badge" style="background: rgba(79, 70, 229, 0.1); color: var(--primary); padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 0.85rem;">Status: Applied</span>
+                            </div>
+
+                            <div class="stepper">
+                                <div class="stepper-progress" id="stepper-progress-bar"></div>
+                                <div class="step-item" id="step-0">
+                                    <div class="step-bubble">1</div>
+                                    <div class="step-label">Applied</div>
+                                </div>
+                                <div class="step-item" id="step-1">
+                                    <div class="step-bubble">2</div>
+                                    <div class="step-label">Shortlisted</div>
+                                </div>
+                                <div class="step-item" id="step-2">
+                                    <div class="step-bubble">3</div>
+                                    <div class="step-label">Interview</div>
+                                </div>
+                                <div class="step-item" id="step-3">
+                                    <div class="step-bubble">4</div>
+                                    <div class="step-label">Selected</div>
+                                </div>
+                                <div class="step-item" id="step-4">
+                                    <div class="step-bubble">5</div>
+                                    <div class="step-label">Documents</div>
+                                </div>
+                                <div class="step-item" id="step-5">
+                                    <div class="step-bubble">6</div>
+                                    <div class="step-label">Visa Process</div>
+                                </div>
+                                <div class="step-item" id="step-6">
+                                    <div class="step-bubble">7</div>
+                                    <div class="step-label">Deployment</div>
+                                </div>
+                            </div>
+
+                            <div class="glass-panel" style="padding: 20px; background: rgba(255,255,255,0.4); margin-top: 30px;">
+                                <h5 style="font-family: var(--font-heading); font-weight: 700; margin-bottom: 5px; color: var(--text-primary);"><i class="fa-solid fa-circle-info" style="color: var(--primary);"></i> Current Milestone Details</h5>
+                                <p id="track-status-description" style="font-size: 0.9rem; color: var(--text-secondary); margin: 0;">Your application has been received and is currently under primary verification by our credential team.</p>
+                            </div>
+                        </div>
+
+                        <!-- Error details view (hidden by default) -->
+                        <div id="tracking-error" style="display: none; text-align: center; padding: 30px; color: var(--danger); font-weight: 600;">
+                            <i class="fa-solid fa-triangle-exclamation fa-2xl" style="margin-bottom: 15px; display: block;"></i>
+                            No candidate found with the provided ID. Please verify the characters and try again, or register details first.
+                        </div>
+                    </div>
+
+                    <!-- TAB 3: Interview Booking Module -->
+                    <div id="book-tab" class="portal-tab-content glass-panel" style="padding: 40px;">
+                        <h2 style="font-family: var(--font-heading); font-size: 1.8rem; font-weight: 800; margin-bottom: 8px;">Counselor Interview Booking</h2>
+                        <p style="color: var(--text-secondary); margin-bottom: 30px;">Select a date and choose an available time slot to schedule your profile evaluation interview with our visa expert.</p>
+                        
+                        <form id="portal-booking-form" onsubmit="submitInterviewBooking(event)">
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 25px;">
+                                <div class="form-group">
+                                    <label class="form-label" for="book-id">Candidate ID</label>
+                                    <input type="text" id="book-id" class="form-input" placeholder="e.g. TF-2026-1001" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="book-date">Select Date</label>
+                                    <input type="date" id="book-date" class="form-input" required onchange="generateTimeSlots()">
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="margin-bottom: 30px;">
+                                <label class="form-label">Available Time Slots</label>
+                                <div class="slot-grid" id="booking-slot-grid">
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; grid-column: 1/-1;">Please select a date first to check slot availability.</p>
+                                </div>
+                                <input type="hidden" id="selected-time-slot" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-accent" style="width: 100%; color: #0d0b14; font-weight: 700; padding: 14px;">
+                                Confirm Appointment Slot <i class="fa-solid fa-circle-check"></i>
+                            </button>
+                        </form>
+
+                        <!-- Booking success message -->
+                        <div id="booking-success" class="glass-panel" style="display: none; border-color: var(--success); background: rgba(21, 128, 61, 0.02); padding: 30px; margin-top: 30px; text-align: center;">
+                            <i class="fa-solid fa-envelope-circle-check fa-3x" style="color: var(--success); margin-bottom: 15px;"></i>
+                            <h3 style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: 800; margin-bottom: 5px; color: var(--text-primary);">Interview Booked Successfully!</h3>
+                            <p style="color: var(--text-secondary); margin-bottom: 20px;">A confirmation has been logged. Our counselor will connect with you at your chosen time.</p>
+                            
+                            <div style="background: var(--bg-surface); padding: 15px; border-radius: 8px; border: 1px solid var(--border-glass); display: inline-block; text-align: left;">
+                                <p style="margin: 3px 0; font-size: 0.9rem;"><strong>Candidate ID:</strong> <span id="conf-id">TF-2026-1001</span></p>
+                                <p style="margin: 3px 0; font-size: 0.9rem;"><strong>Date:</strong> <span id="conf-date">2026-06-15</span></p>
+                                <p style="margin: 3px 0; font-size: 0.9rem;"><strong>Time Slot:</strong> <span id="conf-time">11:30 AM - 12:30 PM</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 4: Testimonials & Reviews -->
+                    <div id="reviews-tab" class="portal-tab-content glass-panel" style="padding: 40px;">
+                        <h2 style="font-family: var(--font-heading); font-size: 1.8rem; font-weight: 800; margin-bottom: 8px;">Success Reviews & Google Integration</h2>
+                        <p style="color: var(--text-secondary); margin-bottom: 40px;">Read certified success stories and live Google reviews from candidates placed worldwide by Trendy Fortune.</p>
+                        
+                        <!-- Google Reviews Integration Widget -->
+                        <div class="glass-panel" style="display: flex; align-items: center; justify-content: space-between; padding: 25px 30px; margin-bottom: 40px; background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(248, 250, 252, 0.8) 100%); flex-wrap: wrap; gap: 20px;">
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <div style="width: 55px; height: 55px; border-radius: 50%; background: #ffffff; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.05); font-size: 1.8rem; color: #4285F4;">
+                                    <i class="fa-brands fa-google"></i>
+                                </div>
+                                <div>
+                                    <h4 style="font-family: var(--font-heading); font-weight: 800; font-size: 1.3rem; margin: 0; display: flex; align-items: center; gap: 8px;">Google Business Rating</h4>
+                                    <div style="color: #F4B400; font-size: 1.1rem; margin-top: 3px;">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star-half-stroke"></i>
+                                        <span style="color: var(--text-primary); font-weight: 700; font-size: 0.95rem; margin-left: 5px;">4.9 / 5.0</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600; display: block; margin-bottom: 6px; text-align: right;">Based on 852 candidate reviews</span>
+                                <a href="https://search.google.com/local/writereview" target="_blank" class="btn btn-primary btn-sm" style="background: #4285F4; border-color: #4285F4;"><i class="fa-solid fa-pen-nib"></i> Write Google Review</a>
+                            </div>
+                        </div>
+
+                        <!-- Success Stories list -->
+                        <h4 style="font-family: var(--font-heading); font-weight: 800; font-size: 1.4rem; margin-bottom: 20px; color: var(--text-primary);">Candidate Video Testimonials</h4>
+                        <div class="testimonial-grid" style="margin-bottom: 45px;">
+                            <div class="video-testimonial-card" onclick="playMockVideo('Amrit Pal Singh, Shuttering Carpenter placed in Serbia')">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80" class="video-placeholder-bg" alt="Candidate Video">
+                                <div class="play-btn"><i class="fa-solid fa-play"></i></div>
+                                <div class="video-overlay">
+                                    <h5 style="margin: 0 0 3px 0; font-family: var(--font-heading); font-weight: 800; font-size: 1.05rem;">Amrit Pal Singh</h5>
+                                    <p style="margin: 0; font-size: 0.78rem; opacity: 0.9;"><i class="fa-solid fa-briefcase"></i> Carpenter in Serbia | Placed: May 2026</p>
+                                </div>
+                            </div>
+                            <div class="video-testimonial-card" onclick="playMockVideo('Suresh Kumar, MEP Electrician deployed to Dubai UAE')">
+                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80" class="video-placeholder-bg" alt="Candidate Video">
+                                <div class="play-btn"><i class="fa-solid fa-play"></i></div>
+                                <div class="video-overlay">
+                                    <h5 style="margin: 0 0 3px 0; font-family: var(--font-heading); font-weight: 800; font-size: 1.05rem;">Suresh Kumar</h5>
+                                    <p style="margin: 0; font-size: 0.78rem; opacity: 0.9;"><i class="fa-solid fa-briefcase"></i> Electrician in Dubai | Placed: Jan 2026</p>
+                                </div>
+                            </div>
+                            <div class="video-testimonial-card" onclick="playMockVideo('Nikita Sen, J-1 Hospitality Intern deployed to USA luxury resort')">
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80" class="video-placeholder-bg" alt="Candidate Video">
+                                <div class="play-btn"><i class="fa-solid fa-play"></i></div>
+                                <div class="video-overlay">
+                                    <h5 style="margin: 0 0 3px 0; font-family: var(--font-heading); font-weight: 800; font-size: 1.05rem;">Nikita Sen</h5>
+                                    <p style="margin: 0; font-size: 0.78rem; opacity: 0.9;"><i class="fa-solid fa-briefcase"></i> Hospitality Intern in USA | Placed: April 2026</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Written Google business reviews mapping -->
+                        <h4 style="font-family: var(--font-heading); font-weight: 800; font-size: 1.4rem; margin-bottom: 20px; color: var(--text-primary);">Google Reviews Feed</h4>
+                        <div style="display: flex; flex-direction: column; gap: 15px;">
+                            <div class="glass-panel" style="padding: 20px; background: rgba(255,255,255,0.35);">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; flex-wrap: wrap;">
+                                    <div>
+                                        <strong style="font-size: 1rem; color: var(--text-primary); display: block;">Vikramaditya Rao</strong>
+                                        <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 500;">Local Guide | 34 reviews</span>
+                                    </div>
+                                    <div style="color: #F4B400; font-size: 0.85rem;">
+                                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                        <span style="color: var(--text-muted); font-size: 0.75rem; margin-left: 5px;">2 days ago</span>
+                                    </div>
+                                </div>
+                                <p style="font-size: 0.88rem; color: var(--text-secondary); margin: 0;">"Highly recommended staffing agency! They guided me step-by-step for my work permit card for Czech Republic. No advance fee, full transparent visa processing. My family is very happy."</p>
+                            </div>
+                            <div class="glass-panel" style="padding: 20px; background: rgba(255,255,255,0.35);">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; flex-wrap: wrap;">
+                                    <div>
+                                        <strong style="font-size: 1rem; color: var(--text-primary); display: block;">Mohammad Tariq</strong>
+                                        <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 500;">Candidate (Placed in Oman)</span>
+                                    </div>
+                                    <div style="color: #F4B400; font-size: 0.85rem;">
+                                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                        <span style="color: var(--text-muted); font-size: 0.75rem; margin-left: 5px;">1 week ago</span>
+                                    </div>
+                                </div>
+                                <p style="font-size: 0.88rem; color: var(--text-secondary); margin: 0;">"Very clean work structure. Registered as AC technician, got interview inside 10 days, contract got generated with 4,500 AED. Deployed to Muscat safely. Accommodation provided by company is excellent. Thanks Yasha ma'am."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 5: Admin Dashboard Portal -->
+                    <div id="admin-tab" class="portal-tab-content" style="min-height: 400px;">
+                        
+                        <!-- Auth Passcode Screen -->
+                        <div id="portal-admin-auth" class="glass-panel" style="padding: 50px 40px; text-align: center; max-width: 480px; margin: 0 auto;">
+                            <div style="width: 70px; height: 70px; border-radius: 50%; background: rgba(37, 99, 235, 0.1); color: var(--primary); display: flex; align-items: center; justify-content: center; margin: 0 auto 24px auto; font-size: 2rem;">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <h2 style="font-family: var(--font-heading); font-size: 1.8rem; font-weight: 800; margin-bottom: 8px;">Admin Console Login</h2>
+                            <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 30px;">Enter administrative passcode to manage registered candidates, update visa statuses, and track lead channels.</p>
+                            
+                            <form onsubmit="handleAdminAuth(event)">
+                                <div class="form-group" style="margin-bottom: 20px;">
+                                    <input type="password" id="admin-portal-pass" class="form-input" placeholder="Enter Portal Passcode" required style="text-align: center; font-size: 1.1rem; letter-spacing: 2px;">
+                                </div>
+                                <button type="submit" class="btn btn-primary" style="width: 100%;">Authorize Access <i class="fa-solid fa-lock-open"></i></button>
+                            </form>
+                            <div id="admin-auth-err" style="color: var(--danger); font-size: 0.9rem; margin-top: 15px; display: none; font-weight: 600;">
+                                <i class="fa-solid fa-triangle-exclamation"></i> Access Denied. Invalid Administrator Passcode.
+                            </div>
+                        </div>
+
+                        <!-- Admin Panel View (Hidden initially) -->
+                        <div id="portal-admin-dashboard" style="display: none;">
+                            
+                            <!-- Header actions -->
+                            <div class="glass-panel" style="padding: 25px 30px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                                <div>
+                                    <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 1.6rem; margin: 0;">Candidate Management Panel</h3>
+                                    <p style="margin: 0; color: var(--text-muted); font-size: 0.85rem;">Authorized session active | System secure console v1.4</p>
+                                </div>
+                                <div style="display: flex; gap: 10px;">
+                                    <button class="btn btn-secondary btn-sm" onclick="exportCandidatesCSV()" style="padding: 8px 18px;"><i class="fa-solid fa-file-csv"></i> Export CSV</button>
+                                    <button class="btn btn-secondary btn-sm" onclick="logoutAdminPortal()" style="padding: 8px 18px; color: var(--danger); border-color: rgba(220,38,38,0.15);"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</button>
+                                </div>
+                            </div>
+
+                            <!-- Lead Management Analytics Section -->
+                            <div class="glass-panel" style="padding: 30px; margin-bottom: 30px;">
+                                <h4 style="font-family: var(--font-heading); font-weight: 800; font-size: 1.3rem; margin-bottom: 20px; color: var(--text-primary);"><i class="fa-solid fa-chart-pie" style="color: var(--primary);"></i> Lead Sources Channel Analysis</h4>
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px;">
+                                    
+                                    <!-- Visual Progress Bars -->
+                                    <div style="display: flex; flex-direction: column; justify-content: center;">
+                                        <div class="source-bar-wrapper">
+                                            <div class="source-bar-info">
+                                                <span>Website Searches</span>
+                                                <span id="stat-source-web">0 leads (0%)</span>
+                                            </div>
+                                            <div class="source-bar-track">
+                                                <div class="source-bar-fill" id="bar-source-web" style="background: var(--primary);"></div>
+                                            </div>
+                                        </div>
+                                        <div class="source-bar-wrapper">
+                                            <div class="source-bar-info">
+                                                <span>WhatsApp Button</span>
+                                                <span id="stat-source-wa">0 leads (0%)</span>
+                                            </div>
+                                            <div class="source-bar-track">
+                                                <div class="source-bar-fill" id="bar-source-wa" style="background: #25D366;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="source-bar-wrapper">
+                                            <div class="source-bar-info">
+                                                <span>Facebook Ads</span>
+                                                <span id="stat-source-fb">0 leads (0%)</span>
+                                            </div>
+                                            <div class="source-bar-track">
+                                                <div class="source-bar-fill" id="bar-source-fb" style="background: #1877F2;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="source-bar-wrapper">
+                                            <div class="source-bar-info">
+                                                <span>Instagram Stories</span>
+                                                <span id="stat-source-ig">0 leads (0%)</span>
+                                            </div>
+                                            <div class="source-bar-track">
+                                                <div class="source-bar-fill" id="bar-source-ig" style="background: #E1306C;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="source-bar-wrapper">
+                                            <div class="source-bar-info">
+                                                <span>Google Ads</span>
+                                                <span id="stat-source-gads">0 leads (0%)</span>
+                                            </div>
+                                            <div class="source-bar-track">
+                                                <div class="source-bar-fill" id="bar-source-gads" style="background: #4285F4;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Summary Figures -->
+                                    <div class="glass-panel" style="background: rgba(255,255,255,0.4); padding: 20px; display: flex; flex-direction: column; justify-content: center; gap: 15px;">
+                                        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-glass); padding-bottom: 8px;">
+                                            <span style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted);">Total Candidates:</span>
+                                            <strong id="summary-total-candidates" style="color: var(--primary);">0</strong>
+                                        </div>
+                                        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-glass); padding-bottom: 8px;">
+                                            <span style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted);">Interview Booked:</span>
+                                            <strong id="summary-total-booked" style="color: var(--accent);">0</strong>
+                                        </div>
+                                        <div style="display: flex; justify-content: space-between; padding-bottom: 8px;">
+                                            <span style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted);">Deployed Candidates:</span>
+                                            <strong id="summary-total-deployed" style="color: var(--success);">0</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Filter & Search Toolbar -->
+                            <div class="glass-panel" style="padding: 25px; margin-bottom: 25px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label class="form-label" style="font-size: 0.8rem;">Search Name/ID/Email</label>
+                                    <input type="text" id="admin-search-text" class="form-input" placeholder="Type here..." oninput="filterAdminCandidates()">
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label class="form-label" style="font-size: 0.8rem;">Filter Country</label>
+                                    <select id="admin-filter-country" class="form-input" onchange="filterAdminCandidates()" style="background: var(--bg-surface);">
+                                        <option value="all">All Destinations</option>
+                                        <option value="USA">USA</option>
+                                        <option value="Germany">Germany</option>
+                                        <option value="France">France</option>
+                                        <option value="UAE">UAE</option>
+                                        <option value="Serbia">Serbia</option>
+                                        <option value="Croatia">Croatia</option>
+                                        <option value="Romania">Romania</option>
+                                        <option value="Bulgaria">Bulgaria</option>
+                                        <option value="Russia">Russia</option>
+                                        <option value="Oman">Oman</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label class="form-label" style="font-size: 0.8rem;">Filter Status</label>
+                                    <select id="admin-filter-status" class="form-input" onchange="filterAdminCandidates()" style="background: var(--bg-surface);">
+                                        <option value="all">All Statuses</option>
+                                        <option value="Applied">Applied</option>
+                                        <option value="Shortlisted">Shortlisted</option>
+                                        <option value="Interview Scheduled">Interview Scheduled</option>
+                                        <option value="Selected">Selected</option>
+                                        <option value="Documentation">Documentation</option>
+                                        <option value="Visa Processing">Visa Processing</option>
+                                        <option value="Deployment">Deployment</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label class="form-label" style="font-size: 0.8rem;">Filter Lead Source</label>
+                                    <select id="admin-filter-source" class="form-input" onchange="filterAdminCandidates()" style="background: var(--bg-surface);">
+                                        <option value="all">All Sources</option>
+                                        <option value="Website">Website</option>
+                                        <option value="WhatsApp">WhatsApp</option>
+                                        <option value="Facebook">Facebook</option>
+                                        <option value="Instagram">Instagram</option>
+                                        <option value="Google Ads">Google Ads</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Candidates database list -->
+                            <div class="glass-panel" style="padding: 30px; overflow-x: auto;">
+                                <table style="width: 100%; border-collapse: collapse; min-width: 800px; font-size: 0.9rem; text-align: left;">
+                                    <thead>
+                                        <tr style="border-bottom: 2px solid var(--border-glass); font-family: var(--font-heading); font-weight: 700; color: var(--text-primary);">
+                                            <th style="padding: 12px 10px;">ID</th>
+                                            <th style="padding: 12px 10px;">Candidate Details</th>
+                                            <th style="padding: 12px 10px;">Preferred Country</th>
+                                            <th style="padding: 12px 10px;">Source</th>
+                                            <th style="padding: 12px 10px;">Interview Booking</th>
+                                            <th style="padding: 12px 10px; min-width: 170px;">Visa Status Stage</th>
+                                            <th style="padding: 12px 10px; text-align: right;">Credentials</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="admin-candidate-rows">
+                                        <!-- Populate dynamically -->
+                                    </tbody>
+                                </table>
+                                <div id="admin-no-results" style="display: none; text-align: center; padding: 40px; color: var(--text-muted);">
+                                    <i class="fa-solid fa-folder-open fa-2xl" style="display:block; margin-bottom:15px;"></i>
+                                    No candidate records match your filter criteria.
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </main>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: #f1f5f9; border-top: 1px solid rgba(15, 23, 42, 0.08); padding: 50px 0 30px 0;">
+        <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-bottom: 40px;">
+            <div>
+                <a href="index.html" class="logo" style="margin-bottom: 15px; display: inline-block;">
+                    
+                    <div class="logo-text">
+                    <span class="logo-main">Trendy Fortune</span>
+                </div>
+                </a>
+                <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6;">Premium government-approved international recruitment services and J-1 USA hospitality paid internship coordinators. Connecting talent globally.</p>
+            </div>
+            <div>
+                <h4 style="font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; margin-bottom: 15px;">Candidate Quick Links</h4>
+                <ul style="list-style: none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; font-size: 0.88rem;">
+                    <li><a href="portal.html" style="color: var(--text-secondary); text-decoration:none;">Candidate Registration</a></li>
+                    <li><a href="portal.html?tab=track" style="color: var(--text-secondary); text-decoration:none;">Application Status Tracker</a></li>
+                    <li><a href="portal.html?tab=book" style="color: var(--text-secondary); text-decoration:none;">Counselor Booking Calendar</a></li>
+                    <li><a href="index.html#jobs" style="color: var(--text-secondary); text-decoration:none;">Explore Current Openings</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 style="font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; margin-bottom: 15px;">Corporate Office</h4>
+                <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 8px;">C616, Tower C, Noida One, Sector 62, Noida, Uttar Pradesh, India - 201309</p>
+                <p style="font-size: 0.88rem; color: var(--text-muted);">Helpline: <a href="https://wa.me/918700917348" style="color: var(--primary); text-decoration:none; font-weight: 600;">+91 8700917348</a></p>
+            </div>
+        </div>
+        <div class="container" style="border-top: 1px solid rgba(15,23,42,0.06); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; font-size: 0.82rem; color: var(--text-muted);">
+            <p>&copy; 2026 Trendy Fortune Global Pvt. Ltd. All rights reserved.</p>
+            <p>Designed for Visual Excellence & Cross-Device Compatibility</p>
+        </div>
+    </footer>
+
+    <!-- Video Testimonial Mock Player Modal -->
+    <div id="video-mock-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2, 6, 23, 0.8); z-index: 10001; align-items: center; justify-content: center; backdrop-filter: blur(8px);">
+        <div class="glass-panel" style="width: 90%; max-width: 600px; padding: 30px; text-align: center; background: #ffffff; position: relative;">
+            <button onclick="closeVideoMockModal()" style="position: absolute; top: 15px; right: 15px; background: transparent; border: 0; font-size: 1.5rem; cursor: pointer; color: var(--text-muted);"><i class="fa-solid fa-xmark"></i></button>
+            <h4 id="mock-video-title" style="font-family: var(--font-heading); font-weight: 800; font-size: 1.3rem; margin-bottom: 20px;">Candidate Story</h4>
+            <div style="background: #020617; border-radius: 8px; height: 300px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; margin-bottom: 20px;">
+                <div style="text-align: center; color: #ffffff; padding: 20px;">
+                    <i class="fa-regular fa-circle-play fa-4x" style="color: var(--primary); margin-bottom: 15px; animation: pulse 1.8s infinite;"></i>
+                    <p style="margin: 0; font-size: 1.1rem; font-weight: 600;">Streaming Mock Testimonial Video</p>
+                    <p style="margin: 5px 0 0 0; font-size: 0.82rem; opacity: 0.7;">Verified placement audit log verified & active</p>
+                </div>
+            </div>
+            <button class="btn btn-secondary" onclick="closeVideoMockModal()">Close Player</button>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="portal-toast" style="z-index: 20000;">
+        <i class="fa-solid fa-circle-check" id="portal-toast-icon"></i>
+        <span id="portal-toast-msg">Operation successful!</span>
+    </div>
+
+    <!-- Structured JSON-LD SEO Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Trendy Fortune Global Pvt. Ltd.",
+      "url": "http://www.trendyfortune.com",
+      "logo": "http://www.trendyfortune.com/images/logo.jpg",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+91-8700917348",
+        "contactType": "customer service",
+        "areaServed": "IN",
+        "availableLanguage": ["en", "hi"]
+      }
+    }
+    </script>
+
+    <!-- JS Controllers -->
+    <script>
+        // Tab switching controller
+        function switchPortalTab(tabId) {
+            // Update sidebar buttons active state
+            const buttons = document.querySelectorAll('.portal-menu-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                // Check if button corresponds to target tab
+                if (btn.getAttribute('onclick').includes(tabId)) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Update visible content
+            const tabs = document.querySelectorAll('.portal-tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            const activeTab = document.getElementById(tabId);
+            if (activeTab) {
+                activeTab.classList.add('active');
+                
+                // If it is admin dashboard and logged in, re-render candidates
+                if (tabId === 'admin-tab' && sessionStorage.getItem('admin_portal_authorized') === 'true') {
+                    renderAdminCandidates();
+                }
+            }
+        }
+
+        // Check URL parameters for tab routing on startup
+        document.addEventListener("DOMContentLoaded", () => {
+            const params = new URLSearchParams(window.location.search);
+            const targetTab = params.get('tab');
+            if (targetTab === 'track') {
+                switchPortalTab('track-tab');
+            } else if (targetTab === 'book') {
+                switchPortalTab('book-tab');
+            } else if (targetTab === 'admin') {
+                switchPortalTab('admin-tab');
+            }
+
+            // Fill lead channel if URL has source params
+            const source = params.get('utm_source') || params.get('source');
+            if (source && document.getElementById('reg-source')) {
+                const normalized = source.toLowerCase();
+                const select = document.getElementById('reg-source');
+                if (normalized.includes('whatsapp')) select.value = 'WhatsApp';
+                else if (normalized.includes('facebook') || normalized.includes('fb')) select.value = 'Facebook';
+                else if (normalized.includes('instagram') || normalized.includes('ig')) select.value = 'Instagram';
+                else if (normalized.includes('google') || normalized.includes('gads')) select.value = 'Google Ads';
+            }
+
+            // Check if admin already authorized in session
+            if (sessionStorage.getItem('admin_portal_authorized') === 'true') {
+                showAdminDashboard();
+            }
+
+            // Load mock candidates on first load if localStorage is empty
+            initializeMockCandidates();
+        });
+
+        // Initialize localStorage candidates database if empty
+        function initializeMockCandidates() {
+            if (!localStorage.getItem('hrms_candidates')) {
+                const mockCandidates = [
+                    {
+                        id: "TF-2026-1402",
+                        name: "Rohan Sharma",
+                        phone: "+91 9988776655",
+                        email: "rohan.sharma@gmail.com",
+                        age: "24",
+                        qualification: "Graduate / Post-Graduate",
+                        experience: "Mid-Level (2-5 Years)",
+                        passport: "Yes",
+                        destination: "Germany",
+                        trade: "Hospitality Manager",
+                        source: "Website",
+                        status: "Selected",
+                        registeredAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toLocaleString(),
+                        files: { resume: "rohan_cv.pdf", passport: "rohan_passport.pdf", photo: "rohan_photo.jpg", exp: "rohan_exp.pdf" },
+                        booking: { date: "2026-06-12", time: "11:30 AM - 12:30 PM" }
+                    },
+                    {
+                        id: "TF-2026-3849",
+                        name: "Amanpreet Singh",
+                        phone: "+91 9876543210",
+                        email: "amanpreet@yahoo.com",
+                        age: "28",
+                        qualification: "ITI / Diploma / Vocational",
+                        experience: "Experienced (5+ Years)",
+                        passport: "Yes",
+                        destination: "Serbia",
+                        trade: "MIG Welder",
+                        source: "Facebook",
+                        status: "Visa Processing",
+                        registeredAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toLocaleString(),
+                        files: { resume: "aman_resume.pdf", passport: "aman_passport.pdf", photo: "aman_photo.jpg", exp: "aman_certs.pdf" },
+                        booking: null
+                    },
+                    {
+                        id: "TF-2026-8840",
+                        name: "Neha Patel",
+                        phone: "+91 8877665544",
+                        email: "neha.patel@outlook.com",
+                        age: "21",
+                        qualification: "Hospitality Degree / Certificate",
+                        experience: "Fresher (0-1 Year)",
+                        passport: "No",
+                        destination: "UAE",
+                        trade: "Front Desk Assistant",
+                        source: "Instagram",
+                        status: "Applied",
+                        registeredAt: new Date(Date.now() - 12 * 60 * 60 * 1000).toLocaleString(),
+                        files: { resume: "neha_cv.docx", passport: null, photo: "neha_photo.jpg", exp: null },
+                        booking: null
+                    }
+                ];
+                localStorage.setItem('hrms_candidates', JSON.stringify(mockCandidates));
+            }
+        }
+
+        // Helper to get candidates from localStorage
+        function getCandidates() {
+            return JSON.parse(localStorage.getItem('hrms_candidates') || '[]');
+        }
+
+        // Helper to save candidates
+        function saveCandidates(arr) {
+            localStorage.setItem('hrms_candidates', JSON.stringify(arr));
+        }
+
+        // File Selection Handler with visual indicator
+        const selectedFilesData = { resume: null, passport: null, photo: null, exp: null };
+
+        function handleFileSelected(fileType, inputEl) {
+            const statusDiv = document.getElementById(`status-${fileType}`);
+            if (inputEl.files && inputEl.files[0]) {
+                const file = inputEl.files[0];
+                
+                // Size validation: 5MB limit
+                if (file.size > 5 * 1024 * 1024) {
+                    showToast("File size must be less than 5MB", "danger");
+                    inputEl.value = "";
+                    return;
+                }
+
+                selectedFilesData[fileType] = file.name;
+                
+                if (statusDiv) {
+                    statusDiv.querySelector('span').innerText = file.name.substring(0, 15) + (file.name.length > 15 ? '...' : '');
+                    statusDiv.className = "upload-status success";
+                    statusDiv.style.display = "flex"; // Ensure visible even after form resets
+                }
+                showToast(`${fileType.toUpperCase()} file selected!`, "success");
+            }
+        }
+
+        // Automatic Candidate ID Generator
+        function generateCandidateId() {
+            const year = "2026";
+            const rand = Math.floor(1000 + Math.random() * 9000);
+            return `TF-${year}-${rand}`;
+        }
+
+        // Candidate Registration Submission
+        function submitPortalRegistration(e) {
+            e.preventDefault();
+
+            const name = document.getElementById("reg-name").value;
+            const phone = document.getElementById("reg-phone").value;
+            const email = document.getElementById("reg-email").value;
+            const age = document.getElementById("reg-age").value;
+            const qualification = document.getElementById("reg-qualification").value;
+            const experience = document.getElementById("reg-experience").value;
+            const passport = document.getElementById("reg-passport").value;
+            const country = document.getElementById("reg-country").value;
+            const source = document.getElementById("reg-source").value;
+            const trade = document.getElementById("reg-trade").value;
+
+            // Generate ID
+            const newId = generateCandidateId();
+
+            const newCandidate = {
+                id: newId,
+                name: name,
+                phone: phone,
+                email: email,
+                age: age,
+                qualification: qualification,
+                experience: experience,
+                passport: passport,
+                destination: country,
+                trade: trade,
+                source: source,
+                status: "Applied",
+                registeredAt: new Date().toLocaleString(),
+                files: {
+                    resume: selectedFilesData.resume || "No file uploaded",
+                    passport: selectedFilesData.passport || "No file uploaded",
+                    photo: selectedFilesData.photo || "No file uploaded",
+                    exp: selectedFilesData.exp || "No file uploaded"
+                },
+                booking: null
+            };
+
+            // Save to localStorage Candidates Database
+            const candidates = getCandidates();
+            candidates.unshift(newCandidate);
+            saveCandidates(candidates);
+
+            // Also trigger background Google Sheets sync if URL setting exists
+            const webappUrl = localStorage.getItem("google_sheet_webapp_url");
+            if (webappUrl) {
+                const sheetData = {
+                    timestamp: newCandidate.registeredAt,
+                    type: `Portal Registration (${newId})`,
+                    name: name,
+                    phone: phone,
+                    email: email,
+                    position: trade,
+                    country: country,
+                    experience: experience,
+                    education: qualification,
+                    city: "Captured via Portal",
+                    notes: `Age: ${age} | Passport: ${passport} | LeadSource: ${source}`
+                };
+                
+                fetch(webappUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(sheetData)
+                }).catch(err => console.error("Google sheets sync failed:", err));
+            }
+
+            // Sync with Chatbot Leads local database
+            try {
+                const leads = JSON.parse(localStorage.getItem("hrms_chat_leads") || "[]");
+                leads.push({
+                    timestamp: newCandidate.registeredAt,
+                    date: new Date().toISOString().split("T")[0],
+                    name: name,
+                    phone: phone,
+                    interest: `ID: ${newId} | Preferred: ${country} | Trade: ${trade} | Source: ${source}`
+                });
+                localStorage.setItem("hrms_chat_leads", JSON.stringify(leads));
+            } catch (err) {
+                console.error(err);
+            }
+
+            // Fire CallMeBot API Alert
+            const alertText = `🔔 *PORTAL REGISTRATION*\n` +
+                `━━━━━━━━━━━━━━━━━━\n` +
+                `🆔 Candidate ID: ${newId}\n` +
+                `👤 Name: ${name}\n` +
+                `📞 Phone: ${phone}\n` +
+                `📧 Email: ${email}\n` +
+                `🌍 Preferred Country: ${country}\n` +
+                `💼 Trade/Designation: ${trade}\n` +
+                `📢 Lead Source: ${source}\n` +
+                `⏰ Registered: ${newCandidate.registeredAt}`;
+                
+            // Trigger background alert direct
+            if (typeof sendWhatsAppDirect === "function") {
+                sendWhatsAppDirect(alertText);
+            } else {
+                console.log("WhatsApp API trigger offline:", alertText);
+            }
+
+            // Reset Form and show Success Dialog
+            document.getElementById("portal-apply-form").reset();
+            // Reset files status
+            document.querySelectorAll(".upload-status").forEach(div => {
+                div.className = "upload-status";
+                div.style.display = "none";
+            });
+            Object.keys(selectedFilesData).forEach(k => selectedFilesData[k] = null);
+
+            // Hide registration form and show Success screen card
+            document.getElementById("portal-apply-form").style.display = "none";
+            document.getElementById("reg-success-card").style.display = "block";
+            document.getElementById("success-candidate-id").innerText = newId;
+
+            showToast("Profile registered successfully!", "success");
+        }
+
+        function copyCandidateId() {
+            const text = document.getElementById("success-candidate-id").innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                showToast("Candidate ID copied to clipboard!", "success");
+            }).catch(() => {
+                showToast("Failed to copy automatically. Please select and copy.", "danger");
+            });
+        }
+
+        function proceedToBookingFromReg() {
+            const id = document.getElementById("success-candidate-id").innerText;
+            document.getElementById("book-id").value = id;
+            
+            // Re-show form for future registrations
+            document.getElementById("portal-apply-form").style.display = "block";
+            document.getElementById("reg-success-card").style.display = "none";
+
+            switchPortalTab('book-tab');
+        }
+
+        // Application Status Tracker
+        function searchCandidateStatus() {
+            const searchInput = document.getElementById("track-search-input").value.trim();
+            const stepperContainer = document.getElementById("tracking-stepper-container");
+            const errorContainer = document.getElementById("tracking-error");
+
+            if (!searchInput) {
+                showToast("Please enter your Candidate ID", "danger");
+                return;
+            }
+
+            const candidates = getCandidates();
+            const found = candidates.find(c => c.id.toLowerCase() === searchInput.toLowerCase() || c.email.toLowerCase() === searchInput.toLowerCase());
+
+            if (!found) {
+                stepperContainer.style.display = "none";
+                errorContainer.style.display = "block";
+                return;
+            }
+
+            // Hide error container
+            errorContainer.style.display = "none";
+            stepperContainer.style.display = "block";
+
+            // Update Details
+            document.getElementById("track-candidate-name").innerText = found.name;
+            document.getElementById("track-candidate-id").innerText = found.id;
+            document.getElementById("track-candidate-destination").innerText = found.destination;
+            document.getElementById("track-candidate-badge").innerText = `Status: ${found.status}`;
+
+            // Reset all active and completed steps
+            const stepItems = document.querySelectorAll(".step-item");
+            stepItems.forEach(item => {
+                item.className = "step-item";
+            });
+
+            // Map Status to Stepper Index
+            const statusMap = [
+                "Applied",
+                "Shortlisted",
+                "Interview Scheduled",
+                "Selected",
+                "Documentation",
+                "Visa Processing",
+                "Deployment"
+            ];
+
+            const currentIndex = statusMap.indexOf(found.status);
+
+            // Highlight steps
+            for (let i = 0; i < stepItems.length; i++) {
+                const el = document.getElementById(`step-${i}`);
+                if (el) {
+                    if (i < currentIndex) {
+                        el.classList.add("completed");
+                    } else if (i === currentIndex) {
+                        el.classList.add("active");
+                    }
+                }
+            }
+
+            // Calculate progress bar percentage
+            const progressBar = document.getElementById("stepper-progress-bar");
+            if (progressBar) {
+                const percent = (currentIndex / (stepItems.length - 1)) * 100;
+                progressBar.style.width = `${percent}%`;
+            }
+
+            // Update description block
+            const descEl = document.getElementById("track-status-description");
+            const descMap = {
+                "Applied": "Your application has been received and is currently under primary verification by our credential team.",
+                "Shortlisted": "Great news! Your profile has met the employer criteria. Your files have been queue-approved for direct interview matching.",
+                "Interview Scheduled": `Your client interview slot has been booked. Please check your dashboard details or connect with your coordinator.`,
+                "Selected": "Congratulations! The foreign employer has selected you and issued your provisional recruitment confirmation letter.",
+                "Documentation": "We are preparing your official employment contract, medical tests, and ministry attestation files.",
+                "Visa Processing": "Your work permit clearance has been received and visa stamping is currently in queue at the embassy.",
+                "Deployment": "Your visa is stamped and travel tickets are booked! Our pre-departure briefing orientation is now active."
+            };
+            descEl.innerText = descMap[found.status] || "Verifying milestone parameters.";
+        }
+
+        // Generating Interview Slots dynamically
+        function generateTimeSlots() {
+            const dateInput = document.getElementById("book-date").value;
+            const grid = document.getElementById("booking-slot-grid");
+            
+            if (!dateInput) {
+                grid.innerHTML = `<p style="color: var(--text-muted); font-size: 0.85rem; grid-column: 1/-1;">Please select a date first to check slot availability.</p>`;
+                return;
+            }
+
+            // Check if selected date is Sunday or past date
+            const selectDate = new Date(dateInput);
+            const today = new Date();
+            today.setHours(0,0,0,0);
+
+            if (selectDate < today) {
+                grid.innerHTML = `<p style="color: var(--danger); font-size: 0.85rem; grid-column: 1/-1;"><i class="fa-solid fa-triangle-exclamation"></i> Cannot book in past dates. Please select an upcoming date.</p>`;
+                return;
+            }
+
+            if (selectDate.getDay() === 0) { // Sunday
+                grid.innerHTML = `<p style="color: var(--danger); font-size: 0.85rem; grid-column: 1/-1;"><i class="fa-solid fa-triangle-exclamation"></i> Sundays are non-working days. Please select Monday to Saturday.</p>`;
+                return;
+            }
+
+            // Available mock slots
+            const slots = [
+                "10:00 AM - 11:00 AM",
+                "11:30 AM - 12:30 PM",
+                "02:00 PM - 03:00 PM",
+                "03:30 PM - 04:30 PM",
+                "05:00 PM - 06:00 PM"
+            ];
+
+            grid.innerHTML = "";
+            slots.forEach((s, idx) => {
+                // Mock slot limits (some random disabled ones)
+                const isDisabled = (idx === 2 && selectDate.getDate() % 2 === 0);
+                const badge = document.createElement("div");
+                badge.className = `slot-badge ${isDisabled ? 'disabled' : ''}`;
+                badge.innerText = s;
+                if (!isDisabled) {
+                    badge.onclick = () => selectBookingSlot(s, badge);
+                }
+                grid.appendChild(badge);
+            });
+        }
+
+        function selectBookingSlot(slot, el) {
+            // Remove previous selections
+            const badges = document.querySelectorAll('.slot-badge');
+            badges.forEach(b => b.classList.remove('selected'));
+            
+            el.classList.add('selected');
+            document.getElementById("selected-time-slot").value = slot;
+        }
+
+        // Interview Booking Submission
+        function submitInterviewBooking(e) {
+            e.preventDefault();
+
+            const cId = document.getElementById("book-id").value.trim();
+            const date = document.getElementById("book-date").value;
+            const slot = document.getElementById("selected-time-slot").value;
+
+            if (!slot) {
+                showToast("Please click and select an available time slot", "danger");
+                return;
+            }
+
+            const candidates = getCandidates();
+            const idx = candidates.findIndex(c => c.id.toLowerCase() === cId.toLowerCase());
+
+            if (idx === -1) {
+                showToast("Invalid Candidate ID. Please register first.", "danger");
+                return;
+            }
+
+            // Update Booking Details
+            candidates[idx].booking = { date: date, time: slot };
+            // Auto transition status to Interview Scheduled
+            candidates[idx].status = "Interview Scheduled";
+            saveCandidates(candidates);
+
+            // Send CallMeBot Alert for Booking
+            const bookingText = `📅 *NEW INTERVIEW BOOKING*\n` +
+                `━━━━━━━━━━━━━━━━━━\n` +
+                `🆔 Candidate ID: ${candidates[idx].id}\n` +
+                `👤 Name: ${candidates[idx].name}\n` +
+                `📞 Phone: ${candidates[idx].phone}\n` +
+                `📅 Date: ${date}\n` +
+                `⏱️ Time Slot: ${slot}\n` +
+                `⏰ Scheduled At: ${new Date().toLocaleString()}`;
+                
+            if (typeof sendWhatsAppDirect === "function") {
+                sendWhatsAppDirect(bookingText);
+            }
+
+            // Hide booking form and show Confirmation panel
+            document.getElementById("portal-booking-form").style.display = "none";
+            
+            const confBox = document.getElementById("booking-success");
+            confBox.style.display = "block";
+            document.getElementById("conf-id").innerText = candidates[idx].id;
+            document.getElementById("conf-date").innerText = date;
+            document.getElementById("conf-time").innerText = slot;
+
+            showToast("Interview Slot Booked successfully!", "success");
+        }
+
+        // Admin authentication passcode
+        function handleAdminAuth(e) {
+            e.preventDefault();
+            const pass = document.getElementById("admin-portal-pass").value;
+            const err = document.getElementById("admin-auth-err");
+
+            if (pass === "Admin@123") {
+                sessionStorage.setItem("admin_portal_authorized", "true");
+                err.style.display = "none";
+                showAdminDashboard();
+                showToast("Access Granted!", "success");
+            } else {
+                err.style.display = "block";
+            }
+        }
+
+        function showAdminDashboard() {
+            document.getElementById("portal-admin-auth").style.display = "none";
+            document.getElementById("portal-admin-dashboard").style.display = "block";
+            renderAdminCandidates();
+        }
+
+        function logoutAdminPortal() {
+            sessionStorage.removeItem("admin_portal_authorized");
+            document.getElementById("portal-admin-auth").style.display = "block";
+            document.getElementById("portal-admin-dashboard").style.display = "none";
+            document.getElementById("admin-portal-pass").value = "";
+            showToast("Logged out from console.", "success");
+        }
+
+        // Render Candidates in admin table
+        function renderAdminCandidates() {
+            const rowsContainer = document.getElementById("admin-candidate-rows");
+            const candidates = getCandidates();
+            
+            rowsContainer.innerHTML = "";
+            
+            if (candidates.length === 0) {
+                document.getElementById("admin-no-results").style.display = "block";
+                updateAdminAnalytics(0, 0, 0, {});
+                return;
+            }
+
+            document.getElementById("admin-no-results").style.display = "none";
+
+            // Analytics counters
+            let total = candidates.length;
+            let bookedCount = 0;
+            let deployedCount = 0;
+            const sourceStats = { Website: 0, WhatsApp: 0, Facebook: 0, Instagram: 0, "Google Ads": 0 };
+
+            candidates.forEach(c => {
+                // Check counts
+                if (c.booking) bookedCount++;
+                if (c.status === "Deployment") deployedCount++;
+                if (sourceStats[c.source] !== undefined) sourceStats[c.source]++;
+
+                const row = document.createElement("tr");
+                row.className = "candidate-admin-row";
+                row.style.borderBottom = "1px solid var(--border-glass)";
+                row.id = `admin-cand-row-${c.id}`;
+
+                row.innerHTML = `
+                    <td style="padding: 15px 10px; font-weight: 700; color: var(--primary); font-family: var(--font-heading);">${c.id}</td>
+                    <td style="padding: 15px 10px;">
+                        <strong>${c.name}</strong><br>
+                        <span style="font-size:0.8rem; color:var(--text-muted);"><i class="fa-solid fa-phone"></i> ${c.phone} | <i class="fa-solid fa-envelope"></i> ${c.email}</span>
+                    </td>
+                    <td style="padding: 15px 10px; font-weight: 600;">${c.destination}</td>
+                    <td style="padding: 15px 10px;"><span style="font-size: 0.82rem; font-weight: 600; background: rgba(15,23,42,0.04); padding: 4px 8px; border-radius: 4px;">${c.source}</span></td>
+                    <td style="padding: 15px 10px; font-size: 0.85rem;">
+                        ${c.booking ? `<span style="color:var(--success); font-weight:600;"><i class="fa-solid fa-calendar-check"></i> ${c.booking.date} (${c.booking.time})</span>` : `<span style="color:var(--text-muted); font-style:italic;">Not Booked</span>`}
+                    </td>
+                    <td style="padding: 15px 10px;">
+                        <select onchange="updateCandidateStatusFromAdmin('${c.id}', this)" class="form-input" style="padding: 6px 12px; font-size:0.82rem; background: var(--bg-surface); margin:0; width:100%; min-width:140px;">
+                            <option value="Applied" ${c.status === 'Applied' ? 'selected' : ''}>Applied</option>
+                            <option value="Shortlisted" ${c.status === 'Shortlisted' ? 'selected' : ''}>Shortlisted</option>
+                            <option value="Interview Scheduled" ${c.status === 'Interview Scheduled' ? 'selected' : ''}>Interview Scheduled</option>
+                            <option value="Selected" ${c.status === 'Selected' ? 'selected' : ''}>Selected</option>
+                            <option value="Documentation" ${c.status === 'Documentation' ? 'selected' : ''}>Documentation</option>
+                            <option value="Visa Processing" ${c.status === 'Visa Processing' ? 'selected' : ''}>Visa Processing</option>
+                            <option value="Deployment" ${c.status === 'Deployment' ? 'selected' : ''}>Deployment</option>
+                        </select>
+                    </td>
+                    <td style="padding: 15px 10px; text-align: right; white-space: nowrap;">
+                        <button class="btn btn-secondary btn-sm" style="padding: 4px 8px; font-size:0.75rem; border-color: rgba(79,70,229,0.15);" onclick="viewCandidateDocs('${c.id}')"><i class="fa-solid fa-folder-open"></i> Docs</button>
+                        <button class="btn btn-secondary btn-sm" style="padding: 4px 8px; font-size:0.75rem; border-color: rgba(220,38,38,0.15); color: var(--danger);" onclick="deleteCandidate('${c.id}')"><i class="fa-solid fa-trash-can"></i></button>
+                    </td>
+                `;
+                rowsContainer.appendChild(row);
+            });
+
+            updateAdminAnalytics(total, bookedCount, deployedCount, sourceStats);
+        }
+
+        // Live stats rendering
+        function updateAdminAnalytics(total, booked, deployed, sourceStats) {
+            document.getElementById("summary-total-candidates").innerText = total;
+            document.getElementById("summary-total-booked").innerText = booked;
+            document.getElementById("summary-total-deployed").innerText = deployed;
+
+            // Fill bars
+            const channels = ['web', 'wa', 'fb', 'ig', 'gads'];
+            const names = ['Website', 'WhatsApp', 'Facebook', 'Instagram', 'Google Ads'];
+
+            channels.forEach((ch, idx) => {
+                const count = sourceStats[names[idx]] || 0;
+                const percent = total > 0 ? (count / total) * 100 : 0;
+                
+                document.getElementById(`stat-source-${ch}`).innerText = `${count} lead${count !== 1 ? 's' : ''} (${Math.round(percent)}%)`;
+                document.getElementById(`bar-source-${ch}`).style.width = `${percent}%`;
+            });
+        }
+
+        // Admin filters
+        function filterAdminCandidates() {
+            const searchText = document.getElementById("admin-search-text").value.toLowerCase();
+            const filterCountry = document.getElementById("admin-filter-country").value;
+            const filterStatus = document.getElementById("admin-filter-status").value;
+            const filterSource = document.getElementById("admin-filter-source").value;
+
+            const candidates = getCandidates();
+            const rows = document.querySelectorAll(".candidate-admin-row");
+            let matchedCount = 0;
+
+            candidates.forEach(c => {
+                const rowEl = document.getElementById(`admin-cand-row-${c.id}`);
+                if (!rowEl) return;
+
+                const matchSearch = c.name.toLowerCase().includes(searchText) || 
+                                    c.id.toLowerCase().includes(searchText) || 
+                                    c.email.toLowerCase().includes(searchText);
+                
+                const matchCountry = filterCountry === "all" || c.destination === filterCountry;
+                const matchStatus = filterStatus === "all" || c.status === filterStatus;
+                const matchSource = filterSource === "all" || c.source === filterSource;
+
+                if (matchSearch && matchCountry && matchStatus && matchSource) {
+                    rowEl.style.display = "table-row";
+                    matchedCount++;
+                } else {
+                    rowEl.style.display = "none";
+                }
+            });
+
+            const noResults = document.getElementById("admin-no-results");
+            if (matchedCount === 0) {
+                noResults.style.display = "block";
+            } else {
+                noResults.style.display = "none";
+            }
+        }
+
+        // Status Updater From Admin
+        function updateCandidateStatusFromAdmin(cId, selectEl) {
+            const newStatus = selectEl.value;
+            const candidates = getCandidates();
+            const idx = candidates.findIndex(c => c.id === cId);
+
+            if (idx !== -1) {
+                candidates[idx].status = newStatus;
+                saveCandidates(candidates);
+                
+                // Show feedback and re-render analytics
+                showToast(`Candidate ${cId} status updated to ${newStatus}!`, "success");
+                renderAdminCandidates();
+                
+                // Send background CallMeBot Alert for status change
+                const statusChangeMsg = `🔔 *STATUS TRANSITION*\n` +
+                    `━━━━━━━━━━━━━━━━━━\n` +
+                    `🆔 Candidate ID: ${cId}\n` +
+                    `👤 Name: ${candidates[idx].name}\n` +
+                    `👉 New Status: *${newStatus}*\n` +
+                    `⏰ Updated: ${new Date().toLocaleString()}`;
+                    
+                if (typeof sendWhatsAppDirect === "function") {
+                    sendWhatsAppDirect(statusChangeMsg);
+                }
+            }
+        }
+
+        // View files uploaded dialog
+        function viewCandidateDocs(cId) {
+            const candidates = getCandidates();
+            const found = candidates.find(c => c.id === cId);
+            
+            if (found) {
+                const files = found.files;
+                alert(`📁 Registered Credentials for candidate ${found.name} (${cId}):\n\n` +
+                      `1. Resume: ${files.resume}\n` +
+                      `2. Passport Copy: ${files.passport}\n` +
+                      `3. Photograph: ${files.photo}\n` +
+                      `4. Experience Cert: ${files.exp}\n\n` +
+                      `Note: Files are stored in local client-side storage cache.`);
+            }
+        }
+
+        // Delete candidate record
+        function deleteCandidate(cId) {
+            if (confirm(`Are you sure you want to permanently delete Candidate record ${cId}?`)) {
+                let candidates = getCandidates();
+                candidates = candidates.filter(c => c.id !== cId);
+                saveCandidates(candidates);
+                
+                showToast(`Record ${cId} removed.`, "success");
+                renderAdminCandidates();
+            }
+        }
+
+        // Export Candidates as CSV Report
+        function exportCandidatesCSV() {
+            const candidates = getCandidates();
+            if (candidates.length === 0) {
+                showToast("No candidate records available to export.", "danger");
+                return;
+            }
+
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "Candidate ID,Full Name,Phone Number,Email ID,Age,Qualification,Experience,Passport,Preferred Country,Preferred Trade,Lead Source,Current Status,Registration Date,Interview Booking\n";
+
+            candidates.forEach(c => {
+                const bookingDetails = c.booking ? `"${c.booking.date} (${c.booking.time})"` : "None";
+                const row = [
+                    c.id,
+                    `"${c.name}"`,
+                    `"${c.phone}"`,
+                    `"${c.email}"`,
+                    c.age,
+                    `"${c.qualification}"`,
+                    `"${c.experience}"`,
+                    c.passport,
+                    c.destination,
+                    `"${c.trade}"`,
+                    c.source,
+                    c.status,
+                    `"${c.registeredAt}"`,
+                    bookingDetails
+                ].join(",");
+                csvContent += row + "\n";
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `trendy_fortune_candidates_report_${new Date().toISOString().split('T')[0]}.csv`);
+            document.body.appendChild(link); // Required for FF
+            link.click();
+            document.body.removeChild(link);
+            
+            showToast("CSV report compiled & downloaded!", "success");
+        }
+
+        // Video Testimonial Overlay Player
+        function playMockVideo(details) {
+            document.getElementById("mock-video-title").innerText = details;
+            document.getElementById("video-mock-modal").style.display = "flex";
+        }
+
+        function closeVideoMockModal() {
+            document.getElementById("video-mock-modal").style.display = "none";
+        }
+
+        // Toast controller
+        function showToast(message, type = "success") {
+            const toast = document.getElementById("portal-toast");
+            const icon = document.getElementById("portal-toast-icon");
+            const msgEl = document.getElementById("portal-toast-msg");
+
+            msgEl.innerText = message;
+            
+            // Set styles
+            if (type === "success") {
+                toast.style.borderColor = "var(--success)";
+                icon.className = "fa-solid fa-circle-check";
+                icon.style.color = "var(--success)";
+            } else if (type === "danger") {
+                toast.style.borderColor = "var(--danger)";
+                icon.className = "fa-solid fa-circle-exclamation";
+                icon.style.color = "var(--danger)";
+            } else {
+                toast.style.borderColor = "var(--primary)";
+                icon.className = "fa-solid fa-circle-info";
+                icon.style.color = "var(--primary)";
+            }
+
+            toast.classList.add("active");
+            setTimeout(() => {
+                toast.classList.remove("active");
+            }, 3000);
+        }
+    </script>
+    <script src="app.js?v=1.1"></script>
+</body>
+
+</html>

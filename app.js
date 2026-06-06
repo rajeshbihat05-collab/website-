@@ -456,7 +456,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         const btn = document.createElement("a");
         btn.id = "whatsapp-floating-btn";
-        btn.href = "https://wa.me/919903809000";
+        btn.href = "https://wa.me/918700917348";
         btn.target = "_blank";
         btn.rel = "noopener noreferrer";
         btn.className = "whatsapp-btn";
@@ -566,7 +566,7 @@ function closeApplyModal() {
 // "I allow callmebot to send me messages"
 // Fir aapko ek API key milega — wo neeche daal do
 const WHATSAPP_CONFIG = {
-    phone: "919903809000",
+    phone: "918700917348",
     apikey: "" // <-- Yahan apna CallMeBot API key daalein (setup instructions neeche hain)
 };
 
