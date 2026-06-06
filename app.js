@@ -14,55 +14,55 @@ const jobData = [
     { id: 11, title: "City Taxi Driver", company: "Tashkent Cab Service", salary: "$1,200 / mo", location: "Uzbekistan", category: "skilled", age: "21-45", type: "Full Time", date: "Just now" },
 
     // UAE (Dubai/Sharjah/Abu Dhabi) - Civil
-    { id: 12, title: "Mason (Civil)", company: "Arabian Construction Company", salary: "$1,200 - $1,500 / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "2 days ago" },
-    { id: 13, title: "Tile Mason", company: "Arabian Construction Company", salary: "$1,200 - $1,500 / mo", location: "Sharjah, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "Yesterday" },
-    { id: 14, title: "Carpenter", company: "Al Naboodah Group", salary: "$1,200 - $1,800 / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "5 days ago" },
-    { id: 15, title: "Shuttering Carpenter", company: "Al Naboodah Group", salary: "$1,200 - $1,500 / mo", location: "Abu Dhabi, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "3 days ago" },
-    { id: 16, title: "Construction Helper", company: "Belhasa Engineering", salary: "$900 - $1,100 / mo", location: "Sharjah, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "Yesterday" },
-    { id: 17, title: "Plumber", company: "Belhasa Engineering", salary: "$1,200 - $1,800 / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "1 day ago" },
-    { id: 18, title: "Steel Fixer", company: "Dutco Balfour Beatty", salary: "$1,200 - $1,600 / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "3 days ago" },
-    { id: 19, title: "Aluminium Fabricator", company: "Alumco UAE", salary: "$1,400 - $2,000 / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "4 days ago" },
-    { id: 20, title: "Scaffolder", company: "Dutco Balfour Beatty", salary: "$1,400 - $2,000 / mo", location: "Abu Dhabi, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "6 days ago" },
+    { id: 12, title: "Mason (Civil)", company: "Arabian Construction Company", salary: "4,500 - 5,500 AED / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "2 days ago" },
+    { id: 13, title: "Tile Mason", company: "Arabian Construction Company", salary: "4,500 - 5,500 AED / mo", location: "Sharjah, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "Yesterday" },
+    { id: 14, title: "Carpenter", company: "Al Naboodah Group", salary: "4,500 - 6,500 AED / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "5 days ago" },
+    { id: 15, title: "Shuttering Carpenter", company: "Al Naboodah Group", salary: "4,500 - 5,500 AED / mo", location: "Abu Dhabi, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "3 days ago" },
+    { id: 16, title: "Construction Helper", company: "Belhasa Engineering", salary: "3,500 - 4,000 AED / mo", location: "Sharjah, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "Yesterday" },
+    { id: 17, title: "Plumber", company: "Belhasa Engineering", salary: "4,500 - 6,500 AED / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "1 day ago" },
+    { id: 18, title: "Steel Fixer", company: "Dutco Balfour Beatty", salary: "4,500 - 6,000 AED / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "3 days ago" },
+    { id: 19, title: "Aluminium Fabricator", company: "Alumco UAE", salary: "5,000 - 7,500 AED / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "4 days ago" },
+    { id: 20, title: "Scaffolder", company: "Dutco Balfour Beatty", salary: "5,000 - 7,500 AED / mo", location: "Abu Dhabi, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "6 days ago" },
 
     // UAE - MEP
-    { id: 21, title: "Electrician (MEP)", company: "Drake & Scull", salary: "$1,200 - $1,800 / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "2 days ago" },
-    { id: 22, title: "Ductman", company: "Drake & Scull", salary: "$1,200 - $1,500 / mo", location: "Sharjah, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "3 days ago" },
-    { id: 23, title: "AC Technician", company: "Al Shirawi Contracting", salary: "$1,200 - $2,000 / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "1 day ago" },
-    { id: 24, title: "Industrial Electrician", company: "Al Shirawi Contracting", salary: "$1,400 - $2,500 / mo", location: "Abu Dhabi, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "4 days ago" },
-    { id: 25, title: "Pipe Fitter", company: "Drake & Scull", salary: "$1,200 - $2,000 / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "3 days ago" },
-    { id: 26, title: "Pipe Fabricator", company: "EFECO UAE", salary: "$1,500 - $2,500 / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "Yesterday" },
-    { id: 27, title: "Rigger", company: "EFECO UAE", salary: "$1,200 - $1,500 / mo", location: "Sharjah, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "6 days ago" },
-    { id: 28, title: "Welder (Tig & Arc)", company: "Galadari Engineering", salary: "$1,200 - $2,000 / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "5 days ago" },
+    { id: 21, title: "Electrician (MEP)", company: "Drake & Scull", salary: "4,500 - 6,500 AED / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "2 days ago" },
+    { id: 22, title: "Ductman", company: "Drake & Scull", salary: "4,500 - 5,500 AED / mo", location: "Sharjah, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "3 days ago" },
+    { id: 23, title: "AC Technician", company: "Al Shirawi Contracting", salary: "4,500 - 7,500 AED / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "1 day ago" },
+    { id: 24, title: "Industrial Electrician", company: "Al Shirawi Contracting", salary: "5,000 - 9,000 AED / mo", location: "Abu Dhabi, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "4 days ago" },
+    { id: 25, title: "Pipe Fitter", company: "Drake & Scull", salary: "4,500 - 7,500 AED / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "3 days ago" },
+    { id: 26, title: "Pipe Fabricator", company: "EFECO UAE", salary: "5,500 - 9,000 AED / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "Yesterday" },
+    { id: 27, title: "Rigger", company: "EFECO UAE", salary: "4,500 - 5,500 AED / mo", location: "Sharjah, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "6 days ago" },
+    { id: 28, title: "Welder (Tig & Arc)", company: "Galadari Engineering", salary: "4,500 - 7,500 AED / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "5 days ago" },
 
     // UAE - Hospitality & Cook
-    { id: 29, title: "Head Chef", company: "Jumeirah Hotels Group", salary: "$2,000 - $5,000 / mo", location: "Dubai, UAE", category: "hospitality", age: "25-45", type: "Full Time", date: "2 days ago" },
-    { id: 30, title: "Sous Chef", company: "Jumeirah Hotels Group", salary: "$1,800 - $3,000 / mo", location: "Dubai, UAE", category: "hospitality", age: "25-45", type: "Full Time", date: "4 days ago" },
-    { id: 31, title: "Indian Specialty Cook", company: "Taj Hotels Dubai", salary: "$1,500 - $2,500 / mo", location: "Dubai, UAE", category: "hospitality", age: "21-45", type: "Full Time", date: "Yesterday" },
-    { id: 32, title: "Continental Cook", company: "Address Hotels Dubai", salary: "$1,500 - $3,000 / mo", location: "Dubai, UAE", category: "hospitality", age: "21-45", type: "Full Time", date: "3 days ago" },
-    { id: 33, title: "Chinese Specialty Cook", company: "Shangri-La Hotels", salary: "$1,500 - $3,000 / mo", location: "Abu Dhabi, UAE", category: "hospitality", age: "21-45", type: "Full Time", date: "Yesterday" },
-    { id: 34, title: "CDP (Chef De Partie)", company: "Address Hotels Dubai", salary: "$1,500 - $2,500 / mo", location: "Dubai, UAE", category: "hospitality", age: "21-45", type: "Full Time", date: "5 days ago" },
-    { id: 35, title: "Commi 1 Chef", company: "Jumeirah Hotels Group", salary: "$1,200 - $2,000 / mo", location: "Dubai, UAE", category: "hospitality", age: "21-45", type: "Full Time", date: "2 days ago" },
-    { id: 36, title: "Commi 2 Chef", company: "Jumeirah Hotels Group", salary: "$1,400 - $2,000 / mo", location: "Dubai, UAE", category: "hospitality", age: "21-45", type: "Full Time", date: "4 days ago" },
-    { id: 37, title: "Commi 3 Chef", company: "Jumeirah Hotels Group", salary: "$1,500 - $2,500 / mo", location: "Dubai, UAE", category: "hospitality", age: "21-45", type: "Full Time", date: "Just now" },
-    { id: 38, title: "Tandoor Cook", company: "Taj Hotels Dubai", salary: "$1,800 - $2,500 / mo", location: "Dubai, UAE", category: "hospitality", age: "21-45", type: "Full Time", date: "Yesterday" },
-    { id: 39, title: "Arabic Specialty Cook", company: "Rotana Hotels", salary: "$2,000 - $3,500 / mo", location: "Abu Dhabi, UAE", category: "hospitality", age: "21-45", type: "Full Time", date: "Yesterday" },
-    { id: 40, title: "Housekeeping Attendant", company: "EMAAR Hospitality", salary: "$900 - $1,500 / mo", location: "Dubai, UAE", category: "hospitality", age: "21-40", type: "Full Time", date: "3 days ago" },
-    { id: 41, title: "Hotel Bell Boy", company: "EMAAR Hospitality", salary: "$1,200 - $2,000 / mo", location: "Dubai, UAE", category: "hospitality", age: "21-35", type: "Full Time", date: "1 day ago" },
-    { id: 42, title: "F&B Waiter", company: "Rotana Hotels", salary: "$1,200 - $2,000 / mo", location: "Dubai, UAE", category: "hospitality", age: "21-40", type: "Full Time", date: "Just now" },
-    { id: 43, title: "Hotel Bar Tender", company: "Address Hotels Dubai", salary: "$1,500 - $3,000 / mo", location: "Dubai, UAE", category: "hospitality", age: "21-40", type: "Full Time", date: "2 days ago" },
+    { id: 29, title: "Head Chef", company: "Jumeirah Hotels Group", salary: "7,500 - 18,500 AED / mo", location: "Dubai, UAE", category: "hospitality", age: "25-45", type: "Full Time", date: "2 days ago" },
+    { id: 30, title: "Sous Chef", company: "Jumeirah Hotels Group", salary: "6,500 - 11,000 AED / mo", location: "Dubai, UAE", category: "hospitality", age: "25-45", type: "Full Time", date: "4 days ago" },
+    { id: 31, title: "Indian Specialty Cook", company: "Taj Hotels Dubai", salary: "5,500 - 9,000 AED / mo", location: "Dubai, UAE", category: "hospitality", age: "21-45", type: "Full Time", date: "Yesterday" },
+    { id: 32, title: "Continental Cook", company: "Address Hotels Dubai", salary: "5,500 - 11,000 AED / mo", location: "Dubai, UAE", category: "hospitality", age: "21-45", type: "Full Time", date: "3 days ago" },
+    { id: 33, title: "Chinese Specialty Cook", company: "Shangri-La Hotels", salary: "5,500 - 11,000 AED / mo", location: "Abu Dhabi, UAE", category: "hospitality", age: "21-45", type: "Full Time", date: "Yesterday" },
+    { id: 34, title: "CDP (Chef De Partie)", company: "Address Hotels Dubai", salary: "5,500 - 9,000 AED / mo", location: "Dubai, UAE", category: "hospitality", age: "21-45", type: "Full Time", date: "5 days ago" },
+    { id: 35, title: "Commi 1 Chef", company: "Jumeirah Hotels Group", salary: "4,500 - 7,500 AED / mo", location: "Dubai, UAE", category: "hospitality", age: "21-45", type: "Full Time", date: "2 days ago" },
+    { id: 36, title: "Commi 2 Chef", company: "Jumeirah Hotels Group", salary: "5,000 - 7,500 AED / mo", location: "Dubai, UAE", category: "hospitality", age: "21-45", type: "Full Time", date: "4 days ago" },
+    { id: 37, title: "Commi 3 Chef", company: "Jumeirah Hotels Group", salary: "5,500 - 9,000 AED / mo", location: "Dubai, UAE", category: "hospitality", age: "21-45", type: "Full Time", date: "Just now" },
+    { id: 38, title: "Tandoor Cook", company: "Taj Hotels Dubai", salary: "6,500 - 9,000 AED / mo", location: "Dubai, UAE", category: "hospitality", age: "21-45", type: "Full Time", date: "Yesterday" },
+    { id: 39, title: "Arabic Specialty Cook", company: "Rotana Hotels", salary: "7,500 - 13,000 AED / mo", location: "Abu Dhabi, UAE", category: "hospitality", age: "21-45", type: "Full Time", date: "Yesterday" },
+    { id: 40, title: "Housekeeping Attendant", company: "EMAAR Hospitality", salary: "3,500 - 5,500 AED / mo", location: "Dubai, UAE", category: "hospitality", age: "21-40", type: "Full Time", date: "3 days ago" },
+    { id: 41, title: "Hotel Bell Boy", company: "EMAAR Hospitality", salary: "4,500 - 7,500 AED / mo", location: "Dubai, UAE", category: "hospitality", age: "21-35", type: "Full Time", date: "1 day ago" },
+    { id: 42, title: "F&B Waiter", company: "Rotana Hotels", salary: "4,500 - 7,500 AED / mo", location: "Dubai, UAE", category: "hospitality", age: "21-40", type: "Full Time", date: "Just now" },
+    { id: 43, title: "Hotel Bar Tender", company: "Address Hotels Dubai", salary: "5,500 - 11,000 AED / mo", location: "Dubai, UAE", category: "hospitality", age: "21-40", type: "Full Time", date: "2 days ago" },
 
     // UAE - Other/General
-    { id: 44, title: "Supermarket Cashier", company: "Lulu Hypermarket", salary: "$900 - $1,000 / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "4 days ago" },
-    { id: 45, title: "Shelves Arranger", company: "Lulu Hypermarket", salary: "$700 - $800 / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "Yesterday" },
-    { id: 46, title: "Trolly Boy", company: "Carrefour Dubai", salary: "$700 - $800 / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "3 days ago" },
-    { id: 47, title: "Van Sales Man", company: "Al Rawabi Dairy", salary: "$850 - $1,000 / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "Yesterday" },
-    { id: 48, title: "Data Controller", company: "DHL Dubai", salary: "$900 - $1,000 / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "2 days ago" },
-    { id: 49, title: "Factory Auxiliary Worker", company: "National Food Industries", salary: "$700 - $800 / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "5 days ago" },
-    { id: 50, title: "Project Manager (Construction)", company: "Shapoorji Pallonji UAE", salary: "$2,500 - $3,000 / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "1 week ago" },
-    { id: 51, title: "Heavy Duty Driver", company: "Almarai Logistics", salary: "$900 - $1,100 / mo", location: "Sharjah, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "3 days ago" },
-    { id: 52, title: "JCB Operator", company: "Bin Laden Contracting", salary: "$1,000 - $1,200 / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "1 day ago" },
-    { id: 53, title: "Light Driver", company: "Careem Corporate", salary: "$900 - $1,000 / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "Just now" },
-    { id: 54, title: "Warehouse Worker", company: "Amazon Fulfillment Center", salary: "$700 - $1,000 / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "2 days ago" },
+    { id: 44, title: "Supermarket Cashier", company: "Lulu Hypermarket", salary: "3,500 - 3,800 AED / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "4 days ago" },
+    { id: 45, title: "Shelves Arranger", company: "Lulu Hypermarket", salary: "2,500 - 3,000 AED / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "Yesterday" },
+    { id: 46, title: "Trolly Boy", company: "Carrefour Dubai", salary: "2,500 - 3,000 AED / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "3 days ago" },
+    { id: 47, title: "Van Sales Man", company: "Al Rawabi Dairy", salary: "3,000 - 3,800 AED / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "Yesterday" },
+    { id: 48, title: "Data Controller", company: "DHL Dubai", salary: "3,500 - 3,800 AED / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "2 days ago" },
+    { id: 49, title: "Factory Auxiliary Worker", company: "National Food Industries", salary: "2,500 - 3,000 AED / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "5 days ago" },
+    { id: 50, title: "Project Manager (Construction)", company: "Shapoorji Pallonji UAE", salary: "9,000 - 11,000 AED / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "1 week ago" },
+    { id: 51, title: "Heavy Duty Driver", company: "Almarai Logistics", salary: "3,500 - 4,000 AED / mo", location: "Sharjah, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "3 days ago" },
+    { id: 52, title: "JCB Operator", company: "Bin Laden Contracting", salary: "3,800 - 4,500 AED / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "1 day ago" },
+    { id: 53, title: "Light Driver", company: "Careem Corporate", salary: "3,500 - 3,800 AED / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "Just now" },
+    { id: 54, title: "Warehouse Worker", company: "Amazon Fulfillment Center", salary: "2,500 - 3,500 AED / mo", location: "Dubai, UAE", category: "skilled", age: "21-40", type: "Full Time", date: "2 days ago" },
 
     // Israel
     { id: 55, title: "Heavy Truck Driver", company: "Tel Aviv Freight Logistics", salary: "$1,700 / mo", location: "Israel", category: "skilled", age: "21-45", type: "Full Time", date: "2 days ago" },
@@ -87,19 +87,19 @@ const jobData = [
     { id: 74, title: "Factory Packaging Worker", company: "Elite Food Industries", salary: "$700 - $1,000 / mo", location: "Israel", category: "skilled", age: "21-40", type: "Full Time", date: "1 day ago" },
 
     // Bulgaria
-    { id: 75, title: "Agricultural Greenhouse Worker", company: "Bulgarian Agro Farms", salary: "$700 - $800 / mo", location: "Bulgaria", category: "skilled", age: "21-40", type: "Full Time", date: "4 days ago" },
+    { id: 75, title: "Agricultural Greenhouse Worker", company: "Bulgarian Agro Farms", salary: "€650 - €750 / mo", location: "Bulgaria", category: "skilled", age: "21-40", type: "Full Time", date: "4 days ago" },
 
     // Serbia
-    { id: 76, title: "Logistics Warehouse Assistant", company: "Belgrade Depot Systems", salary: "$800 - $900 / mo", location: "Serbia", category: "skilled", age: "21-40", type: "Full Time", date: "3 days ago" },
-    { id: 77, title: "Mig / Tig Welder", company: "Novi Sad Metal Construction", salary: "$1,000 - $1,400 / mo", location: "Serbia", category: "skilled", age: "21-45", type: "Full Time", date: "2 days ago" },
+    { id: 76, title: "Logistics Warehouse Assistant", company: "Belgrade Depot Systems", salary: "€750 - €850 / mo", location: "Serbia", category: "skilled", age: "21-40", type: "Full Time", date: "3 days ago" },
+    { id: 77, title: "Mig / Tig Welder", company: "Novi Sad Metal Construction", salary: "€900 - €1,300 / mo", location: "Serbia", category: "skilled", age: "21-45", type: "Full Time", date: "2 days ago" },
 
     // Poland
-    { id: 78, title: "International Heavy Truck Driver", company: "Warsaw Trans Europe", salary: "$2,000 / mo", location: "Poland", category: "skilled", age: "21-45", type: "Full Time", date: "Yesterday" },
+    { id: 78, title: "International Heavy Truck Driver", company: "Warsaw Trans Europe", salary: "€1,800 / mo", location: "Poland", category: "skilled", age: "21-45", type: "Full Time", date: "Yesterday" },
 
     // Oman
-    { id: 79, title: "Structural Welder", company: "Muscat Steel Works", salary: "$900 - $1,100 / mo", location: "Oman", category: "skilled", age: "21-45", type: "Full Time", date: "Just now" },
-    { id: 80, title: "Catering Cook", company: "Muscat Royal Catering", salary: "$1,000 - $1,300 / mo", location: "Oman", category: "hospitality", age: "21-40", type: "Full Time", date: "2 days ago" },
-    { id: 81, title: "AC Technician", company: "Oman Facility Management", salary: "$900 - $1,200 / mo", location: "Oman", category: "skilled", age: "21-45", type: "Full Time", date: "3 days ago" },
+    { id: 79, title: "Structural Welder", company: "Muscat Steel Works", salary: "3,500 - 4,000 AED / mo", location: "Oman", category: "skilled", age: "21-45", type: "Full Time", date: "Just now" },
+    { id: 80, title: "Catering Cook", company: "Muscat Royal Catering", salary: "3,800 - 4,800 AED / mo", location: "Oman", category: "hospitality", age: "21-40", type: "Full Time", date: "2 days ago" },
+    { id: 81, title: "AC Technician", company: "Oman Facility Management", salary: "3,500 - 4,500 AED / mo", location: "Oman", category: "skilled", age: "21-45", type: "Full Time", date: "3 days ago" },
 
     // Ukraine
     { id: 82, title: "Warehouse Forklift Operator", company: "Kyiv Logistics Hub", salary: "€1,100 - €1,300 / mo", location: "Ukraine", category: "skilled", age: "21-45", type: "Full Time", date: "Yesterday" },
@@ -127,7 +127,12 @@ const jobData = [
     { id: 95, title: "Assembly Line Operator", company: "Samsung Electronics Vietnam", salary: "$700 - $900 / mo", location: "Vietnam", category: "skilled", age: "21-40", type: "Full Time", date: "3 days ago" },
 
     // Saudi Arabia
-    { id: 96, title: "Electrical Helper", company: "Al-Rashed Electrical Co", salary: "SAR 1,800 - 2,000 / mo", location: "Saudi Arabia", category: "skilled", age: "21-40", type: "Full Time", date: "Yesterday" }
+    { id: 96, title: "Electrical Helper", company: "Al-Rashed Electrical Co", salary: "1,800 - 2,000 AED / mo", location: "Saudi Arabia", category: "skilled", age: "21-40", type: "Full Time", date: "Yesterday" },
+
+    // Russia
+    { id: 97, title: "MIG / TIG Welder", company: "Moscow Industrial Group", salary: "$1,000 - $1,200 / mo", location: "Russia", category: "skilled", age: "21-45", type: "Full Time", date: "1 day ago" },
+    { id: 98, title: "Construction Steel Fixer", company: "St. Petersburg Infra", salary: "$800 - $950 / mo", location: "Russia", category: "skilled", age: "21-45", type: "Full Time", date: "Yesterday" },
+    { id: 99, title: "Heavy Truck Driver", company: "Siberian Logistics", salary: "$1,200 - $1,500 / mo", location: "Russia", category: "skilled", age: "21-45", type: "Full Time", date: "2 days ago" }
 ];
 
 // Global State
@@ -156,6 +161,41 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (e) {
         console.error("Failed to load custom jobs:", e);
     }
+
+    // Smooth drag-to-scroll utility for country/office tabs on desktop
+    const setupDragScroll = (selector) => {
+        const sliders = document.querySelectorAll(selector);
+        sliders.forEach(slider => {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                slider.style.cursor = 'grabbing';
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+            });
+            slider.addEventListener('mouseleave', () => {
+                isDown = false;
+                slider.style.cursor = 'grab';
+            });
+            slider.addEventListener('mouseup', () => {
+                isDown = false;
+                slider.style.cursor = 'grab';
+            });
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 1.5;
+                slider.scrollLeft = scrollLeft - walk;
+            });
+            slider.style.cursor = 'grab';
+        });
+    };
+    setupDragScroll('.country-tabs-scroll');
+    setupDragScroll('.office-tabs');
 
     // Header Scroll Effect
     const header = document.getElementById("header");
@@ -416,7 +456,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         const btn = document.createElement("a");
         btn.id = "whatsapp-floating-btn";
-        btn.href = "https://wa.me/918700917348";
+        btn.href = "https://wa.me/919903809000";
         btn.target = "_blank";
         btn.rel = "noopener noreferrer";
         btn.className = "whatsapp-btn";
@@ -526,7 +566,7 @@ function closeApplyModal() {
 // "I allow callmebot to send me messages"
 // Fir aapko ek API key milega — wo neeche daal do
 const WHATSAPP_CONFIG = {
-    phone: "918700917348",
+    phone: "919903809000",
     apikey: "" // <-- Yahan apna CallMeBot API key daalein (setup instructions neeche hain)
 };
 
